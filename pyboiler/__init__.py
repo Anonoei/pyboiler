@@ -14,4 +14,5 @@ __init()
 
 def dir():
     imports = [k for k in globals() if not k.startswith("_")][:-1]
+    imports.sort()
     return imports

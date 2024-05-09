@@ -30,6 +30,11 @@ class Level:
 
     def __new__(cls):
         if cls.__instance is None:
-            for key in _Level:
-                setattr(cls, key, _Level()[key])
+            cls.__instance = object.__new__(cls)
+            for key in Level.s().keys():
+                setattr(cls, key, _Level[key])
         return cls.__instance
+
+    @staticmethod
+    def s():
+        return {key.name: key.value for key in _Level}
