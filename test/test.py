@@ -7,6 +7,7 @@ import time
 
 
 def main():
+    test_start = time.perf_counter()
     PATH_ROOT = pathlib.Path(__file__).parent.parent
     sys.path[0] = str(PATH_ROOT)
     import pyboiler
@@ -37,6 +38,7 @@ def main():
     run("test()", locals(), globals(), False)
     view(get())
     os.remove(config().PATH_PROFILE)
+    print(f"Complete after {time.perf_counter() - test_start:.2f}")
 
 
 def test_config():

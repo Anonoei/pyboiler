@@ -44,22 +44,8 @@ def _serialize(obj, elem=None, tag=None, depth=0):
         elem.attrib["t"] = "n"
         elem.text = "null"
         return
-
-    raise Exception(f"Unknown object to serialize {type(obj).__name__}")
-    tag_name = str(type(obj).__name__)
-    elem_tag = ET.Element(tag_name)
-    for key_value in vars(obj).items():
-        attr_name = key_value[0]
-        value = getattr(obj, attr_name)
-        if isinstance(value, str):  # For strings inside the object
-            elem_text = ET.SubElement(elem_tag, attr_name)
-            elem_text.text = str(value)
-        elif hasattr(value, "__iter__"):  # For nested lists or dictionaries
-            _serialize(value, elem_text)
-        else:  # For other values
-            elem_attr = ET.SubElement(elem_tag, attr_name)
-            elem_attr.text = str(value)
-    elem.append(elem_tag)
+    elem.text = str(obj)
+    return
 
 
 def _deserialize(root: ET.Element):
