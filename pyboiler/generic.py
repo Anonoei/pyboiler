@@ -47,8 +47,10 @@ class hierarchy:
 
     def i_init(self, heir: dict):
         """Internal init so it can be called outside of __init__"""
-        for k, v in heir.items():
-            setattr(self, self.u_fmt_k(k, v), self.u_fmt_v(k, v))
+        for key, val in heir.items():
+            k = self.u_fmt_k(key, val)
+            v = self.u_fmt_v(k, val)
+            setattr(self, k, v)
 
     def u_fmt_k(self, k, v):
         """User format k, used to change key formatting behavior"""

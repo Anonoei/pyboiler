@@ -18,13 +18,26 @@ class config:
 
     def init(self):
         """Initialize config attributes"""
-        self.PATH_ROOT = self.init_path_root()
+        self.PATH_ROOT = self._init_path_root()
         self.PATH_LOGS = self.PATH_ROOT / "logs"
         self.PATH_PROFILE = self.PATH_ROOT / "profiler.stats"
 
+        self.SERIAL = "xml"  # one of "xml" or "json"
+
+        self.PATH_SETTINGS = self.PATH_ROOT / f"settings.{self.SERIAL}"
+        self.SYS_PLAT = self._init_sys_plat()
+
         self.SENTINEL = object()
 
-    def init_path_root(self) -> pathlib.Path:
+    def json(self) -> dict:
+        fmt = {}
+        for k in dir(self):
+            if k.startswith("_") or k in ("init", "json"):
+                continue
+            fmt[k] = getattr(self, k)
+        return fmt
+
+    def _init_path_root(self) -> pathlib.Path:
         """Initialize PATH_ROOT to the toplevel of the git repo"""
         fpath = subprocess.getoutput("git rev-parse --show-toplevel")
         if "fatal:" in fpath:
@@ -32,3 +45,8 @@ class config:
         else:
             fpath = pathlib.Path(fpath)
         return fpath
+
+    def _init_sys_plat(self):
+        from .platform import Platform
+
+        return Platform.get()

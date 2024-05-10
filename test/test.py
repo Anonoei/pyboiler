@@ -1,6 +1,9 @@
 import importlib
+import json
+import os
 import pathlib
 import sys
+import time
 
 
 def main():
@@ -10,17 +13,37 @@ def main():
 
     print(f"Imported modules: {pyboiler.dir()}")
 
-    for k, v in globals().items():
-        if k.startswith("test"):
-            print(f"Running '{k}'!")
-            v()
-            print()
+    def test():
+        for k, v in globals().items():
+            if k.startswith("test"):
+                print(f"Running '{k}'!")
+                start = time.perf_counter()
+                try:
+                    v()
+                except KeyboardInterrupt:
+                    pass
+                except Exception as e:
+                    print(f"Failed on {k}!")
+                    raise
+                print()
+                try:
+                    input(f"Finished {k}! ({time.perf_counter() - start:.2f}s)")
+                except KeyboardInterrupt:
+                    sys.exit(0)
+
+    from pyboiler.config import config
+    from pyboiler.profiler import get, run, view
+
+    run("test()", locals(), globals(), False)
+    view(get())
+    os.remove(config().PATH_PROFILE)
 
 
 def test_config():
+    import pyboiler.hson as hson
     from pyboiler.config import config
 
-    print(f"config.PATH_ROOT = {config().PATH_ROOT}")
+    print(f"config().json() = {hson.dumps(config().json(), indent=4)}")
 
 
 def test_generic():
@@ -33,7 +56,24 @@ def test_generic():
     print(f"{hier.subclass._name} = {hier.subclass.json()}")
 
 
+def test_hml():
+    import pyboiler.hml as hml
+
+    dict_obj = {
+        "example": "dict",
+        "obj": "here",
+        "dict": {"nested": "dict", "list": ["item1", "item2"]},
+    }
+
+    xml = hml.dumps(dict_obj)
+    # print(xml)
+    loads_obj = hml.loads(xml)
+    # print(pxml)j
+    print(f"{dict_obj == loads_obj = }")
+
+
 def test_logging():
+    from pyboiler.config import config
     from pyboiler.logging import Level, logging
 
     log = logging("pyboiler_test", Level.TRACE)
@@ -53,31 +93,23 @@ def test_logger():
     logger.test.child.info("I'm aliiiiiiiive")
 
 
-def test_profiler():
-    import os
-
+def test_platform():
     from pyboiler.config import config
-    from pyboiler.profiler import get, run, view
 
-    def profile(count: int = 5):
-        fibs = []
+    print(f"{config().SYS_PLAT}")
 
-        def fib(n) -> int:
-            # F_{0}=0,\quad F_{1}=1
-            # F_{n}=F_{n-1}+F_{n-2}
-            if n <= 0:
-                return 0
-            elif n == 1 or n == 2:
-                return 1
-            return fib(n - 1) + fib(n - 2)
 
-        for i in range(0, count):
-            fibs.append(fib(i))
-        print(fibs)
+def test_settings():
+    import pyboiler.hson as hson
+    from pyboiler.settings import Settings
 
-    run("profile(30)", locals(), globals())
-    view(get())
-    os.remove(config().PATH_PROFILE)
+    Settings().init("example", "value")
+    Settings().Child("test")
+    Settings().test.init("example2", "val")
+    print(".json(): " + json.dumps(Settings().json(), indent=4))
+    print("_settings: " + hson.dumps(Settings()._settings, indent=4))
+    print("_defaults: " + hson.dumps(Settings()._defaults, indent=4))
+    Settings().serialize()
 
 
 if __name__ == "__main__":

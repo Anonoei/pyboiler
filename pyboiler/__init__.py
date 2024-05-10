@@ -8,6 +8,8 @@ def __init():
     for k, v in get_imports(import_path).items():
         globals()[k] = v
 
+    globals()["settings"].Settings().deserialize()
+
 
 __init()
 
