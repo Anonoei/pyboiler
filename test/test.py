@@ -47,6 +47,37 @@ def test_logger():
 
     logger = Logger("pyboiler")
     logger.info("Hello world!")
+    logger.Child("test")
+    logger.test.warn("Test!")
+    logger.test.Child(name="child")
+    logger.test.child.info("I'm aliiiiiiiive")
+
+
+def test_profiler():
+    import os
+
+    from pyboiler.config import config
+    from pyboiler.profiler import get, run, view
+
+    def profile(count: int = 5):
+        fibs = []
+
+        def fib(n) -> int:
+            # F_{0}=0,\quad F_{1}=1
+            # F_{n}=F_{n-1}+F_{n-2}
+            if n <= 0:
+                return 0
+            elif n == 1 or n == 2:
+                return 1
+            return fib(n - 1) + fib(n - 2)
+
+        for i in range(0, count):
+            fibs.append(fib(i))
+        print(fibs)
+
+    run("profile(30)", locals(), globals())
+    view(get())
+    os.remove(config().PATH_PROFILE)
 
 
 if __name__ == "__main__":

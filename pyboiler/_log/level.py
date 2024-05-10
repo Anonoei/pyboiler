@@ -38,3 +38,13 @@ class Level:
     @staticmethod
     def s():
         return {key.name: key.value for key in _Level}
+
+    @staticmethod
+    def fromInt(val: int):
+        levels = Level.s()
+        names = []
+        vals = []
+        for k, v in Level.s().items():
+            names.append(k)
+            vals.append(v)
+        return _Level[names[vals.index(val)]]

@@ -19,6 +19,10 @@ class config:
     def init(self):
         """Initialize config attributes"""
         self.PATH_ROOT = self.init_path_root()
+        self.PATH_LOGS = self.PATH_ROOT / "logs"
+        self.PATH_PROFILE = self.PATH_ROOT / "profiler.stats"
+
+        self.SENTINEL = object()
 
     def init_path_root(self) -> pathlib.Path:
         """Initialize PATH_ROOT to the toplevel of the git repo"""
