@@ -1,42 +1,23 @@
 [build-system]
-build-backend = "mesonpy"
-requires = [
-    "meson-python>=0.15.0",
-    "Cython>=3.0.6",  # keep in sync with version check in meson.build
-]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
 
 [project]
-name = "numpy"
+name = "pyboiler_anonoei"
 version = "0.0.1"
-license = {file = "LICENSE.txt"}
-
+authors = [
+    {name = "Anonoei", email="dev@anonoei.com"}
+]
 description = "Various generic python helpers so I don't keep rewriting them"
-authors = [{name = "Anonoei"}]
-maintainers = []
-requires-python = ">=3.10"
 readme = "README.md"
+requires-python = ">=3.6"
 classifiers = [
-    'Development Status :: 5 - Production/Stable',
-    'Intended Audience :: Developers',
-    'License :: OSI Approved :: MIT License',
-    'Programming Language :: Python',
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3.10',
-    'Programming Language :: Python :: 3.11',
-    'Programming Language :: Python :: 3.12',
-    'Programming Language :: Python :: 3 :: Only',
-    'Topic :: Software Development',
-    'Typing :: Typed',
-    'Operating System :: Microsoft :: Windows',
-    'Operating System :: POSIX',
-    'Operating System :: Unix',
-    'Operating System :: MacOS',
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
 ]
 
 [project.urls]
-homepage = "https://github.com/anonoei/anoboiler"
-documentation = "https://github.com/anonoei/anoboiler"
-source = "https://github.com/anonoei/anoboiler"
-download = "https://github.com/anonoei/anoboiler"
-tracker = "https://github.com/anonoei/anoboiler/issues"
-"release notes" = "https://github.com/anonoei/anoboiler"
+Homepage = "https://github.com/anonoei/pyboiler"
+Issues = "https://github.com/anonoei/pyboiler/issues"

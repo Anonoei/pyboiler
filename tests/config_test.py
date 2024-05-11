@@ -1,9 +1,9 @@
-from anoboiler_test import _init_path
+from tests.a_import_test import _init_path
 
 _init_path()
 
-import anoboiler.hson as hson
-from anoboiler.config import config
+import src.pyboiler.hson as hson
+from src.pyboiler.config import config
 
 
 def test_config_init():

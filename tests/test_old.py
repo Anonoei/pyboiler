@@ -10,9 +10,9 @@ def main():
     test_start = time.perf_counter()
     PATH_ROOT = pathlib.Path(__file__).parent.parent
     sys.path[0] = str(PATH_ROOT)
-    import anoboiler
+    import src.pyboiler
 
-    print(f"Imported modules: {anoboiler.dir()}")
+    print(f"Imported modules: {src.pyboiler.dir()}")
 
     def test():
         for k, v in globals().items():
@@ -32,8 +32,8 @@ def main():
                 except KeyboardInterrupt:
                     sys.exit(0)
 
-    from anoboiler.config import config
-    from anoboiler.profiler import get, run, view
+    from pyboiler.config import config
+    from pyboiler.profiler import get, run, view
 
     run("test()", locals(), globals(), False)
     view(get())
@@ -42,14 +42,14 @@ def main():
 
 
 def test_config():
-    import anoboiler.hson as hson
-    from anoboiler.config import config
+    import pyboiler.hson as hson
+    from pyboiler.config import config
 
     print(f"config().json() = {hson.dumps(config().json(), indent=4)}")
 
 
 def test_generic():
-    import anoboiler.generic as generic
+    import pyboiler.generic as generic
 
     hier = generic.hierarchy(
         "test", None, {"test": "hierarchy", "subclass": {"another": "dict"}}
@@ -59,7 +59,7 @@ def test_generic():
 
 
 def test_hml():
-    import anoboiler.hml as hml
+    import pyboiler.hml as hml
 
     dict_obj = {
         "example": "dict",
@@ -75,19 +75,19 @@ def test_hml():
 
 
 def test_logging():
-    from anoboiler.config import config
-    from anoboiler.logging import Level, logging
+    from pyboiler.config import config
+    from pyboiler.logging import Level, logging
 
-    log = logging("anoboiler_test", Level.TRACE)
+    log = logging("pyboiler_anonoei_test", Level.TRACE)
 
     print(f"Handlers: {logging.availableHandlers().keys()}")
     log.trace("Hello world!")
 
 
 def test_logger():
-    from anoboiler.logger import Logger
+    from pyboiler.logger import Logger
 
-    logger = Logger("anoboiler")
+    logger = Logger("pyboiler_anonoei")
     logger.info("Hello world!")
     logger.Child("test")
     logger.test.warn("Test!")
@@ -96,14 +96,14 @@ def test_logger():
 
 
 def test_platform():
-    from anoboiler.config import config
+    from pyboiler.config import config
 
     print(f"{config().SYS_PLAT}")
 
 
 def test_settings():
-    import anoboiler.hson as hson
-    from anoboiler.settings import Settings
+    import pyboiler.hson as hson
+    from pyboiler.settings import Settings
 
     Settings().init("example", "value")
     Settings().Child("test")

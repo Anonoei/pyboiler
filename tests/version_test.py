@@ -1,8 +1,8 @@
-from anoboiler_test import _init_path
+from tests.a_import_test import _init_path
 
 _init_path()
 
-from anoboiler.version import Version
+from src.pyboiler.version import Version
 
 
 def test_version_init():

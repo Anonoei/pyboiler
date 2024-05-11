@@ -1,10 +1,10 @@
-from anoboiler_test import _init_path
+from tests.a_import_test import _init_path
 
 _init_path()
 
 import pathlib
 
-import anoboiler.imports as imports
+import src.pyboiler.imports as imports
 
 
 def test_imports_get_locals():

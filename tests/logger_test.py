@@ -1,12 +1,12 @@
-from anoboiler_test import _init_path
+from tests.a_import_test import _init_path
 
 _init_path()
 
-from anoboiler.logger import Logger
+from src.pyboiler.logger import Logger
 
 
 def test_logger_singleton():
-    logger = Logger("anoboiler")
+    logger = Logger("pyboiler_anonoei")
     assert logger is Logger()
 
 

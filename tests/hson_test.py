@@ -1,10 +1,10 @@
-from anoboiler_test import _init_path
+from tests.a_import_test import _init_path
 
 _init_path()
 
 import json
 
-import anoboiler.hson as hson
+import src.pyboiler.hson as hson
 
 t_dict = {"test": "hson", "serial": {"dict": "same"}, "list": ["i1", "i2"]}
 

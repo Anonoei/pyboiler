@@ -1,8 +1,8 @@
-from anoboiler_test import _init_path
+from tests.a_import_test import _init_path
 
 _init_path()
 
-import anoboiler.generic as generic
+import src.pyboiler.generic as generic
 
 t_dict = {"test": "hierarchy", "subclass": {"another": "dict"}}
 
