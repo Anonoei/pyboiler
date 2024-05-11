@@ -2,7 +2,7 @@ from tests.a_import_test import _init_path
 
 _init_path()
 
-from src.pyboiler.version import Version
+from pyboiler.version import Version
 
 
 def test_version_init():

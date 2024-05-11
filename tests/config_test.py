@@ -2,8 +2,8 @@ from tests.a_import_test import _init_path
 
 _init_path()
 
-import src.pyboiler.hson as hson
-from src.pyboiler.config import config
+import pyboiler.hson as hson
+from pyboiler.config import config
 
 
 def test_config_init():

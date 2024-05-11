@@ -2,7 +2,7 @@ from tests.a_import_test import _init_path
 
 _init_path()
 
-import src.pyboiler.hml as hml
+import pyboiler.hml as hml
 
 t_dict = {
     "example": "dict",

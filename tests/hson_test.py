@@ -4,7 +4,7 @@ _init_path()
 
 import json
 
-import src.pyboiler.hson as hson
+import pyboiler.hson as hson
 
 t_dict = {"test": "hson", "serial": {"dict": "same"}, "list": ["i1", "i2"]}
 

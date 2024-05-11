@@ -4,9 +4,9 @@ _init_path()
 
 import logging as _logging
 
-from src.pyboiler._log.level import _Level
-from src.pyboiler.config import config
-from src.pyboiler.logging import Level, logging
+from pyboiler._log.level import _Level
+from pyboiler.config import config
+from pyboiler.logging import Level, logging
 
 
 def test_logging_level():

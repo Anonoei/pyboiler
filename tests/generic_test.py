@@ -2,7 +2,7 @@ from tests.a_import_test import _init_path
 
 _init_path()
 
-import src.pyboiler.generic as generic
+import pyboiler.generic as generic
 
 t_dict = {"test": "hierarchy", "subclass": {"another": "dict"}}
 

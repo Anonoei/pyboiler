@@ -4,7 +4,7 @@ _init_path()
 
 import pathlib
 
-import src.pyboiler.imports as imports
+import pyboiler.imports as imports
 
 
 def test_imports_get_locals():
