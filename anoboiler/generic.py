@@ -1,3 +1,6 @@
+from .imports import get_locals
+
+
 class storage:
     pass
 
@@ -31,14 +34,8 @@ class hierarchy:
     def json(self) -> dict:
         """Return attributes as dictionary for json serialization"""
         fmt = {}
-        for k in dir(self):
-            if k in ["json"]:
-                continue
-            if k.startswith("_"):
-                continue
+        for k in get_locals(self, ("json", "i_:", "u_:")):
             v = getattr(self, k)
-            if k.startswith("_") or k.startswith("i_") or k.startswith("u_"):
-                continue
             if isinstance(v, type(self)):
                 fmt[k] = v.json()
             else:

@@ -2,7 +2,7 @@ def __init():
     from .config import config
     from .imports import get_imports
 
-    import_path = config().PATH_ROOT / "pyboiler"
+    import_path = config().PATH_ROOT / "anoboiler"
 
     # print(f"Running __init on {import_path}")
     for k, v in get_imports(import_path).items():
@@ -15,6 +15,6 @@ __init()
 
 
 def dir():
-    imports = [k for k in globals() if not k.startswith("_")][:-1]
+    imports = globals()["imports"].get_locals(globals())
     imports.sort()
     return imports

@@ -3,7 +3,40 @@
 import importlib
 import pathlib
 
-from .config import config
+
+def get_locals(obj, ignore=None):
+    # print(type(obj))
+    # print(obj)
+
+    if ignore is None:
+        ignore = set()
+
+    def should_ignore(k, ign) -> bool:
+        for v in ign:
+            if v[-1] == ":":
+                if k.startswith(v[:-1]):
+                    return True
+            elif v[0] == ":":
+                if k.endswith(v[1:]):
+                    return True
+            elif k.startswith(v):
+                return True
+        return False
+
+    if isinstance(obj, dict):
+        obj = list(obj.keys())
+    elif isinstance(obj, object):
+        obj = dir(obj)
+
+    vals = []
+
+    if isinstance(obj, list):
+        for item in obj:
+            if item.startswith("_") or should_ignore(item, ignore):
+                continue
+            vals.append(item)
+    # input(vals)
+    return vals
 
 
 def get_path(path: pathlib.Path, mod_path: pathlib.Path) -> str:

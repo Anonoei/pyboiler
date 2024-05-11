@@ -1,6 +1,8 @@
 import pathlib
 import subprocess
 
+from .imports import get_locals
+
 
 class config:
     """Global configuration, not intended to be modified by users"""
@@ -31,9 +33,8 @@ class config:
 
     def json(self) -> dict:
         fmt = {}
-        for k in dir(self):
-            if k.startswith("_") or k in ("init", "json"):
-                continue
+
+        for k in get_locals(self, ("init", "json")):
             fmt[k] = getattr(self, k)
         return fmt
 
