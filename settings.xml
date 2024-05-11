@@ -1,7 +1,11 @@
 <?xml version="1.0" ?>
 <root t="d" d="0">
-	<example d="1" t="n">null</example>
 	<test d="1" t="d">
-		<example2 d="2" t="n">null</example2>
+		<test2 d="2" t="d">
+			<cc_ex d="3">&lt;object object at 0x102660c40&gt;</cc_ex>
+		</test2>
+		<c_ex d="2">&lt;object object at 0x102660c40&gt;</c_ex>
+		<example2 d="2">&lt;object object at 0x102494c30&gt;</example2>
 	</test>
+	<example d="1">&lt;object object at 0x102494c30&gt;</example>
 </root>

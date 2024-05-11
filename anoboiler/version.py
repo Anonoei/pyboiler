@@ -36,7 +36,15 @@ class Version:
         return False
 
     def __gt__(self, other) -> bool:
-        return not self < other
+        if not isinstance(other, type(self)):
+            raise NotImplementedError(f"Cannot check if {type(self)} < {type(other)}")
+        checks = list(self.__slots__)
+        for idx, check in enumerate(checks):
+            s_check = getattr(self, check)
+            o_check = getattr(other, check)
+            if s_check > o_check:
+                return True
+        return False
 
     def __le__(self, other) -> bool:
         if self == other:

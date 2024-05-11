@@ -40,7 +40,7 @@ class Settings(hierarchy):
         if default is config().SENTINEL:
             _get = self._settings.get(key, config().SENTINEL)
             if _get is config().SENTINEL:
-                return self._defaults.get(key)
+                _get = self._defaults.get(key)
             return _get
         return self._settings.get(key, default)
 
@@ -80,7 +80,7 @@ class Settings(hierarchy):
             if isinstance(v, _Settings):
                 fmt[k] = v.json()
             else:
-                fmt[k] = self.get(k)
+                fmt[k] = v
         return fmt
 
     def _json(self) -> dict:
