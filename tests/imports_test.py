@@ -1,7 +1,3 @@
-from tests.a_import_test import _init_path
-
-_init_path()
-
 import pathlib
 
 import pyboiler.imports as imports

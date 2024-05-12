@@ -1,7 +1,3 @@
-from tests.a_import_test import _init_path
-
-_init_path()
-
 from pyboiler.settings import Settings
 
 t_dict = {"example": "value", "test": {"c_ex": "value2", "test2": {"cc_ex": "value3"}}}

@@ -1,7 +1,3 @@
-from tests.a_import_test import _init_path
-
-_init_path()
-
 import logging as _logging
 
 from pyboiler._log.level import _Level

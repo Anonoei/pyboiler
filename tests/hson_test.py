@@ -1,7 +1,3 @@
-from tests.a_import_test import _init_path
-
-_init_path()
-
 import json
 
 import pyboiler.hson as hson
