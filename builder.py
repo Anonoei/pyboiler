@@ -63,7 +63,7 @@ def main():
         if not args.run:
             cmd += "-r testpypi dist/*"
         else:
-            cmd += "dist /*"
+            cmd += "dist/*"
         run(cmd)
 
     def cmd_test(args):
