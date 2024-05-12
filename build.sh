@@ -35,6 +35,7 @@ cmd_local() {
     cmd_exec "$PY_EXE -m pip install -e ."
 }
 cmd_build() {
+    cmd_exec "rm dist/*"
     cmd_exec "$PY_EXE -m build"
 }
 cmd_update() {
