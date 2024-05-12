@@ -78,7 +78,7 @@ class Logger:
                 log_path.mkdir(exist_ok=True, parents=True)
                 item = f"{item}.log"
             log_path /= item
-            print(f"{log_path = }")
+            # print(f"{log_path = }")
         return log_path
 
     def _setLogs(self):

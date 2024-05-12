@@ -4,6 +4,8 @@
  `pyboiler.config`
 """
 
+import pathlib
+
 __version__ = "0.0.3"
 __author__ = "Anonoei <dev@anonoei.com>"
 
@@ -13,7 +15,7 @@ def __init():
     from .config import config
     from .imports import get_imports
 
-    import_path = config().PATH_ROOT / "src" / "pyboiler"
+    import_path = pathlib.Path(__file__).parent
 
     # print(f"Running __init on {import_path}")
     for k, v in get_imports(import_path).items():
