@@ -70,6 +70,8 @@ cmd_version() {
 }
 cmd_docs() {
     cmd_exec "python3 -m pdoc -o docs --html src/pyboiler --force"
+    cmd_exec "mv docs/pyboiler/* docs/"
+    cmd_exec "rm -r docs/pyboiler"
 }
 cmd_prepare() {
     cmd_format
