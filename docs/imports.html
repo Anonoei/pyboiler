@@ -42,7 +42,12 @@ def get_locals(obj, ignore=None):
 
     &gt;&gt; `:ig` - check if obj.iter().endswith(ig)
 
+    &gt;&gt; `!:ig` - only include obj.iter().endswith(ig)
+
     &gt;&gt; `ig:` - check if obj.iter().startswith(ig)
+
+    &gt;&gt; `!ig:` - only include obj.iter().startswith(ig)
+
 
     Returns:
         A list of unique locals, ignoring anything starting with _ or values in ignore
@@ -51,19 +56,25 @@ def get_locals(obj, ignore=None):
     # print(obj)
 
     if ignore is None:
-        ignore = set()
+        ignore = set(&#34;_:&#34;)
 
     def should_ignore(k, ign) -&gt; bool:
+        inverse = False
         for v in ign:
+            if v[0] == &#34;!&#34;:
+                inverse = True
+                v = v[1:]
+
             if v[-1] == &#34;:&#34;:
                 if k.startswith(v[:-1]):
-                    return True
+                    return not inverse
             elif v[0] == &#34;:&#34;:
                 if k.endswith(v[1:]):
-                    return True
-            elif k.startswith(v):
-                return True
-        return False
+                    return not inverse
+            else:
+                if k == v:
+                    return not inverse
+        return inverse
 
     if isinstance(obj, dict):
         obj = list(obj.keys())
@@ -74,10 +85,9 @@ def get_locals(obj, ignore=None):
 
     if isinstance(obj, list):
         for item in obj:
-            if item.startswith(&#34;_&#34;) or should_ignore(item, ignore):
+            if should_ignore(item, ignore):
                 continue
             vals.append(item)
-    # input(vals)
     return vals
 
 
@@ -151,7 +161,9 @@ def get_imports(path) -&gt; dict:
 <blockquote>
 <blockquote>
 <p><code>:ig</code> - check if obj.iter().endswith(ig)</p>
+<p><code>!:ig</code> - only include obj.iter().endswith(ig)</p>
 <p><code>ig:</code> - check if obj.iter().startswith(ig)</p>
+<p><code>!ig:</code> - only include obj.iter().startswith(ig)</p>
 </blockquote>
 </blockquote>
 <h2 id="returns">Returns</h2>
@@ -169,7 +181,12 @@ def get_imports(path) -&gt; dict:
 
     &gt;&gt; `:ig` - check if obj.iter().endswith(ig)
 
+    &gt;&gt; `!:ig` - only include obj.iter().endswith(ig)
+
     &gt;&gt; `ig:` - check if obj.iter().startswith(ig)
+
+    &gt;&gt; `!ig:` - only include obj.iter().startswith(ig)
+
 
     Returns:
         A list of unique locals, ignoring anything starting with _ or values in ignore
@@ -178,19 +195,25 @@ def get_imports(path) -&gt; dict:
     # print(obj)
 
     if ignore is None:
-        ignore = set()
+        ignore = set(&#34;_:&#34;)
 
     def should_ignore(k, ign) -&gt; bool:
+        inverse = False
         for v in ign:
+            if v[0] == &#34;!&#34;:
+                inverse = True
+                v = v[1:]
+
             if v[-1] == &#34;:&#34;:
                 if k.startswith(v[:-1]):
-                    return True
+                    return not inverse
             elif v[0] == &#34;:&#34;:
                 if k.endswith(v[1:]):
-                    return True
-            elif k.startswith(v):
-                return True
-        return False
+                    return not inverse
+            else:
+                if k == v:
+                    return not inverse
+        return inverse
 
     if isinstance(obj, dict):
         obj = list(obj.keys())
@@ -201,10 +224,9 @@ def get_imports(path) -&gt; dict:
 
     if isinstance(obj, list):
         for item in obj:
-            if item.startswith(&#34;_&#34;) or should_ignore(item, ignore):
+            if should_ignore(item, ignore):
                 continue
             vals.append(item)
-    # input(vals)
     return vals</code></pre>
 </details>
 </dd>

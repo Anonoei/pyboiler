@@ -13,7 +13,12 @@ def get_locals(obj, ignore=None):
 
     >> `:ig` - check if obj.iter().endswith(ig)
 
+    >> `!:ig` - only include obj.iter().endswith(ig)
+
     >> `ig:` - check if obj.iter().startswith(ig)
+
+    >> `!ig:` - only include obj.iter().startswith(ig)
+
 
     Returns:
         A list of unique locals, ignoring anything starting with _ or values in ignore
@@ -22,19 +27,25 @@ def get_locals(obj, ignore=None):
     # print(obj)
 
     if ignore is None:
-        ignore = set()
+        ignore = set("_:")
 
     def should_ignore(k, ign) -> bool:
+        inverse = False
         for v in ign:
+            if v[0] == "!":
+                inverse = True
+                v = v[1:]
+
             if v[-1] == ":":
                 if k.startswith(v[:-1]):
-                    return True
+                    return not inverse
             elif v[0] == ":":
                 if k.endswith(v[1:]):
-                    return True
-            elif k.startswith(v):
-                return True
-        return False
+                    return not inverse
+            else:
+                if k == v:
+                    return not inverse
+        return inverse
 
     if isinstance(obj, dict):
         obj = list(obj.keys())
@@ -45,10 +56,9 @@ def get_locals(obj, ignore=None):
 
     if isinstance(obj, list):
         for item in obj:
-            if item.startswith("_") or should_ignore(item, ignore):
+            if should_ignore(item, ignore):
                 continue
             vals.append(item)
-    # input(vals)
     return vals
 
 

@@ -44,7 +44,7 @@ class storage:
     ```
     &#34;&#34;&#34;
 
-    _ignore = set((&#34;json&#34;))
+    _ignore = set((&#34;_:&#34;, &#34;json&#34;))
 
     def json(self) -&gt; dict:
         &#34;&#34;&#34;Return attributes as dictionary for json serialization
@@ -85,7 +85,7 @@ class hierarchy(storage):
     def __init__(self, name: str, parent, heir: dict):
         self._parent = parent
         self._str_name = name
-        self._ignore = set((&#34;json&#34;, &#34;u_:&#34;))
+        self._ignore = set((&#34;_:&#34;, &#34;json&#34;, &#34;u_:&#34;))
         self._i_init(heir)
 
     def __repr__(self) -&gt; str:
@@ -171,7 +171,7 @@ print(hier.json()) # Returns h_dict
     def __init__(self, name: str, parent, heir: dict):
         self._parent = parent
         self._str_name = name
-        self._ignore = set((&#34;json&#34;, &#34;u_:&#34;))
+        self._ignore = set((&#34;_:&#34;, &#34;json&#34;, &#34;u_:&#34;))
         self._i_init(heir)
 
     def __repr__(self) -&gt; str:
@@ -287,7 +287,7 @@ stor.value = &quot;example&quot;
     ```
     &#34;&#34;&#34;
 
-    _ignore = set((&#34;json&#34;))
+    _ignore = set((&#34;_:&#34;, &#34;json&#34;))
 
     def json(self) -&gt; dict:
         &#34;&#34;&#34;Return attributes as dictionary for json serialization

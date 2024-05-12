@@ -4,7 +4,7 @@ import pyboiler.imports as imports
 
 
 def test_imports_get_locals():
-    assert imports.get_locals(locals()) == ["@py_assert1"]
+    assert imports.get_locals(locals(), ["_:"]) == ["@py_assert1"]
 
 
 def test_imports_get_path():

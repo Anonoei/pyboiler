@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>pyboiler API documentation</title>
-<meta name="description" content="pyboiler&#39;s initialization and dynamic importer …" />
+<title>pyboiler.changelog API documentation</title>
+<meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -19,133 +19,144 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>pyboiler</code></h1>
+<h1 class="title">Module <code>pyboiler.changelog</code></h1>
 </header>
 <section id="section-intro">
-<p>pyboiler's initialization and dynamic importer</p>
-<p>Imports all files in src/pyboiler/* so they can be imported as
-<code><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;pyboiler&#39;s initialization and dynamic importer
-
- Imports all files in src/pyboiler/* so they can be imported as
- `pyboiler.config`
-&#34;&#34;&#34;
-
-import pathlib
-
-__version__ = &#34;0.0.4&#34;
-__author__ = &#34;Anonoei &lt;dev@anonoei.com&gt;&#34;
+<pre><code class="python">import datetime as dt
+import json
+from urllib import error, request
 
 
-def __init():
-    &#34;&#34;&#34;Import all files in `import_path`&#34;&#34;&#34;
-    from .config import config
-    from .imports import get_imports
+class Commit:
+    def __init__(self, data: dict):
+        self.sha: str = data[&#34;sha&#34;]
 
-    import_path = pathlib.Path(__file__).parent
+        commit: dict = data[&#34;commit&#34;]
 
-    # print(f&#34;Running __init on {import_path}&#34;)
-    for k, v in get_imports(import_path).items():
-        globals()[k] = v
+        self.author: dict = commit[&#34;author&#34;]
+        self.committer: dict = commit[&#34;committer&#34;]
+        self.message: str = commit[&#34;message&#34;]
 
-    globals()[&#34;settings&#34;].Settings().deserialize()
+        self.url: str = data[&#34;html_url&#34;]
+
+        self.strings: list = [
+            f&#34;{self.author[&#39;date&#39;]}: {self.message}&#34;,
+            f&#34;{self.author[&#39;name&#39;]}: {self.author[&#39;email&#39;]}&#34;,
+            f&#34;{self.committer[&#39;name&#39;]}: {self.committer[&#39;email&#39;]}&#34;,
+            f&#34;{self.url}&#34;,
+        ]
+
+    def __repr__(self):
+        return f&#34;&lt;Commit {self.sha}&gt;&#34;
+
+    def __str__(self) -&gt; str:
+        return &#34;\n&#34;.join(list(self))
+
+    def __iter__(self):
+        for item in self.strings:
+            yield item
 
 
-__init()
+def Changelog(org: str, repo: str, limit: int = 10) -&gt; dict:
+    resp = None
+    try:
+        resp = request.urlopen(f&#34;https://api.github.com/repos/{org}/{repo}/commits&#34;)
+    except error.HTTPError:
+        return []
+    resp = resp.read().decode(&#34;UTF-8&#34;)
+    data = json.loads(resp)
 
-
-def dir():
-    &#34;&#34;&#34;List all available pyboiler imports&#34;&#34;&#34;
-    imports = globals()[&#34;imports&#34;].get_locals(globals())
-    imports.sort()
-    return imports</code></pre>
+    commits = {&#34;total&#34;: len(data), &#34;commits&#34;: []}
+    for idx, item in enumerate(data):
+        if idx == limit:
+            break
+        commits[&#34;commits&#34;].append(Commit(item))
+    return commits</code></pre>
 </details>
 </section>
 <section>
-<h2 class="section-title" id="header-submodules">Sub-modules</h2>
-<dl>
-<dt><code class="name"><a title="pyboiler.changelog" href="changelog.html">pyboiler.changelog</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></dt>
-<dd>
-<div class="desc"><p>Script configuration singleton for internal variables …</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.exception" href="exception.html">pyboiler.exception</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.generic" href="generic.html">pyboiler.generic</a></code></dt>
-<dd>
-<div class="desc"><p>Generic class implementations that can be extended in user code</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.hml" href="hml.html">pyboiler.hml</a></code></dt>
-<dd>
-<div class="desc"><p>XML object (de)serialization in a similar interface to python.json</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.hson" href="hson.html">pyboiler.hson</a></code></dt>
-<dd>
-<div class="desc"><p>Wraps python.json methods to utilize the HSONEncoder to encode pyboiler objects and others</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.imports" href="imports.html">pyboiler.imports</a></code></dt>
-<dd>
-<div class="desc"><p>Import helpers</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.logger" href="logger.html">pyboiler.logger</a></code></dt>
-<dd>
-<div class="desc"><p>Wrap pyboiler.logging in a Singleton for more concrete logging structures …</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.logging" href="logging.html">pyboiler.logging</a></code></dt>
-<dd>
-<div class="desc"><p>Wrap python.logging in an interface I prefer</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.platform" href="platform.html">pyboiler.platform</a></code></dt>
-<dd>
-<div class="desc"><p>Platform specific helpers</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.profiler" href="profiler.html">pyboiler.profiler</a></code></dt>
-<dd>
-<div class="desc"><p>Wrapper for python.profile</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.settings" href="settings.html">pyboiler.settings</a></code></dt>
-<dd>
-<div class="desc"><p>pyboiler.settings file</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.version" href="version.html">pyboiler.version</a></code></dt>
-<dd>
-<div class="desc"><p>Generic semantic versioning class/implementation</p></div>
-</dd>
-</dl>
 </section>
 <section>
 </section>
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="pyboiler.dir"><code class="name flex">
-<span>def <span class="ident">dir</span></span>(<span>)</span>
+<dt id="pyboiler.changelog.Changelog"><code class="name flex">
+<span>def <span class="ident">Changelog</span></span>(<span>org: str, repo: str, limit: int = 10) ‑> dict</span>
 </code></dt>
 <dd>
-<div class="desc"><p>List all available pyboiler imports</p></div>
+<div class="desc"></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def dir():
-    &#34;&#34;&#34;List all available pyboiler imports&#34;&#34;&#34;
-    imports = globals()[&#34;imports&#34;].get_locals(globals())
-    imports.sort()
-    return imports</code></pre>
+<pre><code class="python">def Changelog(org: str, repo: str, limit: int = 10) -&gt; dict:
+    resp = None
+    try:
+        resp = request.urlopen(f&#34;https://api.github.com/repos/{org}/{repo}/commits&#34;)
+    except error.HTTPError:
+        return []
+    resp = resp.read().decode(&#34;UTF-8&#34;)
+    data = json.loads(resp)
+
+    commits = {&#34;total&#34;: len(data), &#34;commits&#34;: []}
+    for idx, item in enumerate(data):
+        if idx == limit:
+            break
+        commits[&#34;commits&#34;].append(Commit(item))
+    return commits</code></pre>
 </details>
 </dd>
 </dl>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyboiler.changelog.Commit"><code class="flex name class">
+<span>class <span class="ident">Commit</span></span>
+<span>(</span><span>data: dict)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Commit:
+    def __init__(self, data: dict):
+        self.sha: str = data[&#34;sha&#34;]
+
+        commit: dict = data[&#34;commit&#34;]
+
+        self.author: dict = commit[&#34;author&#34;]
+        self.committer: dict = commit[&#34;committer&#34;]
+        self.message: str = commit[&#34;message&#34;]
+
+        self.url: str = data[&#34;html_url&#34;]
+
+        self.strings: list = [
+            f&#34;{self.author[&#39;date&#39;]}: {self.message}&#34;,
+            f&#34;{self.author[&#39;name&#39;]}: {self.author[&#39;email&#39;]}&#34;,
+            f&#34;{self.committer[&#39;name&#39;]}: {self.committer[&#39;email&#39;]}&#34;,
+            f&#34;{self.url}&#34;,
+        ]
+
+    def __repr__(self):
+        return f&#34;&lt;Commit {self.sha}&gt;&#34;
+
+    def __str__(self) -&gt; str:
+        return &#34;\n&#34;.join(list(self))
+
+    def __iter__(self):
+        for item in self.strings:
+            yield item</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -154,26 +165,21 @@ def dir():
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyboiler.changelog" href="changelog.html">pyboiler.changelog</a></code></li>
-<li><code><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></li>
-<li><code><a title="pyboiler.exception" href="exception.html">pyboiler.exception</a></code></li>
-<li><code><a title="pyboiler.generic" href="generic.html">pyboiler.generic</a></code></li>
-<li><code><a title="pyboiler.hml" href="hml.html">pyboiler.hml</a></code></li>
-<li><code><a title="pyboiler.hson" href="hson.html">pyboiler.hson</a></code></li>
-<li><code><a title="pyboiler.imports" href="imports.html">pyboiler.imports</a></code></li>
-<li><code><a title="pyboiler.logger" href="logger.html">pyboiler.logger</a></code></li>
-<li><code><a title="pyboiler.logging" href="logging.html">pyboiler.logging</a></code></li>
-<li><code><a title="pyboiler.platform" href="platform.html">pyboiler.platform</a></code></li>
-<li><code><a title="pyboiler.profiler" href="profiler.html">pyboiler.profiler</a></code></li>
-<li><code><a title="pyboiler.settings" href="settings.html">pyboiler.settings</a></code></li>
-<li><code><a title="pyboiler.version" href="version.html">pyboiler.version</a></code></li>
+<li><code><a title="pyboiler" href="index.html">pyboiler</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="pyboiler.dir" href="#pyboiler.dir">dir</a></code></li>
+<li><code><a title="pyboiler.changelog.Changelog" href="#pyboiler.changelog.Changelog">Changelog</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyboiler.changelog.Commit" href="#pyboiler.changelog.Commit">Commit</a></code></h4>
+</li>
 </ul>
 </li>
 </ul>
