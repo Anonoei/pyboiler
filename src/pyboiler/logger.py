@@ -1,3 +1,5 @@
+"""Wrap pyboiler.logging in a Singleton for more concrete logging structures"""
+
 import logging as _logging
 import pathlib
 

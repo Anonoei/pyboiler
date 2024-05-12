@@ -1,7 +1,14 @@
+"""Initialize pyboiler
+
+ Import all files in src/pyboiler/* so they can be imported as
+ `pybiler.config`
+"""
+
 __version__ = "0.0.1"
 
 
 def __init():
+    """Import all files in `import_path`"""
     from .config import config
     from .imports import get_imports
 

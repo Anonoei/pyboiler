@@ -5,6 +5,12 @@ import pathlib
 
 
 def get_locals(obj, ignore=None):
+    """Return locals for `obj`, while ignoring `ignore`
+
+    Values in ignore may contain special syntax
+      :`ignore` - check if obj.iter().endswith(`ignore`)
+      `ignore`: - check if obj.iter().startswith(`ignore`)
+    """
     # print(type(obj))
     # print(obj)
 

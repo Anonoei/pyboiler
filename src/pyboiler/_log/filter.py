@@ -1,7 +1,9 @@
+"""Wrap python.logging filters"""
+
 import logging
 
 
 class Filter(logging.Filter):
-    pass
+    """Wrap python.logging.Filter"""
 
-class Filterer(logging.Filterer)
+    pass

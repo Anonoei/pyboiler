@@ -1,3 +1,5 @@
+"""pyboiler.settings file"""
+
 from .config import config
 
 if config().SERIAL == "json":
@@ -104,7 +106,6 @@ class Settings(hierarchy):
 
 
 class _Settings(Settings):
-
     def __new__(cls, *args, **kwargs):
         obj = object.__new__(cls)
         obj.__init__(*args, **kwargs)

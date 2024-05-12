@@ -1,3 +1,5 @@
+"""Wrap python.logging levels"""
+
 import logging
 from enum import Enum
 
@@ -5,6 +7,8 @@ logging.addLevelName(5, "TRACE")
 
 
 class _Level(Enum):
+    """Enum for getting logging levels"""
+
     FATAL = logging.FATAL
     ERROR = logging.ERROR
     WARN = logging.WARN
@@ -26,6 +30,8 @@ class _Level(Enum):
 
 
 class Level:
+    """Singleton instance for accessing _Level levels, with some helpers"""
+
     __instance = None
 
     def __new__(cls):
@@ -37,10 +43,12 @@ class Level:
 
     @staticmethod
     def s():
+        """Return dict of each level name and it's value"""
         return {key.name: key.value for key in _Level}
 
     @staticmethod
     def fromInt(val: int):
+        """Given an int, return the _Level enum"""
         levels = Level.s()
         names = []
         vals = []

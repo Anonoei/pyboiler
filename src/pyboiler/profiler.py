@@ -1,3 +1,5 @@
+"""Wrapper for python.profile"""
+
 import cProfile
 import pstats
 

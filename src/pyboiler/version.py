@@ -1,3 +1,5 @@
+"""Generic semantic versioning class/implementation"""
+
 from typing import Any
 
 

@@ -1,9 +1,12 @@
+"""Add XML object serialization in a similar interface to python.json"""
+
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from xml.etree.ElementTree import tostring
 
 
 def dumps(obj: dict, tag="root", pretty: bool = True):
+    """Serializes a python dict to xml notation"""
     root = ET.Element(tag, {"t": "d"})
     _serialize(obj, root)
     xml = minidom.parseString(tostring(root))
@@ -13,6 +16,7 @@ def dumps(obj: dict, tag="root", pretty: bool = True):
 
 
 def loads(xml_str: str):
+    """Deserializes xml to a python dictionary"""
     xml_str = xml_str.replace("\n", "").replace("\t", "")
     return _deserialize(ET.fromstring(xml_str))
 

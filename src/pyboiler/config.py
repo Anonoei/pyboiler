@@ -1,3 +1,13 @@
+"""Contains config() singleton
+
+config is intended to contain global configuration information not intended to be modified by users
+It is accessed by doing:
+```
+from pyboiler.config import config
+print(config().PATH_ROOT)
+```
+"""
+
 import pathlib
 import subprocess
 
@@ -32,6 +42,7 @@ class config:
         self.SENTINEL = object()
 
     def json(self) -> dict:
+        """Return config attributes as a dictionary"""
         fmt = {}
 
         for k in get_locals(self, ("init", "json")):
@@ -48,6 +59,7 @@ class config:
         return fpath
 
     def _init_sys_plat(self):
+        """Initialize SYS_PLAT to a pyboiler.platform.Platform enum"""
         from .platform import Platform
 
         return Platform.get()

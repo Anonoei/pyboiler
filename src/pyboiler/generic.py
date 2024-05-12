@@ -1,7 +1,17 @@
+"""Generic class implementations that can be extended in user code"""
+
 from .imports import get_locals
 
 
 class storage:
+    """Used to save values similar to a C struct
+
+    ```
+    from pyboiler.generic import storage
+    stor = storage()
+    stor.value = "example"
+    """
+
     pass
 
 

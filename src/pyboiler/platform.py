@@ -1,3 +1,5 @@
+"""Platform specific helpers"""
+
 import os
 import sys
 from enum import Enum, auto
@@ -18,6 +20,7 @@ class Platform(Enum):
 
 
 def clear():
+    """OS independent clear console"""
     from .config import config
 
     if config().SYS_PLAT is Platform.Windows:

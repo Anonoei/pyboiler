@@ -1,3 +1,5 @@
+"""Wrap python.logging in an interface I prefer"""
+
 import logging as _logging
 import sys
 from logging import Manager

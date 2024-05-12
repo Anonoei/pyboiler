@@ -1,9 +1,11 @@
+"""Wraps python.json methods to utilize the HSONEncoder to encode pyboiler objects and others"""
+
 import json
 from json import decoder, encoder
 
 
 class HSONEncoder(json.encoder.JSONEncoder):
-    """Encode non-json encodable objects"""
+    """Encode objects that json doesn't normally encode"""
 
     def default(self, o):
         try:
@@ -16,12 +18,12 @@ class HSONEncoder(json.encoder.JSONEncoder):
 
 
 def dump(*args, **kwargs):
-    """Performs json.dump"""
+    """Serialize obj to a json formatted stream"""
     return json.dump(*args, **kwargs)
 
 
 def dumps(*args, **kwargs):
-    """Performs json.dumps"""
+    """Serialize obj to a json formatted string"""
     kwargs["cls"] = HSONEncoder
     if not kwargs.get("pretty"):
         kwargs["indent"] = 4
@@ -31,10 +33,10 @@ def dumps(*args, **kwargs):
 
 
 def load(*args, **kwargs):
-    """Performs json.load"""
+    """Deserialize a json formatted stream to python objects"""
     return json.load(*args, **kwargs)
 
 
 def loads(*args, **kwargs):
-    """Performs json.loads"""
+    """Deserialize a json formatted string to python objects"""
     return json.loads(*args, **kwargs)
