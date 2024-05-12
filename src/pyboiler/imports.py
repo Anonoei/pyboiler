@@ -7,9 +7,16 @@ import pathlib
 def get_locals(obj, ignore=None):
     """Return locals for `obj`, while ignoring `ignore`
 
-    Values in ignore may contain special syntax
-      :`ignore` - check if obj.iter().endswith(`ignore`)
-      `ignore`: - check if obj.iter().startswith(`ignore`)
+    Args:
+        obj (Any): dict of locals to parse.
+        ignore (list[str], optional): list of strings to ignore, with some special syntaxes
+
+    >> `:ig` - check if obj.iter().endswith(ig)
+
+    >> `ig:` - check if obj.iter().startswith(ig)
+
+    Returns:
+        A list of unique locals, ignoring anything starting with _ or values in ignore
     """
     # print(type(obj))
     # print(obj)

@@ -1,10 +1,11 @@
-"""Initialize pyboiler
+"""pyboiler's initialization and dynamic importer
 
- Import all files in src/pyboiler/* so they can be imported as
- `pybiler.config`
+ Imports all files in src/pyboiler/* so they can be imported as
+ `pyboiler.config`
 """
 
 __version__ = "0.0.2"
+__author__ = "Anonoei <dev@anonoei.com>"
 
 
 def __init():
@@ -25,6 +26,7 @@ __init()
 
 
 def dir():
+    """List all available pyboiler imports"""
     imports = globals()["imports"].get_locals(globals())
     imports.sort()
     return imports

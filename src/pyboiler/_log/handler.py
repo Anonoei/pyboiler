@@ -1,7 +1,6 @@
 """Wrap python.logging Handlers"""
 
 import logging
-import pathlib
 import sys
 
 from ..config import config

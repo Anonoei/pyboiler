@@ -1,5 +1,7 @@
 """pyboiler.settings file"""
 
+from typing import TYPE_CHECKING
+
 from .config import config
 
 if config().SERIAL == "json":
@@ -58,12 +60,12 @@ class Settings(hierarchy):
 
     def serialize(self) -> None:
         s_data = None
-        config().PATH_SETTINGS.write_text(dumps(self._json()))
+        config().FILEPATH_SETTINGS.write_text(dumps(self._json()))
 
     def deserialize(self) -> None:
-        if not config().PATH_SETTINGS.exists():
+        if not config().FILEPATH_SETTINGS.exists():
             return
-        self.from_dict(loads(config().PATH_SETTINGS.read_text()))
+        self.from_dict(loads(config().FILEPATH_SETTINGS.read_text()))
 
     def from_dict(self, d: dict):
         for k, v in d.items():
@@ -101,8 +103,13 @@ class Settings(hierarchy):
     def u_fmt_v(self, *args, **kwargs):
         raise NotImplementedError()
 
-    def i_init(self, *args, **kwargs):
+    def _i_init(self, *args, **kwargs):
         raise NotImplementedError()
+
+    if TYPE_CHECKING:
+
+        def __getattr__(self, key):
+            return lambda msg: print(msg)
 
 
 class _Settings(Settings):

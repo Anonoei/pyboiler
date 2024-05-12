@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>pyboiler API documentation</title>
-<meta name="description" content="Initialize pyboiler …" />
+<meta name="description" content="pyboiler&#39;s initialization and dynamic importer …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,20 +22,21 @@
 <h1 class="title">Package <code>pyboiler</code></h1>
 </header>
 <section id="section-intro">
-<p>Initialize pyboiler</p>
-<p>Import all files in src/pyboiler/* so they can be imported as
-<code>pybiler.config</code></p>
+<p>pyboiler's initialization and dynamic importer</p>
+<p>Imports all files in src/pyboiler/* so they can be imported as
+<code><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;Initialize pyboiler
+<pre><code class="python">&#34;&#34;&#34;pyboiler&#39;s initialization and dynamic importer
 
- Import all files in src/pyboiler/* so they can be imported as
- `pybiler.config`
+ Imports all files in src/pyboiler/* so they can be imported as
+ `pyboiler.config`
 &#34;&#34;&#34;
 
 __version__ = &#34;0.0.2&#34;
+__author__ = &#34;Anonoei &lt;dev@anonoei.com&gt;&#34;
 
 
 def __init():
@@ -56,6 +57,7 @@ __init()
 
 
 def dir():
+    &#34;&#34;&#34;List all available pyboiler imports&#34;&#34;&#34;
     imports = globals()[&#34;imports&#34;].get_locals(globals())
     imports.sort()
     return imports</code></pre>
@@ -66,7 +68,7 @@ def dir():
 <dl>
 <dt><code class="name"><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></dt>
 <dd>
-<div class="desc"><p>Contains config() singleton …</p></div>
+<div class="desc"><p>Script configuration singleton for internal variables …</p></div>
 </dd>
 <dt><code class="name"><a title="pyboiler.generic" href="generic.html">pyboiler.generic</a></code></dt>
 <dd>
@@ -74,7 +76,7 @@ def dir():
 </dd>
 <dt><code class="name"><a title="pyboiler.hml" href="hml.html">pyboiler.hml</a></code></dt>
 <dd>
-<div class="desc"><p>Add XML object serialization in a similar interface to python.json</p></div>
+<div class="desc"><p>XML object (de)serialization in a similar interface to python.json</p></div>
 </dd>
 <dt><code class="name"><a title="pyboiler.hson" href="hson.html">pyboiler.hson</a></code></dt>
 <dd>
@@ -86,7 +88,7 @@ def dir():
 </dd>
 <dt><code class="name"><a title="pyboiler.logger" href="logger.html">pyboiler.logger</a></code></dt>
 <dd>
-<div class="desc"><p>Wrap pyboiler.logging in a Singleton for more concrete logging structures</p></div>
+<div class="desc"><p>Wrap pyboiler.logging in a Singleton for more concrete logging structures …</p></div>
 </dd>
 <dt><code class="name"><a title="pyboiler.logging" href="logging.html">pyboiler.logging</a></code></dt>
 <dd>
@@ -119,12 +121,13 @@ def dir():
 <span>def <span class="ident">dir</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>List all available pyboiler imports</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def dir():
+    &#34;&#34;&#34;List all available pyboiler imports&#34;&#34;&#34;
     imports = globals()[&#34;imports&#34;].get_locals(globals())
     imports.sort()
     return imports</code></pre>

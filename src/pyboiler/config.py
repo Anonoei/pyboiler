@@ -1,10 +1,16 @@
-"""Contains config() singleton
+"""Script configuration singleton for internal variables
 
-config is intended to contain global configuration information not intended to be modified by users
-It is accessed by doing:
-```
+config contains global configuration information not intended to be modified by users
+
+Example usage
+```python
 from pyboiler.config import config
 print(config().PATH_ROOT)
+```
+
+Add your own global configuration variables
+```python
+config().MY_VARIABLE = "Hello, world!"
 ```
 """
 
@@ -20,26 +26,34 @@ class config:
     __instance = None
 
     # define singleton attributes
+    #: Path to project root, defaults to the toplevel of the git repository
     PATH_ROOT: pathlib.Path = None  # type: ignore
+    #: PATH_ROOT / "logs"
+    PATH_LOGS: pathlib.Path = None  # type: ignore
+    FILEPATH_PROFILE: pathlib.Path = None  # type: ignore
+    FILEPATH_SETTINGS: pathlib.Path = None  # type: ignore
+
+    #: Defines what serialize type to use. One of ['json', 'xml']
+    SERIAL: str = "json"
+
+    #: pyboiler.Platform enum for the current platform
+    SYS_PLAT = None
+    SENTINEL = object()
 
     def __new__(cls):
         if cls.__instance is None:
             cls.__instance = object.__new__(cls)
-            cls.__instance.init()
+            cls.__instance._init()
         return cls.__instance
 
-    def init(self):
+    def _init(self):
         """Initialize config attributes"""
         self.PATH_ROOT = self._init_path_root()
         self.PATH_LOGS = self.PATH_ROOT / "logs"
-        self.PATH_PROFILE = self.PATH_ROOT / "profiler.stats"
+        self.FILEPATH_PROFILE = self.PATH_ROOT / "profiler.stats"
+        self.FILEPATH_SETTINGS = self.PATH_ROOT / f"settings.{self.SERIAL}"
 
-        self.SERIAL = "xml"  # one of "xml" or "json"
-
-        self.PATH_SETTINGS = self.PATH_ROOT / f"settings.{self.SERIAL}"
         self.SYS_PLAT = self._init_sys_plat()
-
-        self.SENTINEL = object()
 
     def json(self) -> dict:
         """Return config attributes as a dictionary"""

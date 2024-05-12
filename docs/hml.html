@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>pyboiler.hml API documentation</title>
-<meta name="description" content="Add XML object serialization in a similar interface to python.json" />
+<meta name="description" content="XML object (de)serialization in a similar interface to python.json" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,12 +22,12 @@
 <h1 class="title">Module <code>pyboiler.hml</code></h1>
 </header>
 <section id="section-intro">
-<p>Add XML object serialization in a similar interface to python.json</p>
+<p>XML object (de)serialization in a similar interface to python.json</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;Add XML object serialization in a similar interface to python.json&#34;&#34;&#34;
+<pre><code class="python">&#34;&#34;&#34;XML object (de)serialization in a similar interface to python.json&#34;&#34;&#34;
 
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
@@ -116,10 +116,10 @@ def _deserialize(root: ET.Element):
             res.append(e_res)
         return res
 
-    r_depth = int(root.attrib.get(&#34;d&#34;))
+    r_depth = int(root.attrib.get(&#34;d&#34;))  # type: ignore
     for elem in root.iter():
         # print(f&#34;{elem}: {elem.attrib.get(&#39;d&#39;)}&#34;)
-        if not int(elem.attrib.get(&#34;d&#34;)) == r_depth + 1:
+        if not int(elem.attrib.get(&#34;d&#34;)) == r_depth + 1:  # type: ignore
             continue
         e_t, e_d, e_r = parse(elem)
         results[elem.tag] = e_r

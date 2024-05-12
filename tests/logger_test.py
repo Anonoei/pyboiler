@@ -1,4 +1,20 @@
 from pyboiler.logger import Logger
+from pyboiler.logging import Level, logging
+
+
+def test_logging_level():
+    assert Level.get("fatal") == Level.FATAL
+
+
+def test_methods():
+    log = logging("test", Level.TRACE)
+    assert log.handlers()
+
+
+def test_logging_log():
+    log = logging("logging_test", Level.TRACE)
+    # print(f"Handlers: {logging.availableHandlers().keys()}")
+    log.trace("Hello world!")
 
 
 def test_logger_singleton():

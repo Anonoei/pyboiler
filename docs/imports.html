@@ -36,9 +36,16 @@ import pathlib
 def get_locals(obj, ignore=None):
     &#34;&#34;&#34;Return locals for `obj`, while ignoring `ignore`
 
-    Values in ignore may contain special syntax
-      :`ignore` - check if obj.iter().endswith(`ignore`)
-      `ignore`: - check if obj.iter().startswith(`ignore`)
+    Args:
+        obj (Any): dict of locals to parse.
+        ignore (list[str], optional): list of strings to ignore, with some special syntaxes
+
+    &gt;&gt; `:ig` - check if obj.iter().endswith(ig)
+
+    &gt;&gt; `ig:` - check if obj.iter().startswith(ig)
+
+    Returns:
+        A list of unique locals, ignoring anything starting with _ or values in ignore
     &#34;&#34;&#34;
     # print(type(obj))
     # print(obj)
@@ -134,9 +141,21 @@ def get_imports(path) -&gt; dict:
 </code></dt>
 <dd>
 <div class="desc"><p>Return locals for <code>obj</code>, while ignoring <code>ignore</code></p>
-<p>Values in ignore may contain special syntax
-:<code>ignore</code> - check if obj.iter().endswith(<code>ignore</code>)
-<code>ignore</code>: - check if obj.iter().startswith(<code>ignore</code>)</p></div>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>obj</code></strong> :&ensp;<code>Any</code></dt>
+<dd>dict of locals to parse.</dd>
+<dt><strong><code>ignore</code></strong> :&ensp;<code>list[str]</code>, optional</dt>
+<dd>list of strings to ignore, with some special syntaxes</dd>
+</dl>
+<blockquote>
+<blockquote>
+<p><code>:ig</code> - check if obj.iter().endswith(ig)</p>
+<p><code>ig:</code> - check if obj.iter().startswith(ig)</p>
+</blockquote>
+</blockquote>
+<h2 id="returns">Returns</h2>
+<p>A list of unique locals, ignoring anything starting with _ or values in ignore</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -144,9 +163,16 @@ def get_imports(path) -&gt; dict:
 <pre><code class="python">def get_locals(obj, ignore=None):
     &#34;&#34;&#34;Return locals for `obj`, while ignoring `ignore`
 
-    Values in ignore may contain special syntax
-      :`ignore` - check if obj.iter().endswith(`ignore`)
-      `ignore`: - check if obj.iter().startswith(`ignore`)
+    Args:
+        obj (Any): dict of locals to parse.
+        ignore (list[str], optional): list of strings to ignore, with some special syntaxes
+
+    &gt;&gt; `:ig` - check if obj.iter().endswith(ig)
+
+    &gt;&gt; `ig:` - check if obj.iter().startswith(ig)
+
+    Returns:
+        A list of unique locals, ignoring anything starting with _ or values in ignore
     &#34;&#34;&#34;
     # print(type(obj))
     # print(obj)

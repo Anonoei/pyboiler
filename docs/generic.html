@@ -29,6 +29,8 @@
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Generic class implementations that can be extended in user code&#34;&#34;&#34;
 
+from typing import TYPE_CHECKING
+
 from .imports import get_locals
 
 
@@ -39,16 +41,42 @@ class storage:
     from pyboiler.generic import storage
     stor = storage()
     stor.value = &#34;example&#34;
+    ```
     &#34;&#34;&#34;
 
-    pass
+    _ignore = set((&#34;json&#34;))
+
+    def json(self) -&gt; dict:
+        &#34;&#34;&#34;Return attributes as dictionary for json serialization
+        Instances of `type(self)` are returned as dictionaries
+        &#34;&#34;&#34;
+        fmt = {}
+        for k in get_locals(self, self._ignore):
+            v = getattr(self, k)
+            if isinstance(v, type(self)):
+                fmt[k] = v.json()
+            else:
+                fmt[k] = v
+        return fmt
+
+    if TYPE_CHECKING:
+
+        def __getattr__(self, key):
+            return lambda msg: print(msg)
 
 
-class hierarchy:
-    &#34;&#34;&#34;
-    Dynamically create a hierarchical structure from a dict
-    i_* methods are internal
-    u_* methods are intended to be overridden by user inheritance
+class hierarchy(storage):
+    &#34;&#34;&#34;Dynamically create a hierarchical structure from a dict
+
+    u_* methods are intended to be overridden by children
+
+    ```python
+    from pyboiler.generic import hierarchy
+    h_dict = {&#34;these&#34;: {&#34;are&#34;: &#34;nested&#34;}, &#34;dicts&#34;: &#34;hierarchy&#34;}
+    hier = hierarchy(&#34;root&#34;, None, h_dict)
+    print(hier.these.are) # Returns &#34;nested&#34;
+    print(hier.json()) # Returns h_dict
+    ```
     &#34;&#34;&#34;
 
     _parent = None
@@ -57,7 +85,8 @@ class hierarchy:
     def __init__(self, name: str, parent, heir: dict):
         self._parent = parent
         self._str_name = name
-        self.i_init(heir)
+        self._ignore = set((&#34;json&#34;, &#34;u_:&#34;))
+        self._i_init(heir)
 
     def __repr__(self) -&gt; str:
         return f&#34;&lt;{self._str_name}&gt;&#34;
@@ -70,18 +99,7 @@ class hierarchy:
             return f&#34;{self._parent._name}.{self._str_name}&#34;
         return f&#34;{type(self._parent).__name__}.{self._str_name}&#34;
 
-    def json(self) -&gt; dict:
-        &#34;&#34;&#34;Return attributes as dictionary for json serialization&#34;&#34;&#34;
-        fmt = {}
-        for k in get_locals(self, (&#34;json&#34;, &#34;i_:&#34;, &#34;u_:&#34;)):
-            v = getattr(self, k)
-            if isinstance(v, type(self)):
-                fmt[k] = v.json()
-            else:
-                fmt[k] = v
-        return fmt
-
-    def i_init(self, heir: dict):
+    def _i_init(self, heir: dict):
         &#34;&#34;&#34;Internal init so it can be called outside of __init__&#34;&#34;&#34;
         for key, val in heir.items():
             k = self.u_fmt_k(key, val)
@@ -89,14 +107,22 @@ class hierarchy:
             setattr(self, k, v)
 
     def u_fmt_k(self, k, v):
-        &#34;&#34;&#34;User format k, used to change key formatting behavior&#34;&#34;&#34;
+        &#34;&#34;&#34;Format keys before setattr&#34;&#34;&#34;
         return k
 
     def u_fmt_v(self, k, v):
-        &#34;&#34;&#34;User format v, used to change value formatting behavior&#34;&#34;&#34;
+        &#34;&#34;&#34;Format v before setattr.
+
+        Use `v = super().u_fmt(k, v)` if `isinstance(v, dict)` isn&#39;t implemented in child methods
+        &#34;&#34;&#34;
         if isinstance(v, dict):
             return type(self)(k, self, v)
-        return v</code></pre>
+        return v
+
+    if TYPE_CHECKING:
+
+        def __getattr__(self, key):
+            return lambda msg: print(msg)</code></pre>
 </details>
 </section>
 <section>
@@ -113,18 +139,30 @@ class hierarchy:
 <span>(</span><span>name: str, parent, heir: dict)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Dynamically create a hierarchical structure from a dict
-i_<em> methods are internal
-u_</em> methods are intended to be overridden by user inheritance</p></div>
+<div class="desc"><p>Dynamically create a hierarchical structure from a dict</p>
+<p>u_* methods are intended to be overridden by children</p>
+<pre><code class="language-python">from pyboiler.generic import hierarchy
+h_dict = {&quot;these&quot;: {&quot;are&quot;: &quot;nested&quot;}, &quot;dicts&quot;: &quot;hierarchy&quot;}
+hier = hierarchy(&quot;root&quot;, None, h_dict)
+print(hier.these.are) # Returns &quot;nested&quot;
+print(hier.json()) # Returns h_dict
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class hierarchy:
-    &#34;&#34;&#34;
-    Dynamically create a hierarchical structure from a dict
-    i_* methods are internal
-    u_* methods are intended to be overridden by user inheritance
+<pre><code class="python">class hierarchy(storage):
+    &#34;&#34;&#34;Dynamically create a hierarchical structure from a dict
+
+    u_* methods are intended to be overridden by children
+
+    ```python
+    from pyboiler.generic import hierarchy
+    h_dict = {&#34;these&#34;: {&#34;are&#34;: &#34;nested&#34;}, &#34;dicts&#34;: &#34;hierarchy&#34;}
+    hier = hierarchy(&#34;root&#34;, None, h_dict)
+    print(hier.these.are) # Returns &#34;nested&#34;
+    print(hier.json()) # Returns h_dict
+    ```
     &#34;&#34;&#34;
 
     _parent = None
@@ -133,7 +171,8 @@ u_</em> methods are intended to be overridden by user inheritance</p></div>
     def __init__(self, name: str, parent, heir: dict):
         self._parent = parent
         self._str_name = name
-        self.i_init(heir)
+        self._ignore = set((&#34;json&#34;, &#34;u_:&#34;))
+        self._i_init(heir)
 
     def __repr__(self) -&gt; str:
         return f&#34;&lt;{self._str_name}&gt;&#34;
@@ -146,18 +185,7 @@ u_</em> methods are intended to be overridden by user inheritance</p></div>
             return f&#34;{self._parent._name}.{self._str_name}&#34;
         return f&#34;{type(self._parent).__name__}.{self._str_name}&#34;
 
-    def json(self) -&gt; dict:
-        &#34;&#34;&#34;Return attributes as dictionary for json serialization&#34;&#34;&#34;
-        fmt = {}
-        for k in get_locals(self, (&#34;json&#34;, &#34;i_:&#34;, &#34;u_:&#34;)):
-            v = getattr(self, k)
-            if isinstance(v, type(self)):
-                fmt[k] = v.json()
-            else:
-                fmt[k] = v
-        return fmt
-
-    def i_init(self, heir: dict):
+    def _i_init(self, heir: dict):
         &#34;&#34;&#34;Internal init so it can be called outside of __init__&#34;&#34;&#34;
         for key, val in heir.items():
             k = self.u_fmt_k(key, val)
@@ -165,70 +193,44 @@ u_</em> methods are intended to be overridden by user inheritance</p></div>
             setattr(self, k, v)
 
     def u_fmt_k(self, k, v):
-        &#34;&#34;&#34;User format k, used to change key formatting behavior&#34;&#34;&#34;
+        &#34;&#34;&#34;Format keys before setattr&#34;&#34;&#34;
         return k
 
     def u_fmt_v(self, k, v):
-        &#34;&#34;&#34;User format v, used to change value formatting behavior&#34;&#34;&#34;
+        &#34;&#34;&#34;Format v before setattr.
+
+        Use `v = super().u_fmt(k, v)` if `isinstance(v, dict)` isn&#39;t implemented in child methods
+        &#34;&#34;&#34;
         if isinstance(v, dict):
             return type(self)(k, self, v)
-        return v</code></pre>
+        return v
+
+    if TYPE_CHECKING:
+
+        def __getattr__(self, key):
+            return lambda msg: print(msg)</code></pre>
 </details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.generic.storage" href="#pyboiler.generic.storage">storage</a></li>
+</ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
 <li><a title="pyboiler.settings.Settings" href="settings.html#pyboiler.settings.Settings">Settings</a></li>
 </ul>
 <h3>Methods</h3>
 <dl>
-<dt id="pyboiler.generic.hierarchy.i_init"><code class="name flex">
-<span>def <span class="ident">i_init</span></span>(<span>self, heir: dict)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Internal init so it can be called outside of <strong>init</strong></p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def i_init(self, heir: dict):
-    &#34;&#34;&#34;Internal init so it can be called outside of __init__&#34;&#34;&#34;
-    for key, val in heir.items():
-        k = self.u_fmt_k(key, val)
-        v = self.u_fmt_v(k, val)
-        setattr(self, k, v)</code></pre>
-</details>
-</dd>
-<dt id="pyboiler.generic.hierarchy.json"><code class="name flex">
-<span>def <span class="ident">json</span></span>(<span>self) ‑> dict</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Return attributes as dictionary for json serialization</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def json(self) -&gt; dict:
-    &#34;&#34;&#34;Return attributes as dictionary for json serialization&#34;&#34;&#34;
-    fmt = {}
-    for k in get_locals(self, (&#34;json&#34;, &#34;i_:&#34;, &#34;u_:&#34;)):
-        v = getattr(self, k)
-        if isinstance(v, type(self)):
-            fmt[k] = v.json()
-        else:
-            fmt[k] = v
-    return fmt</code></pre>
-</details>
-</dd>
 <dt id="pyboiler.generic.hierarchy.u_fmt_k"><code class="name flex">
 <span>def <span class="ident">u_fmt_k</span></span>(<span>self, k, v)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>User format k, used to change key formatting behavior</p></div>
+<div class="desc"><p>Format keys before setattr</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def u_fmt_k(self, k, v):
-    &#34;&#34;&#34;User format k, used to change key formatting behavior&#34;&#34;&#34;
+    &#34;&#34;&#34;Format keys before setattr&#34;&#34;&#34;
     return k</code></pre>
 </details>
 </dd>
@@ -236,29 +238,41 @@ u_</em> methods are intended to be overridden by user inheritance</p></div>
 <span>def <span class="ident">u_fmt_v</span></span>(<span>self, k, v)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>User format v, used to change value formatting behavior</p></div>
+<div class="desc"><p>Format v before setattr.</p>
+<p>Use <code>v = super().u_fmt(k, v)</code> if <code>isinstance(v, dict)</code> isn't implemented in child methods</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def u_fmt_v(self, k, v):
-    &#34;&#34;&#34;User format v, used to change value formatting behavior&#34;&#34;&#34;
+    &#34;&#34;&#34;Format v before setattr.
+
+    Use `v = super().u_fmt(k, v)` if `isinstance(v, dict)` isn&#39;t implemented in child methods
+    &#34;&#34;&#34;
     if isinstance(v, dict):
         return type(self)(k, self, v)
     return v</code></pre>
 </details>
 </dd>
 </dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyboiler.generic.storage" href="#pyboiler.generic.storage">storage</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyboiler.generic.storage.json" href="#pyboiler.generic.storage.json">json</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 <dt id="pyboiler.generic.storage"><code class="flex name class">
 <span>class <span class="ident">storage</span></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Used to save values similar to a C struct</p>
-<p>```
-from pyboiler.generic import storage
+<pre><code>from pyboiler.generic import storage
 stor = storage()
-stor.value = "example"</p></div>
+stor.value = &quot;example&quot;
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -270,10 +284,60 @@ stor.value = "example"</p></div>
     from pyboiler.generic import storage
     stor = storage()
     stor.value = &#34;example&#34;
+    ```
     &#34;&#34;&#34;
 
-    pass</code></pre>
+    _ignore = set((&#34;json&#34;))
+
+    def json(self) -&gt; dict:
+        &#34;&#34;&#34;Return attributes as dictionary for json serialization
+        Instances of `type(self)` are returned as dictionaries
+        &#34;&#34;&#34;
+        fmt = {}
+        for k in get_locals(self, self._ignore):
+            v = getattr(self, k)
+            if isinstance(v, type(self)):
+                fmt[k] = v.json()
+            else:
+                fmt[k] = v
+        return fmt
+
+    if TYPE_CHECKING:
+
+        def __getattr__(self, key):
+            return lambda msg: print(msg)</code></pre>
 </details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="pyboiler.generic.hierarchy" href="#pyboiler.generic.hierarchy">hierarchy</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="pyboiler.generic.storage.json"><code class="name flex">
+<span>def <span class="ident">json</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return attributes as dictionary for json serialization
+Instances of <code>type(self)</code> are returned as dictionaries</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def json(self) -&gt; dict:
+    &#34;&#34;&#34;Return attributes as dictionary for json serialization
+    Instances of `type(self)` are returned as dictionaries
+    &#34;&#34;&#34;
+    fmt = {}
+    for k in get_locals(self, self._ignore):
+        v = getattr(self, k)
+        if isinstance(v, type(self)):
+            fmt[k] = v.json()
+        else:
+            fmt[k] = v
+    return fmt</code></pre>
+</details>
+</dd>
+</dl>
 </dd>
 </dl>
 </section>
@@ -294,14 +358,15 @@ stor.value = "example"</p></div>
 <li>
 <h4><code><a title="pyboiler.generic.hierarchy" href="#pyboiler.generic.hierarchy">hierarchy</a></code></h4>
 <ul class="">
-<li><code><a title="pyboiler.generic.hierarchy.i_init" href="#pyboiler.generic.hierarchy.i_init">i_init</a></code></li>
-<li><code><a title="pyboiler.generic.hierarchy.json" href="#pyboiler.generic.hierarchy.json">json</a></code></li>
 <li><code><a title="pyboiler.generic.hierarchy.u_fmt_k" href="#pyboiler.generic.hierarchy.u_fmt_k">u_fmt_k</a></code></li>
 <li><code><a title="pyboiler.generic.hierarchy.u_fmt_v" href="#pyboiler.generic.hierarchy.u_fmt_v">u_fmt_v</a></code></li>
 </ul>
 </li>
 <li>
 <h4><code><a title="pyboiler.generic.storage" href="#pyboiler.generic.storage">storage</a></code></h4>
+<ul class="">
+<li><code><a title="pyboiler.generic.storage.json" href="#pyboiler.generic.storage.json">json</a></code></li>
+</ul>
 </li>
 </ul>
 </li>

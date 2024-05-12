@@ -9,13 +9,13 @@ from .config import config
 def run(cmd: str, locals: dict, globals: dict, builtins=True):
     prof = cProfile.Profile(builtins=builtins)
     prof.runctx(cmd, locals, globals)
-    prof.dump_stats(str(config().PATH_PROFILE))
+    prof.dump_stats(str(config().FILEPATH_PROFILE))
 
 
 def get():
-    if config().PATH_PROFILE.exists():
+    if config().FILEPATH_PROFILE.exists():
         ps = pstats.Stats()
-        ps.load_stats(str(config().PATH_PROFILE))
+        ps.load_stats(str(config().FILEPATH_PROFILE))
         return ps
     return None
 

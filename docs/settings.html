@@ -29,6 +29,8 @@
 </summary>
 <pre><code class="python">&#34;&#34;&#34;pyboiler.settings file&#34;&#34;&#34;
 
+from typing import TYPE_CHECKING
+
 from .config import config
 
 if config().SERIAL == &#34;json&#34;:
@@ -87,12 +89,12 @@ class Settings(hierarchy):
 
     def serialize(self) -&gt; None:
         s_data = None
-        config().PATH_SETTINGS.write_text(dumps(self._json()))
+        config().FILEPATH_SETTINGS.write_text(dumps(self._json()))
 
     def deserialize(self) -&gt; None:
-        if not config().PATH_SETTINGS.exists():
+        if not config().FILEPATH_SETTINGS.exists():
             return
-        self.from_dict(loads(config().PATH_SETTINGS.read_text()))
+        self.from_dict(loads(config().FILEPATH_SETTINGS.read_text()))
 
     def from_dict(self, d: dict):
         for k, v in d.items():
@@ -130,8 +132,13 @@ class Settings(hierarchy):
     def u_fmt_v(self, *args, **kwargs):
         raise NotImplementedError()
 
-    def i_init(self, *args, **kwargs):
+    def _i_init(self, *args, **kwargs):
         raise NotImplementedError()
+
+    if TYPE_CHECKING:
+
+        def __getattr__(self, key):
+            return lambda msg: print(msg)
 
 
 class _Settings(Settings):
@@ -213,12 +220,12 @@ class _Settings(Settings):
 
     def serialize(self) -&gt; None:
         s_data = None
-        config().PATH_SETTINGS.write_text(dumps(self._json()))
+        config().FILEPATH_SETTINGS.write_text(dumps(self._json()))
 
     def deserialize(self) -&gt; None:
-        if not config().PATH_SETTINGS.exists():
+        if not config().FILEPATH_SETTINGS.exists():
             return
-        self.from_dict(loads(config().PATH_SETTINGS.read_text()))
+        self.from_dict(loads(config().FILEPATH_SETTINGS.read_text()))
 
     def from_dict(self, d: dict):
         for k, v in d.items():
@@ -256,12 +263,18 @@ class _Settings(Settings):
     def u_fmt_v(self, *args, **kwargs):
         raise NotImplementedError()
 
-    def i_init(self, *args, **kwargs):
-        raise NotImplementedError()</code></pre>
+    def _i_init(self, *args, **kwargs):
+        raise NotImplementedError()
+
+    if TYPE_CHECKING:
+
+        def __getattr__(self, key):
+            return lambda msg: print(msg)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
 <li><a title="pyboiler.generic.hierarchy" href="generic.html#pyboiler.generic.hierarchy">hierarchy</a></li>
+<li><a title="pyboiler.generic.storage" href="generic.html#pyboiler.generic.storage">storage</a></li>
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
@@ -301,9 +314,9 @@ class _Settings(Settings):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def deserialize(self) -&gt; None:
-    if not config().PATH_SETTINGS.exists():
+    if not config().FILEPATH_SETTINGS.exists():
         return
-    self.from_dict(loads(config().PATH_SETTINGS.read_text()))</code></pre>
+    self.from_dict(loads(config().FILEPATH_SETTINGS.read_text()))</code></pre>
 </details>
 </dd>
 <dt id="pyboiler.settings.Settings.from_dict"><code class="name flex">
@@ -357,6 +370,26 @@ class _Settings(Settings):
     self.set(name, default)</code></pre>
 </details>
 </dd>
+<dt id="pyboiler.settings.Settings.json"><code class="name flex">
+<span>def <span class="ident">json</span></span>(<span>self) ‑> dict</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return attributes as dictionary for json serialization</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def json(self) -&gt; dict:
+    &#34;&#34;&#34;Return attributes as dictionary for json serialization&#34;&#34;&#34;
+    fmt = {}
+    for k, v in self._defaults.items():
+        if isinstance(v, _Settings):
+            fmt[k] = v.json()
+        else:
+            fmt[k] = v
+    return fmt</code></pre>
+</details>
+</dd>
 <dt id="pyboiler.settings.Settings.serialize"><code class="name flex">
 <span>def <span class="ident">serialize</span></span>(<span>self) ‑> None</span>
 </code></dt>
@@ -368,7 +401,7 @@ class _Settings(Settings):
 </summary>
 <pre><code class="python">def serialize(self) -&gt; None:
     s_data = None
-    config().PATH_SETTINGS.write_text(dumps(self._json()))</code></pre>
+    config().FILEPATH_SETTINGS.write_text(dumps(self._json()))</code></pre>
 </details>
 </dd>
 <dt id="pyboiler.settings.Settings.set"><code class="name flex">
@@ -403,8 +436,6 @@ class _Settings(Settings):
 <ul class="hlist">
 <li><code><b><a title="pyboiler.generic.hierarchy" href="generic.html#pyboiler.generic.hierarchy">hierarchy</a></b></code>:
 <ul class="hlist">
-<li><code><a title="pyboiler.generic.hierarchy.i_init" href="generic.html#pyboiler.generic.hierarchy.i_init">i_init</a></code></li>
-<li><code><a title="pyboiler.generic.hierarchy.json" href="generic.html#pyboiler.generic.hierarchy.json">json</a></code></li>
 <li><code><a title="pyboiler.generic.hierarchy.u_fmt_k" href="generic.html#pyboiler.generic.hierarchy.u_fmt_k">u_fmt_k</a></code></li>
 <li><code><a title="pyboiler.generic.hierarchy.u_fmt_v" href="generic.html#pyboiler.generic.hierarchy.u_fmt_v">u_fmt_v</a></code></li>
 </ul>
@@ -435,6 +466,7 @@ class _Settings(Settings):
 <li><code><a title="pyboiler.settings.Settings.from_dict" href="#pyboiler.settings.Settings.from_dict">from_dict</a></code></li>
 <li><code><a title="pyboiler.settings.Settings.get" href="#pyboiler.settings.Settings.get">get</a></code></li>
 <li><code><a title="pyboiler.settings.Settings.init" href="#pyboiler.settings.Settings.init">init</a></code></li>
+<li><code><a title="pyboiler.settings.Settings.json" href="#pyboiler.settings.Settings.json">json</a></code></li>
 <li><code><a title="pyboiler.settings.Settings.serialize" href="#pyboiler.settings.Settings.serialize">serialize</a></code></li>
 <li><code><a title="pyboiler.settings.Settings.set" href="#pyboiler.settings.Settings.set">set</a></code></li>
 <li><code><a title="pyboiler.settings.Settings.softSet" href="#pyboiler.settings.Settings.softSet">softSet</a></code></li>

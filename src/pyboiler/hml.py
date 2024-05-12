@@ -1,4 +1,4 @@
-"""Add XML object serialization in a similar interface to python.json"""
+"""XML object (de)serialization in a similar interface to python.json"""
 
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
@@ -87,10 +87,10 @@ def _deserialize(root: ET.Element):
             res.append(e_res)
         return res
 
-    r_depth = int(root.attrib.get("d"))
+    r_depth = int(root.attrib.get("d"))  # type: ignore
     for elem in root.iter():
         # print(f"{elem}: {elem.attrib.get('d')}")
-        if not int(elem.attrib.get("d")) == r_depth + 1:
+        if not int(elem.attrib.get("d")) == r_depth + 1:  # type: ignore
             continue
         e_t, e_d, e_r = parse(elem)
         results[elem.tag] = e_r
