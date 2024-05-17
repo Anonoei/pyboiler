@@ -2,4 +2,8 @@ __pycache__/
 logs/
 /settings.*
 dist/
-*.egg*
+src/*
+!src/pyboiler
+
+
+.DS_Store

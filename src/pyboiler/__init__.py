@@ -8,10 +8,14 @@ import pathlib
 
 __version__ = "0.0.5"
 __author__ = "Anonoei <dev@anonoei.com>"
+init_run = False
 
 
-def __init():
+def __init(_val=[]):
     """Import all files in `import_path`"""
+    if _val:
+        return
+    _val.append(True)
     from .config import config
     from .imports import get_imports
 
@@ -24,11 +28,9 @@ def __init():
     globals()["settings"].Settings().deserialize()
 
 
-__init()
-
-
-def dir():
-    """List all available pyboiler imports"""
+def view():
+    """View all available pyboiler imports"""
+    __init()
     imports = globals()["imports"].get_locals(globals())
     imports.sort()
     return imports

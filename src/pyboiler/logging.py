@@ -3,7 +3,7 @@
 import logging as _logging
 from typing import TYPE_CHECKING
 
-from ._log import Level, handlers
+from ._internal.log import Level, handlers
 
 
 class logging:

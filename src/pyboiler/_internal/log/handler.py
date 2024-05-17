@@ -3,7 +3,7 @@
 import logging
 import sys
 
-from ..config import config
+from ...config import config
 from .format import Formatter
 
 
