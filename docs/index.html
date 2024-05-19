@@ -39,10 +39,14 @@ import pathlib
 
 __version__ = &#34;0.0.5&#34;
 __author__ = &#34;Anonoei &lt;dev@anonoei.com&gt;&#34;
+init_run = False
 
 
-def __init():
+def __init(_val=[]):
     &#34;&#34;&#34;Import all files in `import_path`&#34;&#34;&#34;
+    if _val:
+        return
+    _val.append(True)
     from .config import config
     from .imports import get_imports
 
@@ -55,11 +59,9 @@ def __init():
     globals()[&#34;settings&#34;].Settings().deserialize()
 
 
-__init()
-
-
-def dir():
-    &#34;&#34;&#34;List all available pyboiler imports&#34;&#34;&#34;
+def view():
+    &#34;&#34;&#34;View all available pyboiler imports&#34;&#34;&#34;
+    __init()
     imports = globals()[&#34;imports&#34;].get_locals(globals())
     imports.sort()
     return imports</code></pre>
@@ -72,9 +74,17 @@ def dir():
 <dd>
 <div class="desc"></div>
 </dd>
+<dt><code class="name"><a title="pyboiler.color" href="color.html">pyboiler.color</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
 <dt><code class="name"><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></dt>
 <dd>
 <div class="desc"><p>Script configuration singleton for internal variables …</p></div>
+</dd>
+<dt><code class="name"><a title="pyboiler.decor" href="decor.html">pyboiler.decor</a></code></dt>
+<dd>
+<div class="desc"></div>
 </dd>
 <dt><code class="name"><a title="pyboiler.error" href="error.html">pyboiler.error</a></code></dt>
 <dd>
@@ -127,17 +137,18 @@ def dir():
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="pyboiler.dir"><code class="name flex">
-<span>def <span class="ident">dir</span></span>(<span>)</span>
+<dt id="pyboiler.view"><code class="name flex">
+<span>def <span class="ident">view</span></span>(<span>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>List all available pyboiler imports</p></div>
+<div class="desc"><p>View all available pyboiler imports</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def dir():
-    &#34;&#34;&#34;List all available pyboiler imports&#34;&#34;&#34;
+<pre><code class="python">def view():
+    &#34;&#34;&#34;View all available pyboiler imports&#34;&#34;&#34;
+    __init()
     imports = globals()[&#34;imports&#34;].get_locals(globals())
     imports.sort()
     return imports</code></pre>
@@ -157,7 +168,9 @@ def dir():
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
 <li><code><a title="pyboiler.changelog" href="changelog.html">pyboiler.changelog</a></code></li>
+<li><code><a title="pyboiler.color" href="color.html">pyboiler.color</a></code></li>
 <li><code><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></li>
+<li><code><a title="pyboiler.decor" href="decor.html">pyboiler.decor</a></code></li>
 <li><code><a title="pyboiler.error" href="error.html">pyboiler.error</a></code></li>
 <li><code><a title="pyboiler.generic" href="generic.html">pyboiler.generic</a></code></li>
 <li><code><a title="pyboiler.hml" href="hml.html">pyboiler.hml</a></code></li>
@@ -173,7 +186,7 @@ def dir():
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="">
-<li><code><a title="pyboiler.dir" href="#pyboiler.dir">dir</a></code></li>
+<li><code><a title="pyboiler.view" href="#pyboiler.view">view</a></code></li>
 </ul>
 </li>
 </ul>

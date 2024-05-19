@@ -48,65 +48,68 @@ subm.trace(&#34;And another!&#34;)  # Or Logger().subm.trace(&#34;And another!&#
 ```
 &#34;&#34;&#34;
 
-import logging as _logging
 import pathlib
-from logging import Manager
-from typing import TYPE_CHECKING
 
+from .generic import storage
 from .config import config
 from .logging import Level, logging
 
 
-class Logger:
+class Logger(storage):
     &#34;&#34;&#34;Project root logger&#34;&#34;&#34;
+
+    __slots__ = [&#34;_internal&#34;, &#34;_parent&#34;, &#34;_str_name&#34;, &#34;_logger&#34;]
 
     __instance = None
 
-    _parent = None
-    _str_name: str = None  # type: ignore
-    _log: logging = None  # type: ignore
-
-    def Child(self, name: str, level=None):
-        if level is None:
-            level = self._level
-        log_inst = _Logger(self, name)
-        log_inst._init(Logger().manager.getLogger(log_inst._name), level)
-        setattr(self, name, log_inst)
-
-    @property
-    def _level(self) -&gt; Level:
-        return self._log.level
-
-    @_level.setter
-    def _level(self, level):
-        self._log.level = level
-
-    def __new__(cls, name=None, level=Level.TRACE):
+    def __new__(cls, name=None, level: Level = None):
         if cls.__instance is None:
-            cls.__instance = object.__new__(cls)
+            inst = object.__new__(cls)
             if name is None:
                 name = &#34;Logger&#34;
-            cls._str_name = name
-            cls._log = logging(name, level)
-            cls._addHandlers(cls.__instance)
-            cls.manager = Manager(cls._log._log)  # type: ignore
-            cls._setLogs(cls.__instance)
+            if level is None:
+                level = Level.TRACE
+
+            inst._internal = {}
+            inst._parent = None
+            inst._str_name = name
+            inst._logger = logging(name, Level.get(level))
+            inst._addHandlers()
+            cls.__instance = inst
         return cls.__instance
 
-    def _addHandlers(self, level=config().SENTINEL):
-        if level is config().SENTINEL:
-            level = self._level
-        self._log.addHandler(logging.handlers()[&#34;StdoutHandler&#34;](level=level))
-        self._log.addHandler(logging.handlers()[&#34;FileHandler&#34;](self._logPath()))
+    def __init__(self, *args, **kwargs):
+        pass
 
-    @property
-    def _name(self) -&gt; str:
+    def Child(self, name: str, level=None):
+        &#34;&#34;&#34;Create a child logger&#34;&#34;&#34;
+        if level is None:
+            level = self.get_level()
+        log_inst = _Logger(self, name, level)
+        self._internal[name] = log_inst
+
+    def get_level(self) -&gt; Level:
+        &#34;&#34;&#34;Get log level&#34;&#34;&#34;
+        return self._logger.level
+
+    def set_level(self, level):
+        &#34;&#34;&#34;Set log level&#34;&#34;&#34;
+        self._logger.level = level
+
+    def _addHandlers(self, lvl: Level = config().SENTINEL):  # type: ignore
+        if lvl is config().SENTINEL:
+            lvl: Level = self.get_level()
+        self._logger.mk_handler(&#34;stdout&#34;, lvl)
+        self._logger.mk_handler(&#34;file&#34;, self._log_path(), lvl)
+
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;Return structured name&#34;&#34;&#34;
         if self._parent is None:
-            return str(self._str_name)
-        return f&#34;{self._parent._name}.{self._str_name}&#34;
+            return self._str_name
+        return f&#34;{self._parent.name}.{self._str_name}&#34;
 
-    def _logPath(self) -&gt; pathlib.Path:
-        path_sep = self._name.split(&#34;.&#34;)
+    def _log_path(self) -&gt; pathlib.Path:
+        path_sep = self.name().split(&#34;.&#34;)
         if len(path_sep) &gt; 1:
             path_sep = path_sep[1:]
         log_path = config().PATH_LOGS
@@ -118,39 +121,47 @@ class Logger:
             # print(f&#34;{log_path = }&#34;)
         return log_path
 
-    def _setLogs(self):
-        for level in self._log.levels():
-            lname = level.name.lower()
-            log_cmd = (
-                lambda msg, log=self._log, lvl=level.value, *args, **kwargs: log.log(
-                    lvl, msg, *args, **kwargs
-                )
-            )
-            setattr(self, lname, log_cmd)
+    def trace(self, msg):
+        &#34;&#34;&#34;log.trace&#34;&#34;&#34;
+        self._logger.trace(msg)
 
-    if TYPE_CHECKING:
+    def debug(self, msg):
+        &#34;&#34;&#34;log.debug&#34;&#34;&#34;
+        self._logger.debug(msg)
 
-        def __getattr__(self, key):
-            return lambda msg: print(msg)
+    def info(self, msg):
+        &#34;&#34;&#34;log.info&#34;&#34;&#34;
+        self._logger.info(msg)
+
+    def warn(self, msg):
+        &#34;&#34;&#34;log.warn&#34;&#34;&#34;
+        self._logger.warn(msg)
+
+    def error(self, msg):
+        &#34;&#34;&#34;log.error&#34;&#34;&#34;
+        self._logger.error(msg)
+
+    def exception(self, msg):
+        &#34;&#34;&#34;log.exception&#34;&#34;&#34;
+        self._logger.exception(msg)
 
 
 class _Logger(Logger):
     &#34;&#34;&#34;Child Logger class&#34;&#34;&#34;
 
-    def __new__(cls, *args, **kwargs):
-        return object.__new__(cls)
+    __slots__ = [&#34;_internal&#34;, &#34;_parent&#34;, &#34;_str_name&#34;, &#34;_logger&#34;]
 
-    def __init__(self, parent, name):
+    def __new__(cls, *args, **kwargs):
+        inst = object.__new__(cls)
+        inst.__init__(*args, **kwargs)
+        return inst
+
+    def __init__(self, parent, name: str, level: Level):
+        self._internal = {}
         self._parent = parent
         self._str_name = name
-
-    def _init(self, logger: _logging.Logger, level):
-        self._log = logging(self._name, level, logger)
-        # print(f&#34;{self._log._log.handlers}&#34;)
-        self._addHandlers()
-        # print(f&#34;{self._log._log.handlers}&#34;)
-        self._logPath()
-        self._setLogs()</code></pre>
+        self._logger = logging(self.name, level)
+        self._addHandlers()</code></pre>
 </details>
 </section>
 <section>
@@ -164,7 +175,7 @@ class _Logger(Logger):
 <dl>
 <dt id="pyboiler.logger.Logger"><code class="flex name class">
 <span>class <span class="ident">Logger</span></span>
-<span>(</span><span>name=None, level=Level.TRACE)</span>
+<span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Project root logger</p></div>
@@ -172,56 +183,61 @@ class _Logger(Logger):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">class Logger:
+<pre><code class="python">class Logger(storage):
     &#34;&#34;&#34;Project root logger&#34;&#34;&#34;
+
+    __slots__ = [&#34;_internal&#34;, &#34;_parent&#34;, &#34;_str_name&#34;, &#34;_logger&#34;]
 
     __instance = None
 
-    _parent = None
-    _str_name: str = None  # type: ignore
-    _log: logging = None  # type: ignore
-
-    def Child(self, name: str, level=None):
-        if level is None:
-            level = self._level
-        log_inst = _Logger(self, name)
-        log_inst._init(Logger().manager.getLogger(log_inst._name), level)
-        setattr(self, name, log_inst)
-
-    @property
-    def _level(self) -&gt; Level:
-        return self._log.level
-
-    @_level.setter
-    def _level(self, level):
-        self._log.level = level
-
-    def __new__(cls, name=None, level=Level.TRACE):
+    def __new__(cls, name=None, level: Level = None):
         if cls.__instance is None:
-            cls.__instance = object.__new__(cls)
+            inst = object.__new__(cls)
             if name is None:
                 name = &#34;Logger&#34;
-            cls._str_name = name
-            cls._log = logging(name, level)
-            cls._addHandlers(cls.__instance)
-            cls.manager = Manager(cls._log._log)  # type: ignore
-            cls._setLogs(cls.__instance)
+            if level is None:
+                level = Level.TRACE
+
+            inst._internal = {}
+            inst._parent = None
+            inst._str_name = name
+            inst._logger = logging(name, Level.get(level))
+            inst._addHandlers()
+            cls.__instance = inst
         return cls.__instance
 
-    def _addHandlers(self, level=config().SENTINEL):
-        if level is config().SENTINEL:
-            level = self._level
-        self._log.addHandler(logging.handlers()[&#34;StdoutHandler&#34;](level=level))
-        self._log.addHandler(logging.handlers()[&#34;FileHandler&#34;](self._logPath()))
+    def __init__(self, *args, **kwargs):
+        pass
 
-    @property
-    def _name(self) -&gt; str:
+    def Child(self, name: str, level=None):
+        &#34;&#34;&#34;Create a child logger&#34;&#34;&#34;
+        if level is None:
+            level = self.get_level()
+        log_inst = _Logger(self, name, level)
+        self._internal[name] = log_inst
+
+    def get_level(self) -&gt; Level:
+        &#34;&#34;&#34;Get log level&#34;&#34;&#34;
+        return self._logger.level
+
+    def set_level(self, level):
+        &#34;&#34;&#34;Set log level&#34;&#34;&#34;
+        self._logger.level = level
+
+    def _addHandlers(self, lvl: Level = config().SENTINEL):  # type: ignore
+        if lvl is config().SENTINEL:
+            lvl: Level = self.get_level()
+        self._logger.mk_handler(&#34;stdout&#34;, lvl)
+        self._logger.mk_handler(&#34;file&#34;, self._log_path(), lvl)
+
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;Return structured name&#34;&#34;&#34;
         if self._parent is None:
-            return str(self._str_name)
-        return f&#34;{self._parent._name}.{self._str_name}&#34;
+            return self._str_name
+        return f&#34;{self._parent.name}.{self._str_name}&#34;
 
-    def _logPath(self) -&gt; pathlib.Path:
-        path_sep = self._name.split(&#34;.&#34;)
+    def _log_path(self) -&gt; pathlib.Path:
+        path_sep = self.name().split(&#34;.&#34;)
         if len(path_sep) &gt; 1:
             path_sep = path_sep[1:]
         log_path = config().PATH_LOGS
@@ -233,21 +249,35 @@ class _Logger(Logger):
             # print(f&#34;{log_path = }&#34;)
         return log_path
 
-    def _setLogs(self):
-        for level in self._log.levels():
-            lname = level.name.lower()
-            log_cmd = (
-                lambda msg, log=self._log, lvl=level.value, *args, **kwargs: log.log(
-                    lvl, msg, *args, **kwargs
-                )
-            )
-            setattr(self, lname, log_cmd)
+    def trace(self, msg):
+        &#34;&#34;&#34;log.trace&#34;&#34;&#34;
+        self._logger.trace(msg)
 
-    if TYPE_CHECKING:
+    def debug(self, msg):
+        &#34;&#34;&#34;log.debug&#34;&#34;&#34;
+        self._logger.debug(msg)
 
-        def __getattr__(self, key):
-            return lambda msg: print(msg)</code></pre>
+    def info(self, msg):
+        &#34;&#34;&#34;log.info&#34;&#34;&#34;
+        self._logger.info(msg)
+
+    def warn(self, msg):
+        &#34;&#34;&#34;log.warn&#34;&#34;&#34;
+        self._logger.warn(msg)
+
+    def error(self, msg):
+        &#34;&#34;&#34;log.error&#34;&#34;&#34;
+        self._logger.error(msg)
+
+    def exception(self, msg):
+        &#34;&#34;&#34;log.exception&#34;&#34;&#34;
+        self._logger.exception(msg)</code></pre>
 </details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.generic.storage" href="generic.html#pyboiler.generic.storage">storage</a></li>
+<li><a title="pyboiler.generic.pyboiler_generic" href="generic.html#pyboiler.generic.pyboiler_generic">pyboiler_generic</a></li>
+</ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
 <li>pyboiler.logger._Logger</li>
@@ -258,20 +288,159 @@ class _Logger(Logger):
 <span>def <span class="ident">Child</span></span>(<span>self, name: str, level=None)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Create a child logger</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def Child(self, name: str, level=None):
+    &#34;&#34;&#34;Create a child logger&#34;&#34;&#34;
     if level is None:
-        level = self._level
-    log_inst = _Logger(self, name)
-    log_inst._init(Logger().manager.getLogger(log_inst._name), level)
-    setattr(self, name, log_inst)</code></pre>
+        level = self.get_level()
+    log_inst = _Logger(self, name, level)
+    self._internal[name] = log_inst</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.logger.Logger.debug"><code class="name flex">
+<span>def <span class="ident">debug</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>log.debug</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def debug(self, msg):
+    &#34;&#34;&#34;log.debug&#34;&#34;&#34;
+    self._logger.debug(msg)</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.logger.Logger.error"><code class="name flex">
+<span>def <span class="ident">error</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>log.error</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def error(self, msg):
+    &#34;&#34;&#34;log.error&#34;&#34;&#34;
+    self._logger.error(msg)</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.logger.Logger.exception"><code class="name flex">
+<span>def <span class="ident">exception</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>log.exception</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def exception(self, msg):
+    &#34;&#34;&#34;log.exception&#34;&#34;&#34;
+    self._logger.exception(msg)</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.logger.Logger.get_level"><code class="name flex">
+<span>def <span class="ident">get_level</span></span>(<span>self) ‑> pyboiler._internal.log.level.Level</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get log level</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_level(self) -&gt; Level:
+    &#34;&#34;&#34;Get log level&#34;&#34;&#34;
+    return self._logger.level</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.logger.Logger.info"><code class="name flex">
+<span>def <span class="ident">info</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>log.info</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def info(self, msg):
+    &#34;&#34;&#34;log.info&#34;&#34;&#34;
+    self._logger.info(msg)</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.logger.Logger.name"><code class="name flex">
+<span>def <span class="ident">name</span></span>(<span>self) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Return structured name</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def name(self) -&gt; str:
+    &#34;&#34;&#34;Return structured name&#34;&#34;&#34;
+    if self._parent is None:
+        return self._str_name
+    return f&#34;{self._parent.name}.{self._str_name}&#34;</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.logger.Logger.set_level"><code class="name flex">
+<span>def <span class="ident">set_level</span></span>(<span>self, level)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set log level</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_level(self, level):
+    &#34;&#34;&#34;Set log level&#34;&#34;&#34;
+    self._logger.level = level</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.logger.Logger.trace"><code class="name flex">
+<span>def <span class="ident">trace</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>log.trace</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def trace(self, msg):
+    &#34;&#34;&#34;log.trace&#34;&#34;&#34;
+    self._logger.trace(msg)</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.logger.Logger.warn"><code class="name flex">
+<span>def <span class="ident">warn</span></span>(<span>self, msg)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>log.warn</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def warn(self, msg):
+    &#34;&#34;&#34;log.warn&#34;&#34;&#34;
+    self._logger.warn(msg)</code></pre>
 </details>
 </dd>
 </dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyboiler.generic.storage" href="generic.html#pyboiler.generic.storage">storage</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyboiler.generic.storage.items" href="generic.html#pyboiler.generic.storage.items">items</a></code></li>
+<li><code><a title="pyboiler.generic.storage.json" href="generic.html#pyboiler.generic.storage.json">json</a></code></li>
+<li><code><a title="pyboiler.generic.storage.keys" href="generic.html#pyboiler.generic.storage.keys">keys</a></code></li>
+<li><code><a title="pyboiler.generic.storage.values" href="generic.html#pyboiler.generic.storage.values">values</a></code></li>
+</ul>
+</li>
+</ul>
 </dd>
 </dl>
 </section>
@@ -291,8 +460,17 @@ class _Logger(Logger):
 <ul>
 <li>
 <h4><code><a title="pyboiler.logger.Logger" href="#pyboiler.logger.Logger">Logger</a></code></h4>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="pyboiler.logger.Logger.Child" href="#pyboiler.logger.Logger.Child">Child</a></code></li>
+<li><code><a title="pyboiler.logger.Logger.debug" href="#pyboiler.logger.Logger.debug">debug</a></code></li>
+<li><code><a title="pyboiler.logger.Logger.error" href="#pyboiler.logger.Logger.error">error</a></code></li>
+<li><code><a title="pyboiler.logger.Logger.exception" href="#pyboiler.logger.Logger.exception">exception</a></code></li>
+<li><code><a title="pyboiler.logger.Logger.get_level" href="#pyboiler.logger.Logger.get_level">get_level</a></code></li>
+<li><code><a title="pyboiler.logger.Logger.info" href="#pyboiler.logger.Logger.info">info</a></code></li>
+<li><code><a title="pyboiler.logger.Logger.name" href="#pyboiler.logger.Logger.name">name</a></code></li>
+<li><code><a title="pyboiler.logger.Logger.set_level" href="#pyboiler.logger.Logger.set_level">set_level</a></code></li>
+<li><code><a title="pyboiler.logger.Logger.trace" href="#pyboiler.logger.Logger.trace">trace</a></code></li>
+<li><code><a title="pyboiler.logger.Logger.warn" href="#pyboiler.logger.Logger.warn">warn</a></code></li>
 </ul>
 </li>
 </ul>
