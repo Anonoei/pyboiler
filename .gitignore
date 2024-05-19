@@ -4,6 +4,8 @@ logs/
 dist/
 src/*
 !src/pyboiler
+.pytest_cache/
+.vscode/
 
 
 .DS_Store

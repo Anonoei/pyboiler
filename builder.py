@@ -1,6 +1,7 @@
 import argparse
+import importlib
+import json
 import os
-import pathlib
 import shutil
 import subprocess
 import sys
@@ -49,6 +50,22 @@ def main():
     PATH_ROOT = config().PATH_ROOT
     os.system(f"cd {PATH_ROOT}")
 
+    with open("pyproject.toml", "r") as f:
+        deps = None
+        for line in f.readlines():
+            if line.startswith("dev = "):
+                deps = line
+                break
+        # deps = '{"deps":' + "" + "}"
+        deps = json.loads(deps[deps.index("[") - 1 : deps.index("]") + 1])
+        for dep in deps:
+            try:
+                importlib.import_module(dep)
+            except ModuleNotFoundError:
+                if dep == "pdoc3":
+                    continue
+                os.system(f"{sys.executable} -m pip install {dep}")
+
     def cmd_local(args):
         run(f"{sys.executable} -m pip install -e .")
 
@@ -73,7 +90,7 @@ def main():
         run("black src/pyboiler")
 
     def cmd_version(args):
-        bump = "bumpver update "
+        bump = "bumpver update --allow-dirty "
         if not args.run:
             bump += "--dry -n "
         if args.major:

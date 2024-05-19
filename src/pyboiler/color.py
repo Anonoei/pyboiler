@@ -1,1 +1,2 @@
-from ._internal.color_format import Format
+from ._internal.color import escape
+from ._internal.color.colors import *

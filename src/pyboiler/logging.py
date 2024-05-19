@@ -1,62 +1,101 @@
 """Wrap python.logging in an interface I prefer"""
 
-import logging as _logging
-from typing import TYPE_CHECKING
+import queue
 
-from ._internal.log import Level, handlers
+from ._internal.log import Handler, Level, Record, config, handlers
+from .generic import storage
+
+logstore = storage()
+logstore.queue = queue.Queue()
 
 
 class logging:
-    def __init__(self, name, level: Level, logger=None):
-        if logger is None:
-            logger = _logging.Logger(name, level.value)
-        self._log: _logging.Logger = logger
-        self._setLogs()
 
-    def addHandler(self, hdlr):
-        """Add a handler"""
-        self._log.addHandler(hdlr)
+    __slots__ = ("name", "_level", "handlers", "disabled")
 
-    @staticmethod
-    def handlers():
-        """Return all available handlers"""
-        return handlers
-
-    @staticmethod
-    def levels():
-        """Return all available levels"""
-        return Level.s()
+    def __init__(self, name, level):
+        self.name = name
+        self._level = Level.get(level)
+        self.handlers = dict()
+        self.disabled = False
 
     @property
-    def level(self) -> Level:
-        """Return logging level"""
-        return Level.get(self._log.level)  # type: ignore
+    def level(self):
+        """Get logging level"""
+        return self._level
 
     @level.setter
     def level(self, level):
-        """Set logging level"""
-        self._log.setLevel(level.value)
+        self._level = level
 
-    def _setLogs(self):
-        for level in logging.levels():
-            lname = level.name.lower()
-            log_cmd = lambda msg, log=self, lvl=level.value, *args, **kwargs: log.log(
-                lvl, msg, *args, **kwargs
-            )
-            setattr(self, lname, log_cmd)
+    @staticmethod
+    def avail_handlers():
+        return list(handlers.keys())
 
-    def log(self, *arg, **kwargs):
-        """Log a message
+    @staticmethod
+    def avail_levels():
+        return list(Level)
 
-        Dynamically called from logging.<level name>
+    def mk_handler(self, handler, *args, **kwargs):  # type: ignore
+        """Add a handler"""
+        if isinstance(handler, str):
+            handler: Handler = handlers[handler.lower()]
+        else:
+            if issubclass(handler, Handler):
+                self.handlers[handler.name()] = handler
+                return
+        if not issubclass(handler, Handler):  # type: ignore
+            raise Exception(f"Invalid handler: {handler}")
 
-        Args:
-            level (int): logging level
-            msg (str): message to log
-        """
-        self._log.log(*arg, **kwargs)
+        if not handler in self.handlers:
+            self.handlers[handler.name()] = handler(*args, **kwargs)
 
-    if TYPE_CHECKING:
+    def rm_handler(self, hdlr):
+        """Remove a handler"""
+        if isinstance(hdlr, str):
+            hdlr = handlers[hdlr]
+        self.handlers.pop(hdlr)
 
-        def __getattr__(self, key):
-            return lambda msg: print(msg)
+    def ls_handlers(self):
+        return self.handlers
+
+    def trace(self, msg):
+        """Log trace"""
+        self._log(Level.TRACE, msg)
+
+    def debug(self, msg):
+        """Log debug"""
+        self._log(Level.DEBUG, msg)
+
+    def info(self, msg):
+        """Log info"""
+        self._log(Level.INFO, msg)
+
+    def warn(self, msg):
+        """Log warn"""
+        self._log(Level.WARN, msg)
+
+    def error(self, msg):
+        """Log error"""
+        self._log(Level.ERROR, msg)
+
+    def exception(self, msg):
+        """Log error and raise an exception"""
+        pass
+
+    def log(self, lvl: Level, msg: str):
+        """This probably shouldn't be used in your code"""
+        self._log(lvl, msg)
+
+    def _log(self, lvl: Level, msg: str):
+        """logging internal method"""
+        if Level.get(lvl) < self._level:
+            return
+        record = Record(self.name, lvl, msg, depth=3)
+        self.handle(record)
+
+    def handle(self, record: Record):
+        if self.disabled:
+            return
+        for handler in self.handlers.values():
+            handler.handle(record)

@@ -1,11 +1,13 @@
 """Generic class implementations that can be extended in user code"""
 
-from typing import TYPE_CHECKING
 
-from .imports import get_locals
+class pyboiler_generic:
+    def json(self):
+        """Returns the object as a dict"""
+        ...
 
 
-class storage:
+class storage(pyboiler_generic):
     """Used to save values similar to a C struct
 
     ```
@@ -15,28 +17,65 @@ class storage:
     ```
     """
 
-    _ignore = set(("_:", "json"))
+    __slots__ = ["_internal"]
+
+    def __init__(self):
+        self._internal = {}
 
     def json(self) -> dict:
         """Return attributes as dictionary for json serialization
         Instances of `type(self)` are returned as dictionaries
         """
         fmt = {}
-        for k in get_locals(self, self._ignore):
-            v = getattr(self, k)
+        for k, v in self._internal.items():
             if isinstance(v, type(self)):
                 fmt[k] = v.json()
-            else:
-                fmt[k] = v
+                continue
+
+            fmt[k] = v
+
         return fmt
 
-    if TYPE_CHECKING:
+    def keys(self):
+        """Return names of all objects"""
+        return self._internal.keys()
 
-        def __getattr__(self, key):
-            return lambda msg: print(msg)
+    def values(self):
+        """Return values of all objects"""
+        return self._internal.values()
+
+    def items(self):
+        """Return k, v of all objects"""
+        return self._internal.items()
+
+    def __getitem__(self, key):
+        getattr(self, key)
+
+    def __setitem__(self, key, val):
+        setattr(self, key, val)
+
+    def __getattr__(self, key):
+        if key in self.__slots__ or key == "__wrapped__":
+            return super(storage, self).__getattribute__(key)
+        return self._internal[key]
+
+    def __setattr__(self, key, val):
+        if key in self.__slots__ or key == "__wrapped__":
+            super(storage, self).__setattr__(key, val)
+            return
+        self._internal[key] = val
 
 
-class hierarchy(storage):
+class slot_storage(pyboiler_generic):
+    """Children of this class must have __slots__ defined"""
+
+    def json(self, ignore=None):
+        if ignore is None:
+            ignore = []
+        return {k: getattr(self, k) for k in type(self).__slots__ if not k in ignore}  # type: ignore
+
+
+class hierarchy(pyboiler_generic):
     """Dynamically create a hierarchical structure from a dict
 
     u_* methods are intended to be overridden by children
@@ -50,32 +89,56 @@ class hierarchy(storage):
     ```
     """
 
-    _parent = None
-    _str_name = None
+    __slots__ = ("_parent", "_name", "_data")
 
     def __init__(self, name: str, parent, heir: dict):
         self._parent = parent
-        self._str_name = name
-        self._ignore = set(("_:", "json", "u_:"))
+        self._name = name
+        self._data = {}
+
+        def _getattr(self, key):
+            if key in self.__slots__:
+                return self.__dict__[key]
+            return self._data[key]
+
+        def _setattr(self, key, val):
+            if key in self.__slots__:
+                self.__dict__[key] = val
+                return
+            self._data[key] = val
+
+        self.__getattr__ = _getattr
+        self.__setattr__ = _setattr
+
         self._i_init(heir)
 
     def __repr__(self) -> str:
-        return f"<{self._str_name}>"
+        return f"<{type(self).__name__} {self._name}>"
+
+    def json(self):
+        fmt = {}
+        for k, v in self._data.items():
+            if isinstance(v, type(self)):
+                fmt[k] = v.json()
+            else:
+                fmt[k] = v
+        return fmt
 
     @property
-    def _name(self) -> str:
+    def name(self) -> str:
+        """Return hierarchical name"""
         if self._parent is None:
-            return f"{type(self).__name__}.{self._str_name}"
+            return f"{type(self).__name__}: {self._name}"
         elif isinstance(self._parent, type(self)):
-            return f"{self._parent._name}.{self._str_name}"
-        return f"{type(self._parent).__name__}.{self._str_name}"
+            return f"{self._parent.name}.{self._name}"
+        return f"{type(self._parent).__name__}: {self._name}"
 
     def _i_init(self, heir: dict):
         """Internal init so it can be called outside of __init__"""
         for key, val in heir.items():
             k = self.u_fmt_k(key, val)
             v = self.u_fmt_v(k, val)
-            setattr(self, k, v)
+            self._data[k] = v
 
     def u_fmt_k(self, k, v):
         """Format keys before setattr"""
@@ -89,8 +152,3 @@ class hierarchy(storage):
         if isinstance(v, dict):
             return type(self)(k, self, v)
         return v
-
-    if TYPE_CHECKING:
-
-        def __getattr__(self, key):
-            return lambda msg: print(msg)

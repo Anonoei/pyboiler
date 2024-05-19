@@ -1,7 +1,12 @@
 def main():
-    import pyboiler.color as color
+    from pyboiler.logging import Level, logging
 
-    print(color.Format.format("uppercase: {s:u}, lowercase: {s:l}", s="abc"))
+    log = logging("dev", Level.TRACE)
+
+    log.mk_handler("stdout")
+
+    log.trace("Hello")
+    log.info("World!")
 
 
 if __name__ == "__main__":

@@ -1,9 +1,18 @@
 """Wrap python.logging filters"""
 
-import logging
 
-
-class Filter(logging.Filter):
+class Filter:
     """Wrap python.logging.Filter"""
 
-    pass
+    def __init__(self):
+        self.filters = []
+
+    def add_filter(self, filter):
+        """Add the specified filter to this handler."""
+        if not filter in self.filters:
+            self.filters.append(filter)
+
+    def rm_filter(self, filter):
+        """Remove the specified filter from this handler."""
+        if filter in self.filters:
+            self.filters.remove(filter)
