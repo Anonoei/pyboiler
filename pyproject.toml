@@ -32,7 +32,7 @@ Issues = "https://github.com/Anonoei/pyboiler/issues"
 Source = "https://github.com/anonoei/pyboiler"
 
 [project.optional-dependencies]
-dev = ["black", "bumpver", "pytest", "pdoc3"]
+dev = ["twine", "build", "black", "bumpver", "pytest", "pdoc3"]
 
 [tool.bumpver]
 current_version = "0.3.0"
