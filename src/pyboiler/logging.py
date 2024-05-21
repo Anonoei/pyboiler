@@ -1,6 +1,6 @@
 """Threaded logger with color support"""
 
-from ._internal.log import Handler, Level, Record, handlers
+from .internal.log import Handler, Level, Record, handlers
 
 
 class logging:

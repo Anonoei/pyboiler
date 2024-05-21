@@ -3,8 +3,6 @@ from string import Formatter as _Formatter
 
 from .colors import ColorEnum
 
-_str_formatter = _Formatter()
-
 
 class Formatter:
     _tag = re.compile(r"\\?</?((?:[fb]g\s)?[^<>\s]*)>", re.I)
