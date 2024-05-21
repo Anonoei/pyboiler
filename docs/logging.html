@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>pyboiler.logging API documentation</title>
-<meta name="description" content="Wrap python.logging in an interface I prefer" />
+<meta name="description" content="Threaded logger with color support" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,20 +22,14 @@
 <h1 class="title">Module <code>pyboiler.logging</code></h1>
 </header>
 <section id="section-intro">
-<p>Wrap python.logging in an interface I prefer</p>
+<p>Threaded logger with color support</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34;Wrap python.logging in an interface I prefer&#34;&#34;&#34;
+<pre><code class="python">&#34;&#34;&#34;Threaded logger with color support&#34;&#34;&#34;
 
-import queue
-
-from ._internal.log import Handler, Level, Record, config, handlers
-from .generic import storage
-
-logstore = storage()
-logstore.queue = queue.Queue()
+from ._internal.log import Handler, Level, Record, handlers
 
 
 class logging:
@@ -86,6 +80,7 @@ class logging:
         self.handlers.pop(hdlr)
 
     def ls_handlers(self):
+        &#34;&#34;&#34;Return all available handlers&#34;&#34;&#34;
         return self.handlers
 
     def trace(self, msg):
@@ -197,6 +192,7 @@ class logging:
         self.handlers.pop(hdlr)
 
     def ls_handlers(self):
+        &#34;&#34;&#34;Return all available handlers&#34;&#34;&#34;
         return self.handlers
 
     def trace(self, msg):
@@ -391,12 +387,13 @@ def level(self):
 <span>def <span class="ident">ls_handlers</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Return all available handlers</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def ls_handlers(self):
+    &#34;&#34;&#34;Return all available handlers&#34;&#34;&#34;
     return self.handlers</code></pre>
 </details>
 </dd>

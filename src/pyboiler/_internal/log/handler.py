@@ -1,17 +1,22 @@
 """Wrap python.logging Handlers"""
 
 import sys
+import pathlib
+import socket
+import random
 
 from ...generic import slot_storage
 from .format import Formatter, default, colored
 from .level import Level
 from .record import Record
 
+from .queue import Queue
+
 
 class Handler(slot_storage):
-    """Handle log records"""
+    """Handle logs"""
 
-    __slots__ = ("_level", "_format", "_io", "_meta")
+    __slots__ = ("_level", "_format")
 
     def __init__(self, level=Level.NOTSET):
         self._level = level
@@ -33,10 +38,12 @@ class Handler(slot_storage):
 
     @classmethod
     def name(cls):
+        """Get the base name of this handler"""
         return cls.__name__[:-7].lower()
 
     @property
     def level(self):
+        """Get/Set this handler's level"""
         return self._level
 
     @level.setter
@@ -45,6 +52,7 @@ class Handler(slot_storage):
 
     @property
     def formatter(self):
+        """Get/Set this handler's formatter"""
         return self._format
 
     @formatter.setter
@@ -56,69 +64,98 @@ class Handler(slot_storage):
             return False
         return True
 
-    def handle(self, record: Record): ...
-
-    def close(self): ...
+    def handle(self, record: Record):
+        """Handle a log record"""
+        ...
 
     def format(self, record):
+        """Format a log record"""
         return self._format.format(record)
 
 
 class StreamHandler(Handler):
-    """Writes log records to a stream"""
+    """Writes logs to stream"""
+
+    __slots__ = ("_level", "_format", "_io")
 
     def __init__(self, stream, level: Level):
         super().__init__(level)
         self._io = stream
-
-    def flush(self):
-        self._io.flush()
 
     def handle(self, record):
         if not self._handle(record):
             return
         msg = self.format(record)
         self._io.write(msg + "\n")
-        self.flush()
+        self._io.flush()
 
 
 class FileHandler(StreamHandler):
-    """Writes log records to a file"""
+    """Writes logs to file"""
 
-    def __init__(self, filepath, level: Level, mode="a", encoding="UTF-8"):
-        self._io = None
-        self.meta = {}
-        self.meta["filepath"] = filepath
-        self.meta["mode"] = mode
-        self.meta["encoding"] = encoding
-        self.meta["open"] = False
-        super().__init__(self._open(), level)
+    __slots__ = ("_level", "_format", "_io")
 
-    def _open(self):
-        _io = self._io
-        if not self.meta["open"]:
-            _io = open(
-                self.meta["filepath"],
-                mode=self.meta["mode"],
-                encoding=self.meta["encoding"],
-            )
-            self.meta["open"] = True
-        return _io
+    def __init__(
+        self, filepath: pathlib.Path, level: Level, mode="a", encoding="UTF-8"
+    ):
+        if not filepath.exists():
+            mode = "w"
+        _io = filepath.open(mode=mode, encoding=encoding)
+        super().__init__(_io, level)
 
-    def _close(self):
+    def close(self):
+        Queue().stop()
         self._io.close()
-        self.meta["open"] = False
+
+    def handle(self, record):
+        sup = super()
+        Queue().add([lambda s=sup, r=record: sup.handle(record)])
+
+
+class OverwriteFileHandler(FileHandler):
+    """Write logs to file and overwrite them if they exist"""
+
+    __slots__ = ("_level", "_format", "_io")
+
+    def __init__(self, filepath: pathlib.Path, level: Level, encoding="UTF-8"):
+        super().__init__(filepath, level, "w", encoding)
 
 
 class StdoutHandler(StreamHandler):
+    """Write logs to stdout"""
+
+    __slots__ = ("_level", "_format", "_io")
+
     def __init__(self, level: Level):
         super().__init__(sys.stdout, level)
         self._format = colored
 
 
 class StderrHandler(StreamHandler):
+    """Write logs to stderr"""
+
+    __slots__ = ("_level", "_format", "_io")
+
     def __init__(self, level: Level):
         super().__init__(sys.stderr, level)
+
+
+class SocketHandler(Handler):
+    __slots__ = ("_level", "_format", "_socket", "_address", "_encoding")
+
+    def __init__(self, host, port, level: Level, encoding="UTF-8"):
+        self._level = level
+        self._format = default
+        self._address = (host, port)
+        self._socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        self._socket.connect(self._address)
+        self._encoding = encoding
+
+    def handle(self, record: Record):
+        if not self._handle(record):
+            return
+        msg = self.format(record)
+        self._socket.send(msg.encode(self._encoding))
 
 
 handlers = {

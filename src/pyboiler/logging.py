@@ -1,12 +1,6 @@
-"""Wrap python.logging in an interface I prefer"""
+"""Threaded logger with color support"""
 
-import queue
-
-from ._internal.log import Handler, Level, Record, config, handlers
-from .generic import storage
-
-logstore = storage()
-logstore.queue = queue.Queue()
+from ._internal.log import Handler, Level, Record, handlers
 
 
 class logging:
@@ -57,6 +51,7 @@ class logging:
         self.handlers.pop(hdlr)
 
     def ls_handlers(self):
+        """Return all available handlers"""
         return self.handlers
 
     def trace(self, msg):

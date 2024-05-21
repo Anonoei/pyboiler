@@ -11,9 +11,7 @@ from src.pyboiler.config import config
 
 def run(cmd: str, quiet: bool = False):
     print(f"Running '{cmd}'")
-    proc = subprocess.getoutput(cmd)
-    if not quiet:
-        print(proc)
+    os.system(cmd)
 
 
 def main():
