@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>pyboiler.color API documentation</title>
+<title>pyboiler.internal.log.queue API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,15 +19,54 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyboiler.color</code></h1>
+<h1 class="title">Module <code>pyboiler.internal.log.queue</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .internal.color.colors import FG, Fore, Foreground, BG, Back, Background, ST, Style
-from .internal.color.parse import Formatter</code></pre>
+<pre><code class="python">import queue as que
+import threading
+
+
+class _Queue:
+    __slots__ = (&#34;queue&#34;, &#34;thread&#34;)
+
+    def __init__(self):
+        self.queue = que.Queue()
+        self.thread = threading.Thread(target=self._main, daemon=True)
+        self.thread.start()
+
+    def _main(self):
+        while True:
+            handlers = self.queue.get()
+            if handlers is None:
+                break
+            for handler in handlers:
+                handler()
+
+    def stop(self):
+        self.queue.put_nowait(None)
+        self.queue.join()
+
+
+class Queue:
+    __instance = None
+    __slots__ = &#34;_queue&#34;
+
+    def __new__(cls):
+        if cls.__instance is None:
+            inst = object.__new__(cls)
+            inst._queue = _Queue()
+            cls.__instance = inst
+        return cls.__instance
+
+    def stop(self):
+        self._queue.stop()
+
+    def add(self, handlers: list):
+        self._queue.queue.put_nowait(handlers)</code></pre>
 </details>
 </section>
 <section>
@@ -37,6 +76,65 @@ from .internal.color.parse import Formatter</code></pre>
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyboiler.internal.log.queue.Queue"><code class="flex name class">
+<span>class <span class="ident">Queue</span></span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Queue:
+    __instance = None
+    __slots__ = &#34;_queue&#34;
+
+    def __new__(cls):
+        if cls.__instance is None:
+            inst = object.__new__(cls)
+            inst._queue = _Queue()
+            cls.__instance = inst
+        return cls.__instance
+
+    def stop(self):
+        self._queue.stop()
+
+    def add(self, handlers: list):
+        self._queue.queue.put_nowait(handlers)</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="pyboiler.internal.log.queue.Queue.add"><code class="name flex">
+<span>def <span class="ident">add</span></span>(<span>self, handlers: list)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add(self, handlers: list):
+    self._queue.queue.put_nowait(handlers)</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.internal.log.queue.Queue.stop"><code class="name flex">
+<span>def <span class="ident">stop</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stop(self):
+    self._queue.stop()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -47,7 +145,18 @@ from .internal.color.parse import Formatter</code></pre>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyboiler" href="index.html">pyboiler</a></code></li>
+<li><code><a title="pyboiler.internal.log" href="index.html">pyboiler.internal.log</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyboiler.internal.log.queue.Queue" href="#pyboiler.internal.log.queue.Queue">Queue</a></code></h4>
+<ul class="">
+<li><code><a title="pyboiler.internal.log.queue.Queue.add" href="#pyboiler.internal.log.queue.Queue.add">add</a></code></li>
+<li><code><a title="pyboiler.internal.log.queue.Queue.stop" href="#pyboiler.internal.log.queue.Queue.stop">stop</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

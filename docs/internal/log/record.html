@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>pyboiler.color API documentation</title>
-<meta name="description" content="" />
+<title>pyboiler.internal.log.record API documentation</title>
+<meta name="description" content="Wrap python.logging.LogRecord" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -19,15 +19,34 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyboiler.color</code></h1>
+<h1 class="title">Module <code>pyboiler.internal.log.record</code></h1>
 </header>
 <section id="section-intro">
+<p>Wrap python.logging.LogRecord</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .internal.color.colors import FG, Fore, Foreground, BG, Back, Background, ST, Style
-from .internal.color.parse import Formatter</code></pre>
+<pre><code class="python">&#34;&#34;&#34;Wrap python.logging.LogRecord&#34;&#34;&#34;
+
+import datetime as dt
+
+from ...generic import slot_storage
+from .inspect import meta
+from .level import Level
+
+
+class Record(slot_storage):
+    &#34;&#34;&#34;A LogRecord instance represents an event being logged.&#34;&#34;&#34;
+
+    __slots__ = (&#34;name&#34;, &#34;level&#34;, &#34;msg&#34;, &#34;time&#34;, &#34;meta&#34;)
+
+    def __init__(self, name: str, level: Level, msg: str, depth: int):
+        self.name = name
+        self.level = level
+        self.msg = msg
+        self.time = dt.datetime.now()
+        self.meta = meta(depth)</code></pre>
 </details>
 </section>
 <section>
@@ -37,6 +56,68 @@ from .internal.color.parse import Formatter</code></pre>
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyboiler.internal.log.record.Record"><code class="flex name class">
+<span>class <span class="ident">Record</span></span>
+<span>(</span><span>name: str, level: <a title="pyboiler.internal.log.level.Level" href="level.html#pyboiler.internal.log.level.Level">Level</a>, msg: str, depth: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>A LogRecord instance represents an event being logged.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Record(slot_storage):
+    &#34;&#34;&#34;A LogRecord instance represents an event being logged.&#34;&#34;&#34;
+
+    __slots__ = (&#34;name&#34;, &#34;level&#34;, &#34;msg&#34;, &#34;time&#34;, &#34;meta&#34;)
+
+    def __init__(self, name: str, level: Level, msg: str, depth: int):
+        self.name = name
+        self.level = level
+        self.msg = msg
+        self.time = dt.datetime.now()
+        self.meta = meta(depth)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.generic.slot_storage" href="../../generic.html#pyboiler.generic.slot_storage">slot_storage</a></li>
+<li><a title="pyboiler.generic.pyboiler_generic" href="../../generic.html#pyboiler.generic.pyboiler_generic">pyboiler_generic</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyboiler.internal.log.record.Record.level"><code class="name">var <span class="ident">level</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pyboiler.internal.log.record.Record.meta"><code class="name">var <span class="ident">meta</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pyboiler.internal.log.record.Record.msg"><code class="name">var <span class="ident">msg</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pyboiler.internal.log.record.Record.name"><code class="name">var <span class="ident">name</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pyboiler.internal.log.record.Record.time"><code class="name">var <span class="ident">time</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyboiler.generic.slot_storage" href="../../generic.html#pyboiler.generic.slot_storage">slot_storage</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyboiler.generic.slot_storage.json" href="../../generic.html#pyboiler.generic.pyboiler_generic.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -47,7 +128,21 @@ from .internal.color.parse import Formatter</code></pre>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyboiler" href="index.html">pyboiler</a></code></li>
+<li><code><a title="pyboiler.internal.log" href="index.html">pyboiler.internal.log</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyboiler.internal.log.record.Record" href="#pyboiler.internal.log.record.Record">Record</a></code></h4>
+<ul class="">
+<li><code><a title="pyboiler.internal.log.record.Record.level" href="#pyboiler.internal.log.record.Record.level">level</a></code></li>
+<li><code><a title="pyboiler.internal.log.record.Record.meta" href="#pyboiler.internal.log.record.Record.meta">meta</a></code></li>
+<li><code><a title="pyboiler.internal.log.record.Record.msg" href="#pyboiler.internal.log.record.Record.msg">msg</a></code></li>
+<li><code><a title="pyboiler.internal.log.record.Record.name" href="#pyboiler.internal.log.record.Record.name">name</a></code></li>
+<li><code><a title="pyboiler.internal.log.record.Record.time" href="#pyboiler.internal.log.record.Record.time">time</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

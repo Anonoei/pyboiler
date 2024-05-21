@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>pyboiler.color API documentation</title>
+<title>pyboiler.internal.color.config API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,15 +19,27 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyboiler.color</code></h1>
+<h1 class="title">Module <code>pyboiler.internal.color.config</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .internal.color.colors import FG, Fore, Foreground, BG, Back, Background, ST, Style
-from .internal.color.parse import Formatter</code></pre>
+<pre><code class="python">import re
+
+from ...generic import storage
+
+__init = False
+
+if not __init:
+    __init = True
+    config = storage()
+    config.TAG_START = &#34;&lt;c&#34;
+    config.TAG_END = &#34;&gt;&#34;
+    config.TAG_RE = re.compile(
+        config.TAG_START + r&#34;\w+&#34; + config.TAG_END, re.IGNORECASE
+    )</code></pre>
 </details>
 </section>
 <section>
@@ -47,7 +59,7 @@ from .internal.color.parse import Formatter</code></pre>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyboiler" href="index.html">pyboiler</a></code></li>
+<li><code><a title="pyboiler.internal.color" href="index.html">pyboiler.internal.color</a></code></li>
 </ul>
 </li>
 </ul>

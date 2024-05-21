@@ -29,7 +29,7 @@
 </summary>
 <pre><code class="python">&#34;&#34;&#34;Threaded logger with color support&#34;&#34;&#34;
 
-from ._internal.log import Handler, Level, Record, handlers
+from .internal.log import Handler, Level, Record, handlers
 
 
 class logging:
@@ -340,7 +340,7 @@ def level(self):
 </details>
 </dd>
 <dt id="pyboiler.logging.logging.handle"><code class="name flex">
-<span>def <span class="ident">handle</span></span>(<span>self, record: pyboiler._internal.log.record.Record)</span>
+<span>def <span class="ident">handle</span></span>(<span>self, record: <a title="pyboiler.internal.log.record.Record" href="internal/log/record.html#pyboiler.internal.log.record.Record">Record</a>)</span>
 </code></dt>
 <dd>
 <div class="desc"></div>
@@ -370,7 +370,7 @@ def level(self):
 </details>
 </dd>
 <dt id="pyboiler.logging.logging.log"><code class="name flex">
-<span>def <span class="ident">log</span></span>(<span>self, lvl: pyboiler._internal.log.level.Level, msg: str)</span>
+<span>def <span class="ident">log</span></span>(<span>self, lvl: <a title="pyboiler.internal.log.level.Level" href="internal/log/level.html#pyboiler.internal.log.level.Level">Level</a>, msg: str)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>This probably shouldn't be used in your code</p></div>

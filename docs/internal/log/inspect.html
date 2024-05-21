@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>pyboiler.color API documentation</title>
+<title>pyboiler.internal.log.inspect API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,15 +19,43 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>pyboiler.color</code></h1>
+<h1 class="title">Module <code>pyboiler.internal.log.inspect</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .internal.color.colors import FG, Fore, Foreground, BG, Back, Background, ST, Style
-from .internal.color.parse import Formatter</code></pre>
+<pre><code class="python">import inspect
+import pathlib
+
+from ...generic import slot_storage
+
+
+class MetaWrapper(slot_storage):
+    __slots__ = (&#34;filepath&#34;, &#34;line&#34;, &#34;func&#34;)
+
+    def __init__(self, fr: inspect.FrameInfo):
+        self.filepath = pathlib.Path(fr.filename)
+        self.line = fr.lineno
+        self.func = fr.function
+
+
+def stack():
+    depth = 0
+    stack = inspect.stack()
+    for item in stack:
+        if item.filename == __file__:
+            depth += 1
+    return inspect.stack()[depth:]
+
+
+def frame(depth=0) -&gt; inspect.FrameInfo:
+    return stack()[depth]
+
+
+def meta(depth=0):
+    return MetaWrapper(frame(depth))</code></pre>
 </details>
 </section>
 <section>
@@ -35,8 +63,105 @@ from .internal.color.parse import Formatter</code></pre>
 <section>
 </section>
 <section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="pyboiler.internal.log.inspect.frame"><code class="name flex">
+<span>def <span class="ident">frame</span></span>(<span>depth=0) ‑> inspect.FrameInfo</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def frame(depth=0) -&gt; inspect.FrameInfo:
+    return stack()[depth]</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.internal.log.inspect.meta"><code class="name flex">
+<span>def <span class="ident">meta</span></span>(<span>depth=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def meta(depth=0):
+    return MetaWrapper(frame(depth))</code></pre>
+</details>
+</dd>
+<dt id="pyboiler.internal.log.inspect.stack"><code class="name flex">
+<span>def <span class="ident">stack</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stack():
+    depth = 0
+    stack = inspect.stack()
+    for item in stack:
+        if item.filename == __file__:
+            depth += 1
+    return inspect.stack()[depth:]</code></pre>
+</details>
+</dd>
+</dl>
 </section>
 <section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyboiler.internal.log.inspect.MetaWrapper"><code class="flex name class">
+<span>class <span class="ident">MetaWrapper</span></span>
+<span>(</span><span>fr: inspect.FrameInfo)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Children of this class must have <strong>slots</strong> defined</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class MetaWrapper(slot_storage):
+    __slots__ = (&#34;filepath&#34;, &#34;line&#34;, &#34;func&#34;)
+
+    def __init__(self, fr: inspect.FrameInfo):
+        self.filepath = pathlib.Path(fr.filename)
+        self.line = fr.lineno
+        self.func = fr.function</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.generic.slot_storage" href="../../generic.html#pyboiler.generic.slot_storage">slot_storage</a></li>
+<li><a title="pyboiler.generic.pyboiler_generic" href="../../generic.html#pyboiler.generic.pyboiler_generic">pyboiler_generic</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyboiler.internal.log.inspect.MetaWrapper.filepath"><code class="name">var <span class="ident">filepath</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pyboiler.internal.log.inspect.MetaWrapper.func"><code class="name">var <span class="ident">func</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pyboiler.internal.log.inspect.MetaWrapper.line"><code class="name">var <span class="ident">line</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyboiler.generic.slot_storage" href="../../generic.html#pyboiler.generic.slot_storage">slot_storage</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyboiler.generic.slot_storage.json" href="../../generic.html#pyboiler.generic.pyboiler_generic.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
 </section>
 </article>
 <nav id="sidebar">
@@ -47,7 +172,26 @@ from .internal.color.parse import Formatter</code></pre>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyboiler" href="index.html">pyboiler</a></code></li>
+<li><code><a title="pyboiler.internal.log" href="index.html">pyboiler.internal.log</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pyboiler.internal.log.inspect.frame" href="#pyboiler.internal.log.inspect.frame">frame</a></code></li>
+<li><code><a title="pyboiler.internal.log.inspect.meta" href="#pyboiler.internal.log.inspect.meta">meta</a></code></li>
+<li><code><a title="pyboiler.internal.log.inspect.stack" href="#pyboiler.internal.log.inspect.stack">stack</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyboiler.internal.log.inspect.MetaWrapper" href="#pyboiler.internal.log.inspect.MetaWrapper">MetaWrapper</a></code></h4>
+<ul class="">
+<li><code><a title="pyboiler.internal.log.inspect.MetaWrapper.filepath" href="#pyboiler.internal.log.inspect.MetaWrapper.filepath">filepath</a></code></li>
+<li><code><a title="pyboiler.internal.log.inspect.MetaWrapper.func" href="#pyboiler.internal.log.inspect.MetaWrapper.func">func</a></code></li>
+<li><code><a title="pyboiler.internal.log.inspect.MetaWrapper.line" href="#pyboiler.internal.log.inspect.MetaWrapper.line">line</a></code></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>

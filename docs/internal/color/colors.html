@@ -1,0 +1,2758 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>pyboiler.internal.color.colors API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>pyboiler.internal.color.colors</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from enum import Enum, unique
+import re
+from typing import Any
+
+from .config import config
+from ...generic import slot_storage
+
+
+class ColorWrapper(slot_storage):
+    __slots__ = (&#34;idx&#34;, &#34;tag&#34;, &#34;val&#34;)
+
+    def __init__(self, idx: int, tag: str, val: Any = None):
+        self.idx: int
+        self.tag = tag
+        self.val = val
+
+    def __str__(self) -&gt; str:
+        return f&#34;{type(self).__name__} tag: {self.tag}&#34;
+
+
+@unique
+class ColorEnum(Enum):
+    &#34;&#34;&#34;Base color enum class&#34;&#34;&#34;
+
+    def code(self):
+        return f&#34;\033[{self.value}m&#34;
+
+
+class Style(ColorEnum):
+    &#34;&#34;&#34;Style codes&#34;&#34;&#34;
+
+    r = RESET = 0
+    b = BOLD = 1
+    d = DIM = 2
+    i = ITALIC = 3
+    u = UNDERLINE = 4
+    l = BLINK = 5
+    v = REVERSE = 7
+    h = HIDE = 8
+    s = STRIKE = 9
+    n = NORMAL = 22
+
+
+S = ST = Style
+
+
+class Foreground(ColorEnum):
+    &#34;&#34;&#34;Foreground codes&#34;&#34;&#34;
+
+    RESET = 39
+
+    b = BLACK = 30
+    r = RED = 31
+    g = GREEN = 32
+    y = YELLOW = 33
+    e = BLUE = 34
+    m = MAGENTA = 35
+    c = CYAN = 36
+    w = WHITE = 37
+
+    lb = L_BLACK = LIGHT_BLACK = 90
+    lr = L_RED = LIGHT_RED = 91
+    lg = L_GREEN = LIGHT_GREEN = 92
+    ly = L_YELLOW = LIGHT_YELLOW = 93
+    le = L_BLUE = LIGHT_BLUE = 94
+    lm = L_MAGENTA = LIGHT_MAGENTA = 95
+    lc = L_CYAN = LIGHT_CYAN = 96
+    lw = L_WHITE = LIGHT_WHITE = 97
+
+
+F = FG = Fore = Foreground
+
+
+class Background(ColorEnum):
+    &#34;&#34;&#34;Background codes&#34;&#34;&#34;
+
+    RESET = 49
+
+    b = BLACK = 40
+    r = RED = 41
+    g = GREEN = 42
+    y = YELLOW = 43
+    e = BLUE = 44
+    m = MAGENTA = 45
+    c = CYAN = 46
+    w = WHITE = 47
+
+    lb = L_BLACK = LIGHT_BLACK = 100
+    lr = L_RED = LIGHT_RED = 101
+    lg = L_GREEN = LIGHT_GREEN = 102
+    ly = L_YELLOW = LIGHT_YELLOW = 103
+    le = L_BLUE = LIGHT_BLUE = 104
+    lm = L_MAGENTA = LIGHT_MAGENTA = 105
+    lc = L_CYAN = LIGHT_CYAN = 106
+    lw = L_WHITE = LIGHT_WHITE = 107
+
+
+B = BG = Back = Background
+
+
+def parse(string: str):
+    raw_tags = re.findall(config.TAG_RE, string)
+    tags = []
+    for idx, item in enumerate(raw_tags):
+        tag_type = item[2]
+        tag = item[3:-1]
+        val = None
+        if tag_type in (&#34;s&#34;, &#34;S&#34;):
+            val = Style[tag].code()
+        elif tag_type in (&#34;f&#34;, &#34;F&#34;):
+            val = Foreground[tag].code()
+        elif tag_type in (&#34;b&#34;, &#34;B&#34;):
+            val = Background[tag].code()
+        else:
+            raise Exception(f&#34;Unknown tag type {tag_type}&#34;)
+        wrap = ColorWrapper(idx, item, val)
+        tags.append(wrap)
+    return tags</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="pyboiler.internal.color.colors.parse"><code class="name flex">
+<span>def <span class="ident">parse</span></span>(<span>string: str)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def parse(string: str):
+    raw_tags = re.findall(config.TAG_RE, string)
+    tags = []
+    for idx, item in enumerate(raw_tags):
+        tag_type = item[2]
+        tag = item[3:-1]
+        val = None
+        if tag_type in (&#34;s&#34;, &#34;S&#34;):
+            val = Style[tag].code()
+        elif tag_type in (&#34;f&#34;, &#34;F&#34;):
+            val = Foreground[tag].code()
+        elif tag_type in (&#34;b&#34;, &#34;B&#34;):
+            val = Background[tag].code()
+        else:
+            raise Exception(f&#34;Unknown tag type {tag_type}&#34;)
+        wrap = ColorWrapper(idx, item, val)
+        tags.append(wrap)
+    return tags</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="pyboiler.internal.color.colors.Background"><code class="flex name class">
+<span>class <span class="ident">Background</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Background codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Background(ColorEnum):
+    &#34;&#34;&#34;Background codes&#34;&#34;&#34;
+
+    RESET = 49
+
+    b = BLACK = 40
+    r = RED = 41
+    g = GREEN = 42
+    y = YELLOW = 43
+    e = BLUE = 44
+    m = MAGENTA = 45
+    c = CYAN = 46
+    w = WHITE = 47
+
+    lb = L_BLACK = LIGHT_BLACK = 100
+    lr = L_RED = LIGHT_RED = 101
+    lg = L_GREEN = LIGHT_GREEN = 102
+    ly = L_YELLOW = LIGHT_YELLOW = 103
+    le = L_BLUE = LIGHT_BLUE = 104
+    lm = L_MAGENTA = LIGHT_MAGENTA = 105
+    lc = L_CYAN = LIGHT_CYAN = 106
+    lw = L_WHITE = LIGHT_WHITE = 107</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Background.BLACK"><code class="name">var <span class="ident">BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.BLUE"><code class="name">var <span class="ident">BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.CYAN"><code class="name">var <span class="ident">CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.GREEN"><code class="name">var <span class="ident">GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_BLACK"><code class="name">var <span class="ident">LIGHT_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_BLUE"><code class="name">var <span class="ident">LIGHT_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_CYAN"><code class="name">var <span class="ident">LIGHT_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_GREEN"><code class="name">var <span class="ident">LIGHT_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_MAGENTA"><code class="name">var <span class="ident">LIGHT_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_RED"><code class="name">var <span class="ident">LIGHT_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_WHITE"><code class="name">var <span class="ident">LIGHT_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_YELLOW"><code class="name">var <span class="ident">LIGHT_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_BLACK"><code class="name">var <span class="ident">L_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_BLUE"><code class="name">var <span class="ident">L_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_CYAN"><code class="name">var <span class="ident">L_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_GREEN"><code class="name">var <span class="ident">L_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_MAGENTA"><code class="name">var <span class="ident">L_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_RED"><code class="name">var <span class="ident">L_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_WHITE"><code class="name">var <span class="ident">L_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_YELLOW"><code class="name">var <span class="ident">L_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.MAGENTA"><code class="name">var <span class="ident">MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.RED"><code class="name">var <span class="ident">RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.WHITE"><code class="name">var <span class="ident">WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.YELLOW"><code class="name">var <span class="ident">YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.c"><code class="name">var <span class="ident">c</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.e"><code class="name">var <span class="ident">e</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.g"><code class="name">var <span class="ident">g</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lb"><code class="name">var <span class="ident">lb</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lc"><code class="name">var <span class="ident">lc</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.le"><code class="name">var <span class="ident">le</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lg"><code class="name">var <span class="ident">lg</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lm"><code class="name">var <span class="ident">lm</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lr"><code class="name">var <span class="ident">lr</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lw"><code class="name">var <span class="ident">lw</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.ly"><code class="name">var <span class="ident">ly</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.m"><code class="name">var <span class="ident">m</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.w"><code class="name">var <span class="ident">w</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.y"><code class="name">var <span class="ident">y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background"><code class="flex name class">
+<span>class <span class="ident">B</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Background codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Background(ColorEnum):
+    &#34;&#34;&#34;Background codes&#34;&#34;&#34;
+
+    RESET = 49
+
+    b = BLACK = 40
+    r = RED = 41
+    g = GREEN = 42
+    y = YELLOW = 43
+    e = BLUE = 44
+    m = MAGENTA = 45
+    c = CYAN = 46
+    w = WHITE = 47
+
+    lb = L_BLACK = LIGHT_BLACK = 100
+    lr = L_RED = LIGHT_RED = 101
+    lg = L_GREEN = LIGHT_GREEN = 102
+    ly = L_YELLOW = LIGHT_YELLOW = 103
+    le = L_BLUE = LIGHT_BLUE = 104
+    lm = L_MAGENTA = LIGHT_MAGENTA = 105
+    lc = L_CYAN = LIGHT_CYAN = 106
+    lw = L_WHITE = LIGHT_WHITE = 107</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Background.BLACK"><code class="name">var <span class="ident">BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.BLUE"><code class="name">var <span class="ident">BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.CYAN"><code class="name">var <span class="ident">CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.GREEN"><code class="name">var <span class="ident">GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_BLACK"><code class="name">var <span class="ident">LIGHT_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_BLUE"><code class="name">var <span class="ident">LIGHT_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_CYAN"><code class="name">var <span class="ident">LIGHT_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_GREEN"><code class="name">var <span class="ident">LIGHT_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_MAGENTA"><code class="name">var <span class="ident">LIGHT_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_RED"><code class="name">var <span class="ident">LIGHT_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_WHITE"><code class="name">var <span class="ident">LIGHT_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_YELLOW"><code class="name">var <span class="ident">LIGHT_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_BLACK"><code class="name">var <span class="ident">L_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_BLUE"><code class="name">var <span class="ident">L_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_CYAN"><code class="name">var <span class="ident">L_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_GREEN"><code class="name">var <span class="ident">L_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_MAGENTA"><code class="name">var <span class="ident">L_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_RED"><code class="name">var <span class="ident">L_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_WHITE"><code class="name">var <span class="ident">L_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_YELLOW"><code class="name">var <span class="ident">L_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.MAGENTA"><code class="name">var <span class="ident">MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.RED"><code class="name">var <span class="ident">RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.WHITE"><code class="name">var <span class="ident">WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.YELLOW"><code class="name">var <span class="ident">YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.c"><code class="name">var <span class="ident">c</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.e"><code class="name">var <span class="ident">e</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.g"><code class="name">var <span class="ident">g</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lb"><code class="name">var <span class="ident">lb</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lc"><code class="name">var <span class="ident">lc</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.le"><code class="name">var <span class="ident">le</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lg"><code class="name">var <span class="ident">lg</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lm"><code class="name">var <span class="ident">lm</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lr"><code class="name">var <span class="ident">lr</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lw"><code class="name">var <span class="ident">lw</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.ly"><code class="name">var <span class="ident">ly</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.m"><code class="name">var <span class="ident">m</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.w"><code class="name">var <span class="ident">w</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.y"><code class="name">var <span class="ident">y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background"><code class="flex name class">
+<span>class <span class="ident">BG</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Background codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Background(ColorEnum):
+    &#34;&#34;&#34;Background codes&#34;&#34;&#34;
+
+    RESET = 49
+
+    b = BLACK = 40
+    r = RED = 41
+    g = GREEN = 42
+    y = YELLOW = 43
+    e = BLUE = 44
+    m = MAGENTA = 45
+    c = CYAN = 46
+    w = WHITE = 47
+
+    lb = L_BLACK = LIGHT_BLACK = 100
+    lr = L_RED = LIGHT_RED = 101
+    lg = L_GREEN = LIGHT_GREEN = 102
+    ly = L_YELLOW = LIGHT_YELLOW = 103
+    le = L_BLUE = LIGHT_BLUE = 104
+    lm = L_MAGENTA = LIGHT_MAGENTA = 105
+    lc = L_CYAN = LIGHT_CYAN = 106
+    lw = L_WHITE = LIGHT_WHITE = 107</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Background.BLACK"><code class="name">var <span class="ident">BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.BLUE"><code class="name">var <span class="ident">BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.CYAN"><code class="name">var <span class="ident">CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.GREEN"><code class="name">var <span class="ident">GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_BLACK"><code class="name">var <span class="ident">LIGHT_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_BLUE"><code class="name">var <span class="ident">LIGHT_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_CYAN"><code class="name">var <span class="ident">LIGHT_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_GREEN"><code class="name">var <span class="ident">LIGHT_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_MAGENTA"><code class="name">var <span class="ident">LIGHT_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_RED"><code class="name">var <span class="ident">LIGHT_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_WHITE"><code class="name">var <span class="ident">LIGHT_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_YELLOW"><code class="name">var <span class="ident">LIGHT_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_BLACK"><code class="name">var <span class="ident">L_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_BLUE"><code class="name">var <span class="ident">L_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_CYAN"><code class="name">var <span class="ident">L_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_GREEN"><code class="name">var <span class="ident">L_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_MAGENTA"><code class="name">var <span class="ident">L_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_RED"><code class="name">var <span class="ident">L_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_WHITE"><code class="name">var <span class="ident">L_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_YELLOW"><code class="name">var <span class="ident">L_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.MAGENTA"><code class="name">var <span class="ident">MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.RED"><code class="name">var <span class="ident">RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.WHITE"><code class="name">var <span class="ident">WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.YELLOW"><code class="name">var <span class="ident">YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.c"><code class="name">var <span class="ident">c</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.e"><code class="name">var <span class="ident">e</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.g"><code class="name">var <span class="ident">g</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lb"><code class="name">var <span class="ident">lb</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lc"><code class="name">var <span class="ident">lc</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.le"><code class="name">var <span class="ident">le</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lg"><code class="name">var <span class="ident">lg</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lm"><code class="name">var <span class="ident">lm</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lr"><code class="name">var <span class="ident">lr</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lw"><code class="name">var <span class="ident">lw</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.ly"><code class="name">var <span class="ident">ly</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.m"><code class="name">var <span class="ident">m</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.w"><code class="name">var <span class="ident">w</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.y"><code class="name">var <span class="ident">y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background"><code class="flex name class">
+<span>class <span class="ident">Back</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Background codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Background(ColorEnum):
+    &#34;&#34;&#34;Background codes&#34;&#34;&#34;
+
+    RESET = 49
+
+    b = BLACK = 40
+    r = RED = 41
+    g = GREEN = 42
+    y = YELLOW = 43
+    e = BLUE = 44
+    m = MAGENTA = 45
+    c = CYAN = 46
+    w = WHITE = 47
+
+    lb = L_BLACK = LIGHT_BLACK = 100
+    lr = L_RED = LIGHT_RED = 101
+    lg = L_GREEN = LIGHT_GREEN = 102
+    ly = L_YELLOW = LIGHT_YELLOW = 103
+    le = L_BLUE = LIGHT_BLUE = 104
+    lm = L_MAGENTA = LIGHT_MAGENTA = 105
+    lc = L_CYAN = LIGHT_CYAN = 106
+    lw = L_WHITE = LIGHT_WHITE = 107</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Background.BLACK"><code class="name">var <span class="ident">BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.BLUE"><code class="name">var <span class="ident">BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.CYAN"><code class="name">var <span class="ident">CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.GREEN"><code class="name">var <span class="ident">GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_BLACK"><code class="name">var <span class="ident">LIGHT_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_BLUE"><code class="name">var <span class="ident">LIGHT_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_CYAN"><code class="name">var <span class="ident">LIGHT_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_GREEN"><code class="name">var <span class="ident">LIGHT_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_MAGENTA"><code class="name">var <span class="ident">LIGHT_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_RED"><code class="name">var <span class="ident">LIGHT_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_WHITE"><code class="name">var <span class="ident">LIGHT_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.LIGHT_YELLOW"><code class="name">var <span class="ident">LIGHT_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_BLACK"><code class="name">var <span class="ident">L_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_BLUE"><code class="name">var <span class="ident">L_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_CYAN"><code class="name">var <span class="ident">L_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_GREEN"><code class="name">var <span class="ident">L_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_MAGENTA"><code class="name">var <span class="ident">L_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_RED"><code class="name">var <span class="ident">L_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_WHITE"><code class="name">var <span class="ident">L_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.L_YELLOW"><code class="name">var <span class="ident">L_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.MAGENTA"><code class="name">var <span class="ident">MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.RED"><code class="name">var <span class="ident">RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.WHITE"><code class="name">var <span class="ident">WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.YELLOW"><code class="name">var <span class="ident">YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.c"><code class="name">var <span class="ident">c</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.e"><code class="name">var <span class="ident">e</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.g"><code class="name">var <span class="ident">g</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lb"><code class="name">var <span class="ident">lb</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lc"><code class="name">var <span class="ident">lc</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.le"><code class="name">var <span class="ident">le</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lg"><code class="name">var <span class="ident">lg</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lm"><code class="name">var <span class="ident">lm</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lr"><code class="name">var <span class="ident">lr</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.lw"><code class="name">var <span class="ident">lw</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.ly"><code class="name">var <span class="ident">ly</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.m"><code class="name">var <span class="ident">m</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.w"><code class="name">var <span class="ident">w</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Background.y"><code class="name">var <span class="ident">y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.ColorEnum"><code class="flex name class">
+<span>class <span class="ident">ColorEnum</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base color enum class</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@unique
+class ColorEnum(Enum):
+    &#34;&#34;&#34;Base color enum class&#34;&#34;&#34;
+
+    def code(self):
+        return f&#34;\033[{self.value}m&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.Background" href="#pyboiler.internal.color.colors.Background">Background</a></li>
+<li><a title="pyboiler.internal.color.colors.Foreground" href="#pyboiler.internal.color.colors.Foreground">Foreground</a></li>
+<li><a title="pyboiler.internal.color.colors.Style" href="#pyboiler.internal.color.colors.Style">Style</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.ColorEnum.code"><code class="name flex">
+<span>def <span class="ident">code</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def code(self):
+    return f&#34;\033[{self.value}m&#34;</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.ColorWrapper"><code class="flex name class">
+<span>class <span class="ident">ColorWrapper</span></span>
+<span>(</span><span>idx: int, tag: str, val: Any = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Children of this class must have <strong>slots</strong> defined</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ColorWrapper(slot_storage):
+    __slots__ = (&#34;idx&#34;, &#34;tag&#34;, &#34;val&#34;)
+
+    def __init__(self, idx: int, tag: str, val: Any = None):
+        self.idx: int
+        self.tag = tag
+        self.val = val
+
+    def __str__(self) -&gt; str:
+        return f&#34;{type(self).__name__} tag: {self.tag}&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.generic.slot_storage" href="../../generic.html#pyboiler.generic.slot_storage">slot_storage</a></li>
+<li><a title="pyboiler.generic.pyboiler_generic" href="../../generic.html#pyboiler.generic.pyboiler_generic">pyboiler_generic</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.ColorWrapper.idx"><code class="name">var <span class="ident">idx</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.ColorWrapper.tag"><code class="name">var <span class="ident">tag</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.ColorWrapper.val"><code class="name">var <span class="ident">val</span></code></dt>
+<dd>
+<div class="desc"><p>Return an attribute of instance, which is of type owner.</p></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="pyboiler.generic.slot_storage" href="../../generic.html#pyboiler.generic.slot_storage">slot_storage</a></b></code>:
+<ul class="hlist">
+<li><code><a title="pyboiler.generic.slot_storage.json" href="../../generic.html#pyboiler.generic.pyboiler_generic.json">json</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground"><code class="flex name class">
+<span>class <span class="ident">Foreground</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Foreground codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Foreground(ColorEnum):
+    &#34;&#34;&#34;Foreground codes&#34;&#34;&#34;
+
+    RESET = 39
+
+    b = BLACK = 30
+    r = RED = 31
+    g = GREEN = 32
+    y = YELLOW = 33
+    e = BLUE = 34
+    m = MAGENTA = 35
+    c = CYAN = 36
+    w = WHITE = 37
+
+    lb = L_BLACK = LIGHT_BLACK = 90
+    lr = L_RED = LIGHT_RED = 91
+    lg = L_GREEN = LIGHT_GREEN = 92
+    ly = L_YELLOW = LIGHT_YELLOW = 93
+    le = L_BLUE = LIGHT_BLUE = 94
+    lm = L_MAGENTA = LIGHT_MAGENTA = 95
+    lc = L_CYAN = LIGHT_CYAN = 96
+    lw = L_WHITE = LIGHT_WHITE = 97</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Foreground.BLACK"><code class="name">var <span class="ident">BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.BLUE"><code class="name">var <span class="ident">BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.CYAN"><code class="name">var <span class="ident">CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.GREEN"><code class="name">var <span class="ident">GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_BLACK"><code class="name">var <span class="ident">LIGHT_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_BLUE"><code class="name">var <span class="ident">LIGHT_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_CYAN"><code class="name">var <span class="ident">LIGHT_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_GREEN"><code class="name">var <span class="ident">LIGHT_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA"><code class="name">var <span class="ident">LIGHT_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_RED"><code class="name">var <span class="ident">LIGHT_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_WHITE"><code class="name">var <span class="ident">LIGHT_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW"><code class="name">var <span class="ident">LIGHT_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_BLACK"><code class="name">var <span class="ident">L_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_BLUE"><code class="name">var <span class="ident">L_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_CYAN"><code class="name">var <span class="ident">L_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_GREEN"><code class="name">var <span class="ident">L_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_MAGENTA"><code class="name">var <span class="ident">L_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_RED"><code class="name">var <span class="ident">L_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_WHITE"><code class="name">var <span class="ident">L_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_YELLOW"><code class="name">var <span class="ident">L_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.MAGENTA"><code class="name">var <span class="ident">MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.RED"><code class="name">var <span class="ident">RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.WHITE"><code class="name">var <span class="ident">WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.YELLOW"><code class="name">var <span class="ident">YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.c"><code class="name">var <span class="ident">c</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.e"><code class="name">var <span class="ident">e</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.g"><code class="name">var <span class="ident">g</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lb"><code class="name">var <span class="ident">lb</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lc"><code class="name">var <span class="ident">lc</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.le"><code class="name">var <span class="ident">le</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lg"><code class="name">var <span class="ident">lg</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lm"><code class="name">var <span class="ident">lm</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lr"><code class="name">var <span class="ident">lr</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lw"><code class="name">var <span class="ident">lw</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.ly"><code class="name">var <span class="ident">ly</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.m"><code class="name">var <span class="ident">m</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.w"><code class="name">var <span class="ident">w</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.y"><code class="name">var <span class="ident">y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground"><code class="flex name class">
+<span>class <span class="ident">F</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Foreground codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Foreground(ColorEnum):
+    &#34;&#34;&#34;Foreground codes&#34;&#34;&#34;
+
+    RESET = 39
+
+    b = BLACK = 30
+    r = RED = 31
+    g = GREEN = 32
+    y = YELLOW = 33
+    e = BLUE = 34
+    m = MAGENTA = 35
+    c = CYAN = 36
+    w = WHITE = 37
+
+    lb = L_BLACK = LIGHT_BLACK = 90
+    lr = L_RED = LIGHT_RED = 91
+    lg = L_GREEN = LIGHT_GREEN = 92
+    ly = L_YELLOW = LIGHT_YELLOW = 93
+    le = L_BLUE = LIGHT_BLUE = 94
+    lm = L_MAGENTA = LIGHT_MAGENTA = 95
+    lc = L_CYAN = LIGHT_CYAN = 96
+    lw = L_WHITE = LIGHT_WHITE = 97</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Foreground.BLACK"><code class="name">var <span class="ident">BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.BLUE"><code class="name">var <span class="ident">BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.CYAN"><code class="name">var <span class="ident">CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.GREEN"><code class="name">var <span class="ident">GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_BLACK"><code class="name">var <span class="ident">LIGHT_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_BLUE"><code class="name">var <span class="ident">LIGHT_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_CYAN"><code class="name">var <span class="ident">LIGHT_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_GREEN"><code class="name">var <span class="ident">LIGHT_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA"><code class="name">var <span class="ident">LIGHT_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_RED"><code class="name">var <span class="ident">LIGHT_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_WHITE"><code class="name">var <span class="ident">LIGHT_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW"><code class="name">var <span class="ident">LIGHT_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_BLACK"><code class="name">var <span class="ident">L_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_BLUE"><code class="name">var <span class="ident">L_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_CYAN"><code class="name">var <span class="ident">L_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_GREEN"><code class="name">var <span class="ident">L_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_MAGENTA"><code class="name">var <span class="ident">L_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_RED"><code class="name">var <span class="ident">L_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_WHITE"><code class="name">var <span class="ident">L_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_YELLOW"><code class="name">var <span class="ident">L_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.MAGENTA"><code class="name">var <span class="ident">MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.RED"><code class="name">var <span class="ident">RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.WHITE"><code class="name">var <span class="ident">WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.YELLOW"><code class="name">var <span class="ident">YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.c"><code class="name">var <span class="ident">c</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.e"><code class="name">var <span class="ident">e</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.g"><code class="name">var <span class="ident">g</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lb"><code class="name">var <span class="ident">lb</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lc"><code class="name">var <span class="ident">lc</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.le"><code class="name">var <span class="ident">le</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lg"><code class="name">var <span class="ident">lg</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lm"><code class="name">var <span class="ident">lm</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lr"><code class="name">var <span class="ident">lr</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lw"><code class="name">var <span class="ident">lw</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.ly"><code class="name">var <span class="ident">ly</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.m"><code class="name">var <span class="ident">m</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.w"><code class="name">var <span class="ident">w</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.y"><code class="name">var <span class="ident">y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground"><code class="flex name class">
+<span>class <span class="ident">FG</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Foreground codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Foreground(ColorEnum):
+    &#34;&#34;&#34;Foreground codes&#34;&#34;&#34;
+
+    RESET = 39
+
+    b = BLACK = 30
+    r = RED = 31
+    g = GREEN = 32
+    y = YELLOW = 33
+    e = BLUE = 34
+    m = MAGENTA = 35
+    c = CYAN = 36
+    w = WHITE = 37
+
+    lb = L_BLACK = LIGHT_BLACK = 90
+    lr = L_RED = LIGHT_RED = 91
+    lg = L_GREEN = LIGHT_GREEN = 92
+    ly = L_YELLOW = LIGHT_YELLOW = 93
+    le = L_BLUE = LIGHT_BLUE = 94
+    lm = L_MAGENTA = LIGHT_MAGENTA = 95
+    lc = L_CYAN = LIGHT_CYAN = 96
+    lw = L_WHITE = LIGHT_WHITE = 97</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Foreground.BLACK"><code class="name">var <span class="ident">BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.BLUE"><code class="name">var <span class="ident">BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.CYAN"><code class="name">var <span class="ident">CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.GREEN"><code class="name">var <span class="ident">GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_BLACK"><code class="name">var <span class="ident">LIGHT_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_BLUE"><code class="name">var <span class="ident">LIGHT_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_CYAN"><code class="name">var <span class="ident">LIGHT_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_GREEN"><code class="name">var <span class="ident">LIGHT_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA"><code class="name">var <span class="ident">LIGHT_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_RED"><code class="name">var <span class="ident">LIGHT_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_WHITE"><code class="name">var <span class="ident">LIGHT_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW"><code class="name">var <span class="ident">LIGHT_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_BLACK"><code class="name">var <span class="ident">L_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_BLUE"><code class="name">var <span class="ident">L_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_CYAN"><code class="name">var <span class="ident">L_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_GREEN"><code class="name">var <span class="ident">L_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_MAGENTA"><code class="name">var <span class="ident">L_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_RED"><code class="name">var <span class="ident">L_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_WHITE"><code class="name">var <span class="ident">L_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_YELLOW"><code class="name">var <span class="ident">L_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.MAGENTA"><code class="name">var <span class="ident">MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.RED"><code class="name">var <span class="ident">RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.WHITE"><code class="name">var <span class="ident">WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.YELLOW"><code class="name">var <span class="ident">YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.c"><code class="name">var <span class="ident">c</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.e"><code class="name">var <span class="ident">e</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.g"><code class="name">var <span class="ident">g</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lb"><code class="name">var <span class="ident">lb</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lc"><code class="name">var <span class="ident">lc</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.le"><code class="name">var <span class="ident">le</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lg"><code class="name">var <span class="ident">lg</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lm"><code class="name">var <span class="ident">lm</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lr"><code class="name">var <span class="ident">lr</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lw"><code class="name">var <span class="ident">lw</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.ly"><code class="name">var <span class="ident">ly</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.m"><code class="name">var <span class="ident">m</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.w"><code class="name">var <span class="ident">w</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.y"><code class="name">var <span class="ident">y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground"><code class="flex name class">
+<span>class <span class="ident">Fore</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Foreground codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Foreground(ColorEnum):
+    &#34;&#34;&#34;Foreground codes&#34;&#34;&#34;
+
+    RESET = 39
+
+    b = BLACK = 30
+    r = RED = 31
+    g = GREEN = 32
+    y = YELLOW = 33
+    e = BLUE = 34
+    m = MAGENTA = 35
+    c = CYAN = 36
+    w = WHITE = 37
+
+    lb = L_BLACK = LIGHT_BLACK = 90
+    lr = L_RED = LIGHT_RED = 91
+    lg = L_GREEN = LIGHT_GREEN = 92
+    ly = L_YELLOW = LIGHT_YELLOW = 93
+    le = L_BLUE = LIGHT_BLUE = 94
+    lm = L_MAGENTA = LIGHT_MAGENTA = 95
+    lc = L_CYAN = LIGHT_CYAN = 96
+    lw = L_WHITE = LIGHT_WHITE = 97</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Foreground.BLACK"><code class="name">var <span class="ident">BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.BLUE"><code class="name">var <span class="ident">BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.CYAN"><code class="name">var <span class="ident">CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.GREEN"><code class="name">var <span class="ident">GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_BLACK"><code class="name">var <span class="ident">LIGHT_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_BLUE"><code class="name">var <span class="ident">LIGHT_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_CYAN"><code class="name">var <span class="ident">LIGHT_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_GREEN"><code class="name">var <span class="ident">LIGHT_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA"><code class="name">var <span class="ident">LIGHT_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_RED"><code class="name">var <span class="ident">LIGHT_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_WHITE"><code class="name">var <span class="ident">LIGHT_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW"><code class="name">var <span class="ident">LIGHT_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_BLACK"><code class="name">var <span class="ident">L_BLACK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_BLUE"><code class="name">var <span class="ident">L_BLUE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_CYAN"><code class="name">var <span class="ident">L_CYAN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_GREEN"><code class="name">var <span class="ident">L_GREEN</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_MAGENTA"><code class="name">var <span class="ident">L_MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_RED"><code class="name">var <span class="ident">L_RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_WHITE"><code class="name">var <span class="ident">L_WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.L_YELLOW"><code class="name">var <span class="ident">L_YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.MAGENTA"><code class="name">var <span class="ident">MAGENTA</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.RED"><code class="name">var <span class="ident">RED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.WHITE"><code class="name">var <span class="ident">WHITE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.YELLOW"><code class="name">var <span class="ident">YELLOW</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.c"><code class="name">var <span class="ident">c</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.e"><code class="name">var <span class="ident">e</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.g"><code class="name">var <span class="ident">g</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lb"><code class="name">var <span class="ident">lb</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lc"><code class="name">var <span class="ident">lc</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.le"><code class="name">var <span class="ident">le</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lg"><code class="name">var <span class="ident">lg</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lm"><code class="name">var <span class="ident">lm</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lr"><code class="name">var <span class="ident">lr</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.lw"><code class="name">var <span class="ident">lw</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.ly"><code class="name">var <span class="ident">ly</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.m"><code class="name">var <span class="ident">m</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.w"><code class="name">var <span class="ident">w</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Foreground.y"><code class="name">var <span class="ident">y</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style"><code class="flex name class">
+<span>class <span class="ident">Style</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Style codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Style(ColorEnum):
+    &#34;&#34;&#34;Style codes&#34;&#34;&#34;
+
+    r = RESET = 0
+    b = BOLD = 1
+    d = DIM = 2
+    i = ITALIC = 3
+    u = UNDERLINE = 4
+    l = BLINK = 5
+    v = REVERSE = 7
+    h = HIDE = 8
+    s = STRIKE = 9
+    n = NORMAL = 22</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Style.BLINK"><code class="name">var <span class="ident">BLINK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.BOLD"><code class="name">var <span class="ident">BOLD</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.DIM"><code class="name">var <span class="ident">DIM</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.HIDE"><code class="name">var <span class="ident">HIDE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.ITALIC"><code class="name">var <span class="ident">ITALIC</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.NORMAL"><code class="name">var <span class="ident">NORMAL</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.REVERSE"><code class="name">var <span class="ident">REVERSE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.STRIKE"><code class="name">var <span class="ident">STRIKE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.UNDERLINE"><code class="name">var <span class="ident">UNDERLINE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.d"><code class="name">var <span class="ident">d</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.h"><code class="name">var <span class="ident">h</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.i"><code class="name">var <span class="ident">i</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.l"><code class="name">var <span class="ident">l</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.n"><code class="name">var <span class="ident">n</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.s"><code class="name">var <span class="ident">s</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.u"><code class="name">var <span class="ident">u</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.v"><code class="name">var <span class="ident">v</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style"><code class="flex name class">
+<span>class <span class="ident">S</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Style codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Style(ColorEnum):
+    &#34;&#34;&#34;Style codes&#34;&#34;&#34;
+
+    r = RESET = 0
+    b = BOLD = 1
+    d = DIM = 2
+    i = ITALIC = 3
+    u = UNDERLINE = 4
+    l = BLINK = 5
+    v = REVERSE = 7
+    h = HIDE = 8
+    s = STRIKE = 9
+    n = NORMAL = 22</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Style.BLINK"><code class="name">var <span class="ident">BLINK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.BOLD"><code class="name">var <span class="ident">BOLD</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.DIM"><code class="name">var <span class="ident">DIM</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.HIDE"><code class="name">var <span class="ident">HIDE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.ITALIC"><code class="name">var <span class="ident">ITALIC</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.NORMAL"><code class="name">var <span class="ident">NORMAL</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.REVERSE"><code class="name">var <span class="ident">REVERSE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.STRIKE"><code class="name">var <span class="ident">STRIKE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.UNDERLINE"><code class="name">var <span class="ident">UNDERLINE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.d"><code class="name">var <span class="ident">d</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.h"><code class="name">var <span class="ident">h</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.i"><code class="name">var <span class="ident">i</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.l"><code class="name">var <span class="ident">l</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.n"><code class="name">var <span class="ident">n</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.s"><code class="name">var <span class="ident">s</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.u"><code class="name">var <span class="ident">u</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.v"><code class="name">var <span class="ident">v</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style"><code class="flex name class">
+<span>class <span class="ident">ST</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Style codes</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Style(ColorEnum):
+    &#34;&#34;&#34;Style codes&#34;&#34;&#34;
+
+    r = RESET = 0
+    b = BOLD = 1
+    d = DIM = 2
+    i = ITALIC = 3
+    u = UNDERLINE = 4
+    l = BLINK = 5
+    v = REVERSE = 7
+    h = HIDE = 8
+    s = STRIKE = 9
+    n = NORMAL = 22</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></li>
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="pyboiler.internal.color.colors.Style.BLINK"><code class="name">var <span class="ident">BLINK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.BOLD"><code class="name">var <span class="ident">BOLD</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.DIM"><code class="name">var <span class="ident">DIM</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.HIDE"><code class="name">var <span class="ident">HIDE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.ITALIC"><code class="name">var <span class="ident">ITALIC</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.NORMAL"><code class="name">var <span class="ident">NORMAL</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.RESET"><code class="name">var <span class="ident">RESET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.REVERSE"><code class="name">var <span class="ident">REVERSE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.STRIKE"><code class="name">var <span class="ident">STRIKE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.UNDERLINE"><code class="name">var <span class="ident">UNDERLINE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.b"><code class="name">var <span class="ident">b</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.d"><code class="name">var <span class="ident">d</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.h"><code class="name">var <span class="ident">h</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.i"><code class="name">var <span class="ident">i</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.l"><code class="name">var <span class="ident">l</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.n"><code class="name">var <span class="ident">n</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.r"><code class="name">var <span class="ident">r</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.s"><code class="name">var <span class="ident">s</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.u"><code class="name">var <span class="ident">u</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="pyboiler.internal.color.colors.Style.v"><code class="name">var <span class="ident">v</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="pyboiler.internal.color" href="index.html">pyboiler.internal.color</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="pyboiler.internal.color.colors.parse" href="#pyboiler.internal.color.colors.parse">parse</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Background" href="#pyboiler.internal.color.colors.Background">Background</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Background.BLACK" href="#pyboiler.internal.color.colors.Background.BLACK">BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.BLUE" href="#pyboiler.internal.color.colors.Background.BLUE">BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.CYAN" href="#pyboiler.internal.color.colors.Background.CYAN">CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.GREEN" href="#pyboiler.internal.color.colors.Background.GREEN">GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_BLACK" href="#pyboiler.internal.color.colors.Background.LIGHT_BLACK">LIGHT_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_BLUE" href="#pyboiler.internal.color.colors.Background.LIGHT_BLUE">LIGHT_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_CYAN" href="#pyboiler.internal.color.colors.Background.LIGHT_CYAN">LIGHT_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_GREEN" href="#pyboiler.internal.color.colors.Background.LIGHT_GREEN">LIGHT_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_MAGENTA" href="#pyboiler.internal.color.colors.Background.LIGHT_MAGENTA">LIGHT_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_RED" href="#pyboiler.internal.color.colors.Background.LIGHT_RED">LIGHT_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_WHITE" href="#pyboiler.internal.color.colors.Background.LIGHT_WHITE">LIGHT_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_YELLOW" href="#pyboiler.internal.color.colors.Background.LIGHT_YELLOW">LIGHT_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_BLACK" href="#pyboiler.internal.color.colors.Background.L_BLACK">L_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_BLUE" href="#pyboiler.internal.color.colors.Background.L_BLUE">L_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_CYAN" href="#pyboiler.internal.color.colors.Background.L_CYAN">L_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_GREEN" href="#pyboiler.internal.color.colors.Background.L_GREEN">L_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_MAGENTA" href="#pyboiler.internal.color.colors.Background.L_MAGENTA">L_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_RED" href="#pyboiler.internal.color.colors.Background.L_RED">L_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_WHITE" href="#pyboiler.internal.color.colors.Background.L_WHITE">L_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_YELLOW" href="#pyboiler.internal.color.colors.Background.L_YELLOW">L_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.MAGENTA" href="#pyboiler.internal.color.colors.Background.MAGENTA">MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.RED" href="#pyboiler.internal.color.colors.Background.RED">RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.RESET" href="#pyboiler.internal.color.colors.Background.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.WHITE" href="#pyboiler.internal.color.colors.Background.WHITE">WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.YELLOW" href="#pyboiler.internal.color.colors.Background.YELLOW">YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.b" href="#pyboiler.internal.color.colors.Background.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.c" href="#pyboiler.internal.color.colors.Background.c">c</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.e" href="#pyboiler.internal.color.colors.Background.e">e</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.g" href="#pyboiler.internal.color.colors.Background.g">g</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lb" href="#pyboiler.internal.color.colors.Background.lb">lb</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lc" href="#pyboiler.internal.color.colors.Background.lc">lc</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.le" href="#pyboiler.internal.color.colors.Background.le">le</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lg" href="#pyboiler.internal.color.colors.Background.lg">lg</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lm" href="#pyboiler.internal.color.colors.Background.lm">lm</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lr" href="#pyboiler.internal.color.colors.Background.lr">lr</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lw" href="#pyboiler.internal.color.colors.Background.lw">lw</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.ly" href="#pyboiler.internal.color.colors.Background.ly">ly</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.m" href="#pyboiler.internal.color.colors.Background.m">m</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.r" href="#pyboiler.internal.color.colors.Background.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.w" href="#pyboiler.internal.color.colors.Background.w">w</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.y" href="#pyboiler.internal.color.colors.Background.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Background" href="#pyboiler.internal.color.colors.Background">Background</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Background.BLACK" href="#pyboiler.internal.color.colors.Background.BLACK">BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.BLUE" href="#pyboiler.internal.color.colors.Background.BLUE">BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.CYAN" href="#pyboiler.internal.color.colors.Background.CYAN">CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.GREEN" href="#pyboiler.internal.color.colors.Background.GREEN">GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_BLACK" href="#pyboiler.internal.color.colors.Background.LIGHT_BLACK">LIGHT_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_BLUE" href="#pyboiler.internal.color.colors.Background.LIGHT_BLUE">LIGHT_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_CYAN" href="#pyboiler.internal.color.colors.Background.LIGHT_CYAN">LIGHT_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_GREEN" href="#pyboiler.internal.color.colors.Background.LIGHT_GREEN">LIGHT_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_MAGENTA" href="#pyboiler.internal.color.colors.Background.LIGHT_MAGENTA">LIGHT_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_RED" href="#pyboiler.internal.color.colors.Background.LIGHT_RED">LIGHT_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_WHITE" href="#pyboiler.internal.color.colors.Background.LIGHT_WHITE">LIGHT_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_YELLOW" href="#pyboiler.internal.color.colors.Background.LIGHT_YELLOW">LIGHT_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_BLACK" href="#pyboiler.internal.color.colors.Background.L_BLACK">L_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_BLUE" href="#pyboiler.internal.color.colors.Background.L_BLUE">L_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_CYAN" href="#pyboiler.internal.color.colors.Background.L_CYAN">L_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_GREEN" href="#pyboiler.internal.color.colors.Background.L_GREEN">L_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_MAGENTA" href="#pyboiler.internal.color.colors.Background.L_MAGENTA">L_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_RED" href="#pyboiler.internal.color.colors.Background.L_RED">L_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_WHITE" href="#pyboiler.internal.color.colors.Background.L_WHITE">L_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_YELLOW" href="#pyboiler.internal.color.colors.Background.L_YELLOW">L_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.MAGENTA" href="#pyboiler.internal.color.colors.Background.MAGENTA">MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.RED" href="#pyboiler.internal.color.colors.Background.RED">RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.RESET" href="#pyboiler.internal.color.colors.Background.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.WHITE" href="#pyboiler.internal.color.colors.Background.WHITE">WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.YELLOW" href="#pyboiler.internal.color.colors.Background.YELLOW">YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.b" href="#pyboiler.internal.color.colors.Background.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.c" href="#pyboiler.internal.color.colors.Background.c">c</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.e" href="#pyboiler.internal.color.colors.Background.e">e</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.g" href="#pyboiler.internal.color.colors.Background.g">g</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lb" href="#pyboiler.internal.color.colors.Background.lb">lb</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lc" href="#pyboiler.internal.color.colors.Background.lc">lc</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.le" href="#pyboiler.internal.color.colors.Background.le">le</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lg" href="#pyboiler.internal.color.colors.Background.lg">lg</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lm" href="#pyboiler.internal.color.colors.Background.lm">lm</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lr" href="#pyboiler.internal.color.colors.Background.lr">lr</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lw" href="#pyboiler.internal.color.colors.Background.lw">lw</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.ly" href="#pyboiler.internal.color.colors.Background.ly">ly</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.m" href="#pyboiler.internal.color.colors.Background.m">m</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.r" href="#pyboiler.internal.color.colors.Background.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.w" href="#pyboiler.internal.color.colors.Background.w">w</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.y" href="#pyboiler.internal.color.colors.Background.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Background" href="#pyboiler.internal.color.colors.Background">Background</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Background.BLACK" href="#pyboiler.internal.color.colors.Background.BLACK">BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.BLUE" href="#pyboiler.internal.color.colors.Background.BLUE">BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.CYAN" href="#pyboiler.internal.color.colors.Background.CYAN">CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.GREEN" href="#pyboiler.internal.color.colors.Background.GREEN">GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_BLACK" href="#pyboiler.internal.color.colors.Background.LIGHT_BLACK">LIGHT_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_BLUE" href="#pyboiler.internal.color.colors.Background.LIGHT_BLUE">LIGHT_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_CYAN" href="#pyboiler.internal.color.colors.Background.LIGHT_CYAN">LIGHT_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_GREEN" href="#pyboiler.internal.color.colors.Background.LIGHT_GREEN">LIGHT_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_MAGENTA" href="#pyboiler.internal.color.colors.Background.LIGHT_MAGENTA">LIGHT_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_RED" href="#pyboiler.internal.color.colors.Background.LIGHT_RED">LIGHT_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_WHITE" href="#pyboiler.internal.color.colors.Background.LIGHT_WHITE">LIGHT_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_YELLOW" href="#pyboiler.internal.color.colors.Background.LIGHT_YELLOW">LIGHT_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_BLACK" href="#pyboiler.internal.color.colors.Background.L_BLACK">L_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_BLUE" href="#pyboiler.internal.color.colors.Background.L_BLUE">L_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_CYAN" href="#pyboiler.internal.color.colors.Background.L_CYAN">L_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_GREEN" href="#pyboiler.internal.color.colors.Background.L_GREEN">L_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_MAGENTA" href="#pyboiler.internal.color.colors.Background.L_MAGENTA">L_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_RED" href="#pyboiler.internal.color.colors.Background.L_RED">L_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_WHITE" href="#pyboiler.internal.color.colors.Background.L_WHITE">L_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_YELLOW" href="#pyboiler.internal.color.colors.Background.L_YELLOW">L_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.MAGENTA" href="#pyboiler.internal.color.colors.Background.MAGENTA">MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.RED" href="#pyboiler.internal.color.colors.Background.RED">RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.RESET" href="#pyboiler.internal.color.colors.Background.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.WHITE" href="#pyboiler.internal.color.colors.Background.WHITE">WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.YELLOW" href="#pyboiler.internal.color.colors.Background.YELLOW">YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.b" href="#pyboiler.internal.color.colors.Background.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.c" href="#pyboiler.internal.color.colors.Background.c">c</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.e" href="#pyboiler.internal.color.colors.Background.e">e</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.g" href="#pyboiler.internal.color.colors.Background.g">g</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lb" href="#pyboiler.internal.color.colors.Background.lb">lb</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lc" href="#pyboiler.internal.color.colors.Background.lc">lc</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.le" href="#pyboiler.internal.color.colors.Background.le">le</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lg" href="#pyboiler.internal.color.colors.Background.lg">lg</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lm" href="#pyboiler.internal.color.colors.Background.lm">lm</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lr" href="#pyboiler.internal.color.colors.Background.lr">lr</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lw" href="#pyboiler.internal.color.colors.Background.lw">lw</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.ly" href="#pyboiler.internal.color.colors.Background.ly">ly</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.m" href="#pyboiler.internal.color.colors.Background.m">m</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.r" href="#pyboiler.internal.color.colors.Background.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.w" href="#pyboiler.internal.color.colors.Background.w">w</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.y" href="#pyboiler.internal.color.colors.Background.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Background" href="#pyboiler.internal.color.colors.Background">Background</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Background.BLACK" href="#pyboiler.internal.color.colors.Background.BLACK">BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.BLUE" href="#pyboiler.internal.color.colors.Background.BLUE">BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.CYAN" href="#pyboiler.internal.color.colors.Background.CYAN">CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.GREEN" href="#pyboiler.internal.color.colors.Background.GREEN">GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_BLACK" href="#pyboiler.internal.color.colors.Background.LIGHT_BLACK">LIGHT_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_BLUE" href="#pyboiler.internal.color.colors.Background.LIGHT_BLUE">LIGHT_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_CYAN" href="#pyboiler.internal.color.colors.Background.LIGHT_CYAN">LIGHT_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_GREEN" href="#pyboiler.internal.color.colors.Background.LIGHT_GREEN">LIGHT_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_MAGENTA" href="#pyboiler.internal.color.colors.Background.LIGHT_MAGENTA">LIGHT_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_RED" href="#pyboiler.internal.color.colors.Background.LIGHT_RED">LIGHT_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_WHITE" href="#pyboiler.internal.color.colors.Background.LIGHT_WHITE">LIGHT_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.LIGHT_YELLOW" href="#pyboiler.internal.color.colors.Background.LIGHT_YELLOW">LIGHT_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_BLACK" href="#pyboiler.internal.color.colors.Background.L_BLACK">L_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_BLUE" href="#pyboiler.internal.color.colors.Background.L_BLUE">L_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_CYAN" href="#pyboiler.internal.color.colors.Background.L_CYAN">L_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_GREEN" href="#pyboiler.internal.color.colors.Background.L_GREEN">L_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_MAGENTA" href="#pyboiler.internal.color.colors.Background.L_MAGENTA">L_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_RED" href="#pyboiler.internal.color.colors.Background.L_RED">L_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_WHITE" href="#pyboiler.internal.color.colors.Background.L_WHITE">L_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.L_YELLOW" href="#pyboiler.internal.color.colors.Background.L_YELLOW">L_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.MAGENTA" href="#pyboiler.internal.color.colors.Background.MAGENTA">MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.RED" href="#pyboiler.internal.color.colors.Background.RED">RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.RESET" href="#pyboiler.internal.color.colors.Background.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.WHITE" href="#pyboiler.internal.color.colors.Background.WHITE">WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.YELLOW" href="#pyboiler.internal.color.colors.Background.YELLOW">YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.b" href="#pyboiler.internal.color.colors.Background.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.c" href="#pyboiler.internal.color.colors.Background.c">c</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.e" href="#pyboiler.internal.color.colors.Background.e">e</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.g" href="#pyboiler.internal.color.colors.Background.g">g</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lb" href="#pyboiler.internal.color.colors.Background.lb">lb</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lc" href="#pyboiler.internal.color.colors.Background.lc">lc</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.le" href="#pyboiler.internal.color.colors.Background.le">le</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lg" href="#pyboiler.internal.color.colors.Background.lg">lg</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lm" href="#pyboiler.internal.color.colors.Background.lm">lm</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lr" href="#pyboiler.internal.color.colors.Background.lr">lr</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.lw" href="#pyboiler.internal.color.colors.Background.lw">lw</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.ly" href="#pyboiler.internal.color.colors.Background.ly">ly</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.m" href="#pyboiler.internal.color.colors.Background.m">m</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.r" href="#pyboiler.internal.color.colors.Background.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.w" href="#pyboiler.internal.color.colors.Background.w">w</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Background.y" href="#pyboiler.internal.color.colors.Background.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.ColorEnum" href="#pyboiler.internal.color.colors.ColorEnum">ColorEnum</a></code></h4>
+<ul class="">
+<li><code><a title="pyboiler.internal.color.colors.ColorEnum.code" href="#pyboiler.internal.color.colors.ColorEnum.code">code</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.ColorWrapper" href="#pyboiler.internal.color.colors.ColorWrapper">ColorWrapper</a></code></h4>
+<ul class="">
+<li><code><a title="pyboiler.internal.color.colors.ColorWrapper.idx" href="#pyboiler.internal.color.colors.ColorWrapper.idx">idx</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.ColorWrapper.tag" href="#pyboiler.internal.color.colors.ColorWrapper.tag">tag</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.ColorWrapper.val" href="#pyboiler.internal.color.colors.ColorWrapper.val">val</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Foreground" href="#pyboiler.internal.color.colors.Foreground">Foreground</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Foreground.BLACK" href="#pyboiler.internal.color.colors.Foreground.BLACK">BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.BLUE" href="#pyboiler.internal.color.colors.Foreground.BLUE">BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.CYAN" href="#pyboiler.internal.color.colors.Foreground.CYAN">CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.GREEN" href="#pyboiler.internal.color.colors.Foreground.GREEN">GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_BLACK" href="#pyboiler.internal.color.colors.Foreground.LIGHT_BLACK">LIGHT_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_BLUE" href="#pyboiler.internal.color.colors.Foreground.LIGHT_BLUE">LIGHT_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_CYAN" href="#pyboiler.internal.color.colors.Foreground.LIGHT_CYAN">LIGHT_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_GREEN" href="#pyboiler.internal.color.colors.Foreground.LIGHT_GREEN">LIGHT_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA" href="#pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA">LIGHT_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_RED" href="#pyboiler.internal.color.colors.Foreground.LIGHT_RED">LIGHT_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_WHITE" href="#pyboiler.internal.color.colors.Foreground.LIGHT_WHITE">LIGHT_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW" href="#pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW">LIGHT_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_BLACK" href="#pyboiler.internal.color.colors.Foreground.L_BLACK">L_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_BLUE" href="#pyboiler.internal.color.colors.Foreground.L_BLUE">L_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_CYAN" href="#pyboiler.internal.color.colors.Foreground.L_CYAN">L_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_GREEN" href="#pyboiler.internal.color.colors.Foreground.L_GREEN">L_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_MAGENTA" href="#pyboiler.internal.color.colors.Foreground.L_MAGENTA">L_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_RED" href="#pyboiler.internal.color.colors.Foreground.L_RED">L_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_WHITE" href="#pyboiler.internal.color.colors.Foreground.L_WHITE">L_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_YELLOW" href="#pyboiler.internal.color.colors.Foreground.L_YELLOW">L_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.MAGENTA" href="#pyboiler.internal.color.colors.Foreground.MAGENTA">MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.RED" href="#pyboiler.internal.color.colors.Foreground.RED">RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.RESET" href="#pyboiler.internal.color.colors.Foreground.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.WHITE" href="#pyboiler.internal.color.colors.Foreground.WHITE">WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.YELLOW" href="#pyboiler.internal.color.colors.Foreground.YELLOW">YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.b" href="#pyboiler.internal.color.colors.Foreground.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.c" href="#pyboiler.internal.color.colors.Foreground.c">c</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.e" href="#pyboiler.internal.color.colors.Foreground.e">e</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.g" href="#pyboiler.internal.color.colors.Foreground.g">g</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lb" href="#pyboiler.internal.color.colors.Foreground.lb">lb</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lc" href="#pyboiler.internal.color.colors.Foreground.lc">lc</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.le" href="#pyboiler.internal.color.colors.Foreground.le">le</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lg" href="#pyboiler.internal.color.colors.Foreground.lg">lg</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lm" href="#pyboiler.internal.color.colors.Foreground.lm">lm</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lr" href="#pyboiler.internal.color.colors.Foreground.lr">lr</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lw" href="#pyboiler.internal.color.colors.Foreground.lw">lw</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.ly" href="#pyboiler.internal.color.colors.Foreground.ly">ly</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.m" href="#pyboiler.internal.color.colors.Foreground.m">m</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.r" href="#pyboiler.internal.color.colors.Foreground.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.w" href="#pyboiler.internal.color.colors.Foreground.w">w</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.y" href="#pyboiler.internal.color.colors.Foreground.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Foreground" href="#pyboiler.internal.color.colors.Foreground">Foreground</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Foreground.BLACK" href="#pyboiler.internal.color.colors.Foreground.BLACK">BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.BLUE" href="#pyboiler.internal.color.colors.Foreground.BLUE">BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.CYAN" href="#pyboiler.internal.color.colors.Foreground.CYAN">CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.GREEN" href="#pyboiler.internal.color.colors.Foreground.GREEN">GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_BLACK" href="#pyboiler.internal.color.colors.Foreground.LIGHT_BLACK">LIGHT_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_BLUE" href="#pyboiler.internal.color.colors.Foreground.LIGHT_BLUE">LIGHT_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_CYAN" href="#pyboiler.internal.color.colors.Foreground.LIGHT_CYAN">LIGHT_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_GREEN" href="#pyboiler.internal.color.colors.Foreground.LIGHT_GREEN">LIGHT_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA" href="#pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA">LIGHT_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_RED" href="#pyboiler.internal.color.colors.Foreground.LIGHT_RED">LIGHT_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_WHITE" href="#pyboiler.internal.color.colors.Foreground.LIGHT_WHITE">LIGHT_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW" href="#pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW">LIGHT_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_BLACK" href="#pyboiler.internal.color.colors.Foreground.L_BLACK">L_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_BLUE" href="#pyboiler.internal.color.colors.Foreground.L_BLUE">L_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_CYAN" href="#pyboiler.internal.color.colors.Foreground.L_CYAN">L_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_GREEN" href="#pyboiler.internal.color.colors.Foreground.L_GREEN">L_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_MAGENTA" href="#pyboiler.internal.color.colors.Foreground.L_MAGENTA">L_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_RED" href="#pyboiler.internal.color.colors.Foreground.L_RED">L_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_WHITE" href="#pyboiler.internal.color.colors.Foreground.L_WHITE">L_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_YELLOW" href="#pyboiler.internal.color.colors.Foreground.L_YELLOW">L_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.MAGENTA" href="#pyboiler.internal.color.colors.Foreground.MAGENTA">MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.RED" href="#pyboiler.internal.color.colors.Foreground.RED">RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.RESET" href="#pyboiler.internal.color.colors.Foreground.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.WHITE" href="#pyboiler.internal.color.colors.Foreground.WHITE">WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.YELLOW" href="#pyboiler.internal.color.colors.Foreground.YELLOW">YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.b" href="#pyboiler.internal.color.colors.Foreground.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.c" href="#pyboiler.internal.color.colors.Foreground.c">c</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.e" href="#pyboiler.internal.color.colors.Foreground.e">e</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.g" href="#pyboiler.internal.color.colors.Foreground.g">g</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lb" href="#pyboiler.internal.color.colors.Foreground.lb">lb</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lc" href="#pyboiler.internal.color.colors.Foreground.lc">lc</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.le" href="#pyboiler.internal.color.colors.Foreground.le">le</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lg" href="#pyboiler.internal.color.colors.Foreground.lg">lg</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lm" href="#pyboiler.internal.color.colors.Foreground.lm">lm</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lr" href="#pyboiler.internal.color.colors.Foreground.lr">lr</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lw" href="#pyboiler.internal.color.colors.Foreground.lw">lw</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.ly" href="#pyboiler.internal.color.colors.Foreground.ly">ly</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.m" href="#pyboiler.internal.color.colors.Foreground.m">m</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.r" href="#pyboiler.internal.color.colors.Foreground.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.w" href="#pyboiler.internal.color.colors.Foreground.w">w</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.y" href="#pyboiler.internal.color.colors.Foreground.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Foreground" href="#pyboiler.internal.color.colors.Foreground">Foreground</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Foreground.BLACK" href="#pyboiler.internal.color.colors.Foreground.BLACK">BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.BLUE" href="#pyboiler.internal.color.colors.Foreground.BLUE">BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.CYAN" href="#pyboiler.internal.color.colors.Foreground.CYAN">CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.GREEN" href="#pyboiler.internal.color.colors.Foreground.GREEN">GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_BLACK" href="#pyboiler.internal.color.colors.Foreground.LIGHT_BLACK">LIGHT_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_BLUE" href="#pyboiler.internal.color.colors.Foreground.LIGHT_BLUE">LIGHT_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_CYAN" href="#pyboiler.internal.color.colors.Foreground.LIGHT_CYAN">LIGHT_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_GREEN" href="#pyboiler.internal.color.colors.Foreground.LIGHT_GREEN">LIGHT_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA" href="#pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA">LIGHT_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_RED" href="#pyboiler.internal.color.colors.Foreground.LIGHT_RED">LIGHT_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_WHITE" href="#pyboiler.internal.color.colors.Foreground.LIGHT_WHITE">LIGHT_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW" href="#pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW">LIGHT_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_BLACK" href="#pyboiler.internal.color.colors.Foreground.L_BLACK">L_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_BLUE" href="#pyboiler.internal.color.colors.Foreground.L_BLUE">L_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_CYAN" href="#pyboiler.internal.color.colors.Foreground.L_CYAN">L_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_GREEN" href="#pyboiler.internal.color.colors.Foreground.L_GREEN">L_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_MAGENTA" href="#pyboiler.internal.color.colors.Foreground.L_MAGENTA">L_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_RED" href="#pyboiler.internal.color.colors.Foreground.L_RED">L_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_WHITE" href="#pyboiler.internal.color.colors.Foreground.L_WHITE">L_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_YELLOW" href="#pyboiler.internal.color.colors.Foreground.L_YELLOW">L_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.MAGENTA" href="#pyboiler.internal.color.colors.Foreground.MAGENTA">MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.RED" href="#pyboiler.internal.color.colors.Foreground.RED">RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.RESET" href="#pyboiler.internal.color.colors.Foreground.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.WHITE" href="#pyboiler.internal.color.colors.Foreground.WHITE">WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.YELLOW" href="#pyboiler.internal.color.colors.Foreground.YELLOW">YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.b" href="#pyboiler.internal.color.colors.Foreground.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.c" href="#pyboiler.internal.color.colors.Foreground.c">c</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.e" href="#pyboiler.internal.color.colors.Foreground.e">e</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.g" href="#pyboiler.internal.color.colors.Foreground.g">g</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lb" href="#pyboiler.internal.color.colors.Foreground.lb">lb</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lc" href="#pyboiler.internal.color.colors.Foreground.lc">lc</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.le" href="#pyboiler.internal.color.colors.Foreground.le">le</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lg" href="#pyboiler.internal.color.colors.Foreground.lg">lg</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lm" href="#pyboiler.internal.color.colors.Foreground.lm">lm</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lr" href="#pyboiler.internal.color.colors.Foreground.lr">lr</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lw" href="#pyboiler.internal.color.colors.Foreground.lw">lw</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.ly" href="#pyboiler.internal.color.colors.Foreground.ly">ly</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.m" href="#pyboiler.internal.color.colors.Foreground.m">m</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.r" href="#pyboiler.internal.color.colors.Foreground.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.w" href="#pyboiler.internal.color.colors.Foreground.w">w</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.y" href="#pyboiler.internal.color.colors.Foreground.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Foreground" href="#pyboiler.internal.color.colors.Foreground">Foreground</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Foreground.BLACK" href="#pyboiler.internal.color.colors.Foreground.BLACK">BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.BLUE" href="#pyboiler.internal.color.colors.Foreground.BLUE">BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.CYAN" href="#pyboiler.internal.color.colors.Foreground.CYAN">CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.GREEN" href="#pyboiler.internal.color.colors.Foreground.GREEN">GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_BLACK" href="#pyboiler.internal.color.colors.Foreground.LIGHT_BLACK">LIGHT_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_BLUE" href="#pyboiler.internal.color.colors.Foreground.LIGHT_BLUE">LIGHT_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_CYAN" href="#pyboiler.internal.color.colors.Foreground.LIGHT_CYAN">LIGHT_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_GREEN" href="#pyboiler.internal.color.colors.Foreground.LIGHT_GREEN">LIGHT_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA" href="#pyboiler.internal.color.colors.Foreground.LIGHT_MAGENTA">LIGHT_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_RED" href="#pyboiler.internal.color.colors.Foreground.LIGHT_RED">LIGHT_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_WHITE" href="#pyboiler.internal.color.colors.Foreground.LIGHT_WHITE">LIGHT_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW" href="#pyboiler.internal.color.colors.Foreground.LIGHT_YELLOW">LIGHT_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_BLACK" href="#pyboiler.internal.color.colors.Foreground.L_BLACK">L_BLACK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_BLUE" href="#pyboiler.internal.color.colors.Foreground.L_BLUE">L_BLUE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_CYAN" href="#pyboiler.internal.color.colors.Foreground.L_CYAN">L_CYAN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_GREEN" href="#pyboiler.internal.color.colors.Foreground.L_GREEN">L_GREEN</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_MAGENTA" href="#pyboiler.internal.color.colors.Foreground.L_MAGENTA">L_MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_RED" href="#pyboiler.internal.color.colors.Foreground.L_RED">L_RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_WHITE" href="#pyboiler.internal.color.colors.Foreground.L_WHITE">L_WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.L_YELLOW" href="#pyboiler.internal.color.colors.Foreground.L_YELLOW">L_YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.MAGENTA" href="#pyboiler.internal.color.colors.Foreground.MAGENTA">MAGENTA</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.RED" href="#pyboiler.internal.color.colors.Foreground.RED">RED</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.RESET" href="#pyboiler.internal.color.colors.Foreground.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.WHITE" href="#pyboiler.internal.color.colors.Foreground.WHITE">WHITE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.YELLOW" href="#pyboiler.internal.color.colors.Foreground.YELLOW">YELLOW</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.b" href="#pyboiler.internal.color.colors.Foreground.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.c" href="#pyboiler.internal.color.colors.Foreground.c">c</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.e" href="#pyboiler.internal.color.colors.Foreground.e">e</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.g" href="#pyboiler.internal.color.colors.Foreground.g">g</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lb" href="#pyboiler.internal.color.colors.Foreground.lb">lb</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lc" href="#pyboiler.internal.color.colors.Foreground.lc">lc</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.le" href="#pyboiler.internal.color.colors.Foreground.le">le</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lg" href="#pyboiler.internal.color.colors.Foreground.lg">lg</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lm" href="#pyboiler.internal.color.colors.Foreground.lm">lm</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lr" href="#pyboiler.internal.color.colors.Foreground.lr">lr</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.lw" href="#pyboiler.internal.color.colors.Foreground.lw">lw</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.ly" href="#pyboiler.internal.color.colors.Foreground.ly">ly</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.m" href="#pyboiler.internal.color.colors.Foreground.m">m</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.r" href="#pyboiler.internal.color.colors.Foreground.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.w" href="#pyboiler.internal.color.colors.Foreground.w">w</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Foreground.y" href="#pyboiler.internal.color.colors.Foreground.y">y</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Style" href="#pyboiler.internal.color.colors.Style">Style</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Style.BLINK" href="#pyboiler.internal.color.colors.Style.BLINK">BLINK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.BOLD" href="#pyboiler.internal.color.colors.Style.BOLD">BOLD</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.DIM" href="#pyboiler.internal.color.colors.Style.DIM">DIM</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.HIDE" href="#pyboiler.internal.color.colors.Style.HIDE">HIDE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.ITALIC" href="#pyboiler.internal.color.colors.Style.ITALIC">ITALIC</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.NORMAL" href="#pyboiler.internal.color.colors.Style.NORMAL">NORMAL</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.RESET" href="#pyboiler.internal.color.colors.Style.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.REVERSE" href="#pyboiler.internal.color.colors.Style.REVERSE">REVERSE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.STRIKE" href="#pyboiler.internal.color.colors.Style.STRIKE">STRIKE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.UNDERLINE" href="#pyboiler.internal.color.colors.Style.UNDERLINE">UNDERLINE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.b" href="#pyboiler.internal.color.colors.Style.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.d" href="#pyboiler.internal.color.colors.Style.d">d</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.h" href="#pyboiler.internal.color.colors.Style.h">h</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.i" href="#pyboiler.internal.color.colors.Style.i">i</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.l" href="#pyboiler.internal.color.colors.Style.l">l</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.n" href="#pyboiler.internal.color.colors.Style.n">n</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.r" href="#pyboiler.internal.color.colors.Style.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.s" href="#pyboiler.internal.color.colors.Style.s">s</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.u" href="#pyboiler.internal.color.colors.Style.u">u</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.v" href="#pyboiler.internal.color.colors.Style.v">v</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Style" href="#pyboiler.internal.color.colors.Style">Style</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Style.BLINK" href="#pyboiler.internal.color.colors.Style.BLINK">BLINK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.BOLD" href="#pyboiler.internal.color.colors.Style.BOLD">BOLD</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.DIM" href="#pyboiler.internal.color.colors.Style.DIM">DIM</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.HIDE" href="#pyboiler.internal.color.colors.Style.HIDE">HIDE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.ITALIC" href="#pyboiler.internal.color.colors.Style.ITALIC">ITALIC</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.NORMAL" href="#pyboiler.internal.color.colors.Style.NORMAL">NORMAL</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.RESET" href="#pyboiler.internal.color.colors.Style.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.REVERSE" href="#pyboiler.internal.color.colors.Style.REVERSE">REVERSE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.STRIKE" href="#pyboiler.internal.color.colors.Style.STRIKE">STRIKE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.UNDERLINE" href="#pyboiler.internal.color.colors.Style.UNDERLINE">UNDERLINE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.b" href="#pyboiler.internal.color.colors.Style.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.d" href="#pyboiler.internal.color.colors.Style.d">d</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.h" href="#pyboiler.internal.color.colors.Style.h">h</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.i" href="#pyboiler.internal.color.colors.Style.i">i</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.l" href="#pyboiler.internal.color.colors.Style.l">l</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.n" href="#pyboiler.internal.color.colors.Style.n">n</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.r" href="#pyboiler.internal.color.colors.Style.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.s" href="#pyboiler.internal.color.colors.Style.s">s</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.u" href="#pyboiler.internal.color.colors.Style.u">u</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.v" href="#pyboiler.internal.color.colors.Style.v">v</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="pyboiler.internal.color.colors.Style" href="#pyboiler.internal.color.colors.Style">Style</a></code></h4>
+<ul class="two-column">
+<li><code><a title="pyboiler.internal.color.colors.Style.BLINK" href="#pyboiler.internal.color.colors.Style.BLINK">BLINK</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.BOLD" href="#pyboiler.internal.color.colors.Style.BOLD">BOLD</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.DIM" href="#pyboiler.internal.color.colors.Style.DIM">DIM</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.HIDE" href="#pyboiler.internal.color.colors.Style.HIDE">HIDE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.ITALIC" href="#pyboiler.internal.color.colors.Style.ITALIC">ITALIC</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.NORMAL" href="#pyboiler.internal.color.colors.Style.NORMAL">NORMAL</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.RESET" href="#pyboiler.internal.color.colors.Style.RESET">RESET</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.REVERSE" href="#pyboiler.internal.color.colors.Style.REVERSE">REVERSE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.STRIKE" href="#pyboiler.internal.color.colors.Style.STRIKE">STRIKE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.UNDERLINE" href="#pyboiler.internal.color.colors.Style.UNDERLINE">UNDERLINE</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.b" href="#pyboiler.internal.color.colors.Style.b">b</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.d" href="#pyboiler.internal.color.colors.Style.d">d</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.h" href="#pyboiler.internal.color.colors.Style.h">h</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.i" href="#pyboiler.internal.color.colors.Style.i">i</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.l" href="#pyboiler.internal.color.colors.Style.l">l</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.n" href="#pyboiler.internal.color.colors.Style.n">n</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.r" href="#pyboiler.internal.color.colors.Style.r">r</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.s" href="#pyboiler.internal.color.colors.Style.s">s</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.u" href="#pyboiler.internal.color.colors.Style.u">u</a></code></li>
+<li><code><a title="pyboiler.internal.color.colors.Style.v" href="#pyboiler.internal.color.colors.Style.v">v</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
