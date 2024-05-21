@@ -25,7 +25,7 @@ class Logger(storage):
 
     __instance = None
 
-    def __new__(cls, name=None, level: Level = None):
+    def __new__(cls, name=None, level: Level = None):  # type: ignore
         if cls.__instance is None:
             inst = object.__new__(cls)
             if name is None:
