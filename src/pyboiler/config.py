@@ -14,10 +14,13 @@ config().MY_VARIABLE = "Hello, world!"
 ```
 """
 
+import sys
+import os
 import pathlib
 import subprocess
 
 from .imports import get_locals
+from ._internal.log.inspect import meta
 
 
 class config:
@@ -65,9 +68,12 @@ class config:
 
     def _init_path_root(self) -> pathlib.Path:
         """Initialize PATH_ROOT to the toplevel of the git repo"""
-        fpath = subprocess.getoutput("git rev-parse --show-toplevel")
+        mod_file = pathlib.Path(os.path.dirname(sys.argv[0])).absolute()
+        fpath = subprocess.getoutput(
+            f"cd {str(mod_file)} && git rev-parse --show-toplevel"
+        )
         if "fatal:" in fpath:
-            fpath = pathlib.Path(__file__).parent.parent
+            fpath = mod_file
         else:
             fpath = pathlib.Path(fpath)
         return fpath
