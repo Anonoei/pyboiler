@@ -39,6 +39,7 @@ class Logger(storage):
             inst._logger = logging(name, Level.get(level))
             inst._addHandlers()
             cls.__instance = inst
+
         return cls.__instance
 
     def __init__(self, *args, **kwargs):
@@ -48,8 +49,10 @@ class Logger(storage):
         """Create a child logger"""
         if level is None:
             level = self.get_level()
-        log_inst = _Logger(self, name, level)
-        self._internal[name] = log_inst
+        if self._internal.get(name, None) is None:
+            log_inst = _Logger(self, name, level)
+            self._internal[name] = log_inst
+        return self._internal[name]
 
     def get_level(self) -> Level:
         """Get log level"""
@@ -69,7 +72,7 @@ class Logger(storage):
         """Return structured name"""
         if self._parent is None:
             return self._str_name
-        return f"{self._parent.name}.{self._str_name}"
+        return f"{self._parent.name()}.{self._str_name}"
 
     def _log_path(self) -> pathlib.Path:
         path_sep = self.name().split(".")
@@ -123,5 +126,5 @@ class _Logger(Logger):
         self._internal = {}
         self._parent = parent
         self._str_name = name
-        self._logger = logging(self.name, level)
+        self._logger = logging(self.name(), level)
         self._addHandlers()

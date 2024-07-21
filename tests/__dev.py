@@ -1,12 +1,12 @@
 def main():
-    from pyboiler.logging import Level, logging
+    from pyboiler.logger import Logger, Level
 
-    log = logging("dev", Level.TRACE)
-
-    log.mk_handler("stdout")
+    log = Logger("dev", Level.TRACE)
 
     log.trace("Hello")
     log.info("World!")
+
+    Logger().Child("Test").trace("Test!")
 
 
 if __name__ == "__main__":

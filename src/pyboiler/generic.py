@@ -1,10 +1,30 @@
 """Generic class implementations that can be extended in user code"""
 
+from typing import Iterable
+
 
 class pyboiler_generic:
     def json(self):
         """Returns the object as a dict"""
         ...
+
+    def _json(self, k, v, depth=0):
+        print(f"_json:{depth} - key '{k}' is type '{type(v)}'")
+        try:
+            fmt = v.json()
+        except AttributeError:
+            if isinstance(v, dict):
+                fmt = {}
+                for key, val in v.items():
+                    fmt[key] = self._json(key, val, depth=depth + 1)
+            elif isinstance(v, list):
+                fmt = []
+                for idx, item in enumerate(v):
+                    fmt.append(self._json(f"{k}[{idx}]", item, depth=depth + 1))
+            else:
+                fmt = v
+        print(f"{k} is '{fmt}'")
+        return fmt
 
 
 class storage(pyboiler_generic):
@@ -28,12 +48,7 @@ class storage(pyboiler_generic):
         """
         fmt = {}
         for k, v in self._internal.items():
-            if isinstance(v, type(self)):
-                fmt[k] = v.json()
-                continue
-
-            fmt[k] = v
-
+            fmt[k] = self._json(k, v)
         return fmt
 
     def keys(self):
@@ -72,7 +87,10 @@ class slot_storage(pyboiler_generic):
     def json(self, ignore=None):
         if ignore is None:
             ignore = []
-        return {k: getattr(self, k) for k in type(self).__slots__ if not k in ignore}  # type: ignore
+        fmt = {}
+        for k in type(self).__slots__:
+            fmt[k] = self._json(k, getattr(self, k))
+        return fmt
 
 
 class hierarchy(pyboiler_generic):
