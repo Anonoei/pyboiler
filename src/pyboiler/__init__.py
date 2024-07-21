@@ -6,7 +6,7 @@
 
 import pathlib
 
-__version__ = "0.3.4"
+__version__ = "0.3.5"
 __author__ = "Anonoei <dev@anonoei.com>"
 init_run = False
 
