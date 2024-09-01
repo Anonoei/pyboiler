@@ -36,9 +36,6 @@ class config:
     FILEPATH_PROFILE: pathlib.Path = None  # type: ignore
     FILEPATH_SETTINGS: pathlib.Path = None  # type: ignore
 
-    #: Defines what serialize type to use. One of ['json', 'xml']
-    SERIAL: str = "json"
-
     #: pyboiler.Platform enum for the current platform
     SYS_PLAT = None
     SENTINEL = object()
@@ -54,7 +51,7 @@ class config:
         self.PATH_ROOT = self._init_path_root()
         self.PATH_LOGS = self.PATH_ROOT / "logs"
         self.FILEPATH_PROFILE = self.PATH_ROOT / "profiler.stats"
-        self.FILEPATH_SETTINGS = self.PATH_ROOT / f"settings.{self.SERIAL}"
+        self.FILEPATH_SETTINGS = self.PATH_ROOT / f"settings.json"
 
         self.SYS_PLAT = self._init_sys_plat()
 

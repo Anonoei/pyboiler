@@ -4,10 +4,7 @@ from typing import TYPE_CHECKING
 
 from .config import config
 
-if config().SERIAL == "json":
-    from .hson import dumps, loads
-else:
-    from .hml import dumps, loads
+from .hson import dumps, loads
 
 from .generic import hierarchy
 

@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 <meta name="generator" content="pdoc3 0.11.1">
-<title>pyboiler API documentation</title>
-<meta name="description" content="pyboiler&#39;s initialization and dynamic importer …">
+<title>pyboiler.internal.cli API documentation</title>
+<meta name="description" content="">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/sanitize.min.css" integrity="sha512-y1dtMcuvtTMJc1yPgEqF0ZjQbhnc/bFhyvIyVNb9Zk5mIGtqVaAB1Ttl28su8AvFMOY0EwRbAe+HCLqj6W7/KA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/13.0.0/typography.min.css" integrity="sha512-Y1DYSb995BAfxobCkKepB1BqJJTPrOp3zPL74AWFugHHmmdcvO+C48WLrUOlhGMc0QG7AE3f7gmvvcrmX2fDoA==" crossorigin>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/default.min.css" crossorigin>
@@ -22,94 +22,22 @@ hljs.highlightAll();
 <main>
 <article id="content">
 <header>
-<h1 class="title">Package <code>pyboiler</code></h1>
+<h1 class="title">Namespace <code>pyboiler.internal.cli</code></h1>
 </header>
 <section id="section-intro">
-<p>pyboiler's initialization and dynamic importer</p>
-<p>Imports all files in src/pyboiler/* so they can be imported as
-<code><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></p>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
 <dl>
-<dt><code class="name"><a title="pyboiler.changelog" href="changelog.html">pyboiler.changelog</a></code></dt>
+<dt><code class="name"><a title="pyboiler.internal.cli.progress" href="progress.html">pyboiler.internal.cli.progress</a></code></dt>
 <dd>
 <div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.cli" href="cli.html">pyboiler.cli</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.color" href="color.html">pyboiler.color</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></dt>
-<dd>
-<div class="desc"><p>Script configuration singleton for internal variables …</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.error" href="error.html">pyboiler.error</a></code></dt>
-<dd>
-<div class="desc"><p>Easy to use custom exceptions …</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.generic" href="generic.html">pyboiler.generic</a></code></dt>
-<dd>
-<div class="desc"><p>Generic class implementations that can be extended in user code</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.hml" href="hml.html">pyboiler.hml</a></code></dt>
-<dd>
-<div class="desc"><p>XML object (de)serialization in a similar interface to python.json</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.hson" href="hson.html">pyboiler.hson</a></code></dt>
-<dd>
-<div class="desc"><p>Wraps python.json methods to utilize the HSONEncoder to encode pyboiler objects and others</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.imports" href="imports.html">pyboiler.imports</a></code></dt>
-<dd>
-<div class="desc"><p>Import helpers</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.internal" href="internal/index.html">pyboiler.internal</a></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.logger" href="logger.html">pyboiler.logger</a></code></dt>
-<dd>
-<div class="desc"><p>Wrap pyboiler.logging in a Singleton for more concrete logging structures …</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.logging" href="logging.html">pyboiler.logging</a></code></dt>
-<dd>
-<div class="desc"><p>Threaded logger with color support</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.platform" href="platform.html">pyboiler.platform</a></code></dt>
-<dd>
-<div class="desc"><p>Platform specific helpers</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.profiler" href="profiler.html">pyboiler.profiler</a></code></dt>
-<dd>
-<div class="desc"><p>Wrapper for python.profile</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.settings" href="settings.html">pyboiler.settings</a></code></dt>
-<dd>
-<div class="desc"><p>pyboiler.settings file</p></div>
-</dd>
-<dt><code class="name"><a title="pyboiler.version" href="version.html">pyboiler.version</a></code></dt>
-<dd>
-<div class="desc"><p>Generic semantic versioning class/implementation</p></div>
 </dd>
 </dl>
 </section>
 <section>
 </section>
 <section>
-<h2 class="section-title" id="header-functions">Functions</h2>
-<dl>
-<dt id="pyboiler.view"><code class="name flex">
-<span>def <span class="ident">view</span></span>(<span>)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>View all available pyboiler imports</p></div>
-</dd>
-</dl>
 </section>
 <section>
 </section>
@@ -119,29 +47,14 @@ hljs.highlightAll();
 <ul></ul>
 </div>
 <ul id="index">
-<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<li><h3>Super-module</h3>
 <ul>
-<li><code><a title="pyboiler.changelog" href="changelog.html">pyboiler.changelog</a></code></li>
-<li><code><a title="pyboiler.cli" href="cli.html">pyboiler.cli</a></code></li>
-<li><code><a title="pyboiler.color" href="color.html">pyboiler.color</a></code></li>
-<li><code><a title="pyboiler.config" href="config.html">pyboiler.config</a></code></li>
-<li><code><a title="pyboiler.error" href="error.html">pyboiler.error</a></code></li>
-<li><code><a title="pyboiler.generic" href="generic.html">pyboiler.generic</a></code></li>
-<li><code><a title="pyboiler.hml" href="hml.html">pyboiler.hml</a></code></li>
-<li><code><a title="pyboiler.hson" href="hson.html">pyboiler.hson</a></code></li>
-<li><code><a title="pyboiler.imports" href="imports.html">pyboiler.imports</a></code></li>
-<li><code><a title="pyboiler.internal" href="internal/index.html">pyboiler.internal</a></code></li>
-<li><code><a title="pyboiler.logger" href="logger.html">pyboiler.logger</a></code></li>
-<li><code><a title="pyboiler.logging" href="logging.html">pyboiler.logging</a></code></li>
-<li><code><a title="pyboiler.platform" href="platform.html">pyboiler.platform</a></code></li>
-<li><code><a title="pyboiler.profiler" href="profiler.html">pyboiler.profiler</a></code></li>
-<li><code><a title="pyboiler.settings" href="settings.html">pyboiler.settings</a></code></li>
-<li><code><a title="pyboiler.version" href="version.html">pyboiler.version</a></code></li>
+<li><code><a title="pyboiler.internal" href="../index.html">pyboiler.internal</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-functions">Functions</a></h3>
-<ul class="">
-<li><code><a title="pyboiler.view" href="#pyboiler.view">view</a></code></li>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
+<ul>
+<li><code><a title="pyboiler.internal.cli.progress" href="progress.html">pyboiler.internal.cli.progress</a></code></li>
 </ul>
 </li>
 </ul>

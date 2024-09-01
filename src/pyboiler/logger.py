@@ -43,7 +43,7 @@ class Logger(storage):
         return cls.__instance
 
     def __init__(self, *args, **kwargs):
-        pass
+        return
 
     def Child(self, name: str, level=None):
         """Create a child logger"""
@@ -62,30 +62,11 @@ class Logger(storage):
         """Set log level"""
         self._logger.level = level
 
-    def _addHandlers(self, lvl: Level = config().SENTINEL):  # type: ignore
-        if lvl is config().SENTINEL:
-            lvl: Level = self.get_level()
-        self._logger.mk_handler("stdout", lvl)
-        self._logger.mk_handler("file", self._log_path(), lvl)
-
     def name(self) -> str:
         """Return structured name"""
         if self._parent is None:
             return self._str_name
         return f"{self._parent.name()}.{self._str_name}"
-
-    def _log_path(self) -> pathlib.Path:
-        path_sep = self.name().split(".")
-        if len(path_sep) > 1:
-            path_sep = path_sep[1:]
-        log_path = config().PATH_LOGS
-        for idx, item in enumerate(path_sep):
-            if idx == len(path_sep) - 1:
-                log_path.mkdir(exist_ok=True, parents=True)
-                item = f"{item}.log"
-            log_path /= item
-            # print(f"{log_path = }")
-        return log_path
 
     def trace(self, msg):
         """log.trace"""
@@ -110,6 +91,26 @@ class Logger(storage):
     def exception(self, msg):
         """log.exception"""
         self._logger.exception(msg)
+
+
+    def _addHandlers(self, lvl: Level = config().SENTINEL):  # type: ignore
+        if lvl is config().SENTINEL:
+            lvl: Level = self.get_level()
+        self._logger.mk_handler("stdout", lvl)
+        self._logger.mk_handler("file", self._log_path(), lvl)
+
+    def _log_path(self) -> pathlib.Path:
+        path_sep = self.name().split(".")
+        if len(path_sep) > 1:
+            path_sep = path_sep[1:]
+        log_path = config().PATH_LOGS
+        for idx, item in enumerate(path_sep):
+            if idx == len(path_sep) - 1:
+                log_path.mkdir(exist_ok=True, parents=True)
+                item = f"{item}.log"
+            log_path /= item
+            # print(f"{log_path = }")
+        return log_path
 
 
 class _Logger(Logger):

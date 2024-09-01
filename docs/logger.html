@@ -79,7 +79,7 @@ subm.trace(&quot;And another!&quot;)  # Or Logger().subm.trace(&quot;And another
         return cls.__instance
 
     def __init__(self, *args, **kwargs):
-        pass
+        return
 
     def Child(self, name: str, level=None):
         &#34;&#34;&#34;Create a child logger&#34;&#34;&#34;
@@ -98,30 +98,11 @@ subm.trace(&quot;And another!&quot;)  # Or Logger().subm.trace(&quot;And another
         &#34;&#34;&#34;Set log level&#34;&#34;&#34;
         self._logger.level = level
 
-    def _addHandlers(self, lvl: Level = config().SENTINEL):  # type: ignore
-        if lvl is config().SENTINEL:
-            lvl: Level = self.get_level()
-        self._logger.mk_handler(&#34;stdout&#34;, lvl)
-        self._logger.mk_handler(&#34;file&#34;, self._log_path(), lvl)
-
     def name(self) -&gt; str:
         &#34;&#34;&#34;Return structured name&#34;&#34;&#34;
         if self._parent is None:
             return self._str_name
         return f&#34;{self._parent.name()}.{self._str_name}&#34;
-
-    def _log_path(self) -&gt; pathlib.Path:
-        path_sep = self.name().split(&#34;.&#34;)
-        if len(path_sep) &gt; 1:
-            path_sep = path_sep[1:]
-        log_path = config().PATH_LOGS
-        for idx, item in enumerate(path_sep):
-            if idx == len(path_sep) - 1:
-                log_path.mkdir(exist_ok=True, parents=True)
-                item = f&#34;{item}.log&#34;
-            log_path /= item
-            # print(f&#34;{log_path = }&#34;)
-        return log_path
 
     def trace(self, msg):
         &#34;&#34;&#34;log.trace&#34;&#34;&#34;
@@ -145,7 +126,27 @@ subm.trace(&quot;And another!&quot;)  # Or Logger().subm.trace(&quot;And another
 
     def exception(self, msg):
         &#34;&#34;&#34;log.exception&#34;&#34;&#34;
-        self._logger.exception(msg)</code></pre>
+        self._logger.exception(msg)
+
+
+    def _addHandlers(self, lvl: Level = config().SENTINEL):  # type: ignore
+        if lvl is config().SENTINEL:
+            lvl: Level = self.get_level()
+        self._logger.mk_handler(&#34;stdout&#34;, lvl)
+        self._logger.mk_handler(&#34;file&#34;, self._log_path(), lvl)
+
+    def _log_path(self) -&gt; pathlib.Path:
+        path_sep = self.name().split(&#34;.&#34;)
+        if len(path_sep) &gt; 1:
+            path_sep = path_sep[1:]
+        log_path = config().PATH_LOGS
+        for idx, item in enumerate(path_sep):
+            if idx == len(path_sep) - 1:
+                log_path.mkdir(exist_ok=True, parents=True)
+                item = f&#34;{item}.log&#34;
+            log_path /= item
+            # print(f&#34;{log_path = }&#34;)
+        return log_path</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">

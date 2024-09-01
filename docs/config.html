@@ -66,9 +66,6 @@ print(config().PATH_ROOT)
     FILEPATH_PROFILE: pathlib.Path = None  # type: ignore
     FILEPATH_SETTINGS: pathlib.Path = None  # type: ignore
 
-    #: Defines what serialize type to use. One of [&#39;json&#39;, &#39;xml&#39;]
-    SERIAL: str = &#34;json&#34;
-
     #: pyboiler.Platform enum for the current platform
     SYS_PLAT = None
     SENTINEL = object()
@@ -84,7 +81,7 @@ print(config().PATH_ROOT)
         self.PATH_ROOT = self._init_path_root()
         self.PATH_LOGS = self.PATH_ROOT / &#34;logs&#34;
         self.FILEPATH_PROFILE = self.PATH_ROOT / &#34;profiler.stats&#34;
-        self.FILEPATH_SETTINGS = self.PATH_ROOT / f&#34;settings.{self.SERIAL}&#34;
+        self.FILEPATH_SETTINGS = self.PATH_ROOT / f&#34;settings.json&#34;
 
         self.SYS_PLAT = self._init_sys_plat()
 
@@ -136,10 +133,6 @@ print(config().PATH_ROOT)
 <dd>
 <div class="desc"></div>
 </dd>
-<dt id="pyboiler.config.config.SERIAL"><code class="name">var <span class="ident">SERIAL</span> : str</code></dt>
-<dd>
-<div class="desc"><p>Defines what serialize type to use. One of ['json', 'xml']</p></div>
-</dd>
 <dt id="pyboiler.config.config.SYS_PLAT"><code class="name">var <span class="ident">SYS_PLAT</span></code></dt>
 <dd>
 <div class="desc"><p>pyboiler.Platform enum for the current platform</p></div>
@@ -178,7 +171,6 @@ print(config().PATH_ROOT)
 <li><code><a title="pyboiler.config.config.PATH_LOGS" href="#pyboiler.config.config.PATH_LOGS">PATH_LOGS</a></code></li>
 <li><code><a title="pyboiler.config.config.PATH_ROOT" href="#pyboiler.config.config.PATH_ROOT">PATH_ROOT</a></code></li>
 <li><code><a title="pyboiler.config.config.SENTINEL" href="#pyboiler.config.config.SENTINEL">SENTINEL</a></code></li>
-<li><code><a title="pyboiler.config.config.SERIAL" href="#pyboiler.config.config.SERIAL">SERIAL</a></code></li>
 <li><code><a title="pyboiler.config.config.SYS_PLAT" href="#pyboiler.config.config.SYS_PLAT">SYS_PLAT</a></code></li>
 <li><code><a title="pyboiler.config.config.json" href="#pyboiler.config.config.json">json</a></code></li>
 </ul>

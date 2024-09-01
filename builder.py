@@ -5,63 +5,82 @@ import os
 import shutil
 import subprocess
 import sys
-
-from src.pyboiler.config import config
+import pathlib
 
 
 def run(cmd: str, quiet: bool = False):
     print(f"Running '{cmd}'")
     os.system(cmd)
 
+def get_path():
+    mod_file = pathlib.Path(os.path.dirname(sys.argv[0])).absolute()
+    fpath = subprocess.getoutput(
+        f"cd {str(mod_file)} && git rev-parse --show-toplevel"
+    )
+    if "fatal:" in fpath:
+        fpath = mod_file
+    else:
+        fpath = pathlib.Path(fpath)
+    return fpath
+
 
 def main():
-    parser = argparse.ArgumentParser("pyboiler build helper")
+    parser = argparse.ArgumentParser("Python build helper")
 
-    commands = parser.add_argument_group("Commands")
-    commands.add_argument(
-        "-l", "--local", action="store_true", help="install pyboiler locally"
-    )
-    commands.add_argument("-b", "--build", action="store_true", help="build pyboiler")
-    commands.add_argument("-u", "--upload", action="store_true", help="upload pyboiler")
-    commands.add_argument("-t", "--test", action="store_true", help="run pytest")
-    commands.add_argument(
-        "-f", "--format", action="store_true", help="run black formatter"
-    )
-    commands.add_argument("-d", "--docs", action="store_true", help="generate docs")
-    commands.add_argument(
-        "-p", "--prepare", action="store_true", help="run format, test, and docs"
-    )
-    commands.add_argument("-v", "--version", action="store_true", help="bump version")
+    actions = parser.add_argument_group("Actions", "actions to perform")
+    actions.add_argument("-v", "--version", choices=["M", "m", "p"], default=None,
+                            help="bump version [requires -r]")
+    actions.add_argument("-b", "--build",  action="store_true",
+                            help="build module")
+    actions.add_argument("-l", "--local",  action="store_true",
+                            help="install module locally")
+    actions.add_argument("-t", "--test",   action="store_true",
+                            help="run pytest")
+    actions.add_argument("-d", "--docs",   action="store_true",
+                            help="generate docs")
+    actions.add_argument("-u", "--upload", action="store_true",
+                            help="upload module [requires -r]")
 
-    ver = parser.add_mutually_exclusive_group()
-
-    ver.add_argument("-vM", "--major", action="store_true", help="Bump #.X.X")
-    ver.add_argument("-vm", "--minor", action="store_true", help="Bump X.#.X")
-    ver.add_argument("-vp", "--patch", action="store_true", help="Bump X.X.#")
-
-    parser.add_argument(
-        "-r", "--run", action="store_true", help="actually run the commands and upload"
-    )
+    parser.add_argument("-r", "--run", action="store_true",
+                            help="perform actions live")
 
     args = parser.parse_args()
 
-    PATH_ROOT = config().PATH_ROOT
+    PATH_ROOT = get_path()
+    print(f"Running from '{PATH_ROOT}'!")
     os.system(f"cd {PATH_ROOT}")
 
+    mod_names = []
+
+    for p in (PATH_ROOT / "src").iterdir():
+        ps = str(p.name)
+        if ps.startswith(".") or ps.startswith("_"):
+            continue
+        elif ps.endswith("egg-info"):
+            continue
+        mod_names.append(ps)
+
+    args.mods = mod_names
+
     with open("pyproject.toml", "r") as f:
+        dev_deps = None
         deps = None
         for line in f.readlines():
-            if line.startswith("dev = "):
+            if line.startswith("dependencies = "):
                 deps = line
+            if line.startswith("dev = "):
+                dev_deps = line
+            if deps is not None and dev_deps is not None:
                 break
         # deps = '{"deps":' + "" + "}"
+        if deps is None or dev_deps is None:
+            raise Exception("deps is None")
         deps = json.loads(deps[deps.index("[") - 1 : deps.index("]") + 1])
-        for dep in deps:
+        dev_deps = json.loads(dev_deps[dev_deps.index("[") - 1 : dev_deps.index("]") + 1])
+        for dep in deps + dev_deps:
             try:
                 importlib.import_module(dep)
             except ModuleNotFoundError:
-                if dep == "pdoc3":
-                    continue
                 os.system(f"{sys.executable} -m pip install {dep}")
 
     def cmd_local(args):
@@ -84,41 +103,31 @@ def main():
     def cmd_test(args):
         run("pytest")
 
-    def cmd_format(args):
-        run("black src/pyboiler")
-
     def cmd_version(args):
         bump = "bumpver update --allow-dirty "
         if not args.run:
             bump += "--dry -n "
-        if args.major:
+        if args.version == "M":
             bump += "--major"
-        elif args.minor:
+        elif args.version == "m":
             bump += "--minor"
-        elif args.patch:
+        elif args.version == "p":
             bump += "--patch"
         run(bump)
 
     def cmd_docs(args):
-        run(f"{sys.executable} -m pdoc -o docs --html src/pyboiler --force")
+        run(f"{sys.executable} -m pdoc -o docs --html src/{args.mods[0]} --force")
         docs = PATH_ROOT / "docs"
         if docs.exists():
-            mv_docs = docs / "pyboiler"
+            mv_docs = docs / args.mods[0]
             if mv_docs.exists():
                 temp = PATH_ROOT / ".BUILDpy_TEMP"
                 shutil.move(mv_docs, temp)
                 shutil.rmtree(docs)
                 shutil.move(temp, docs)
 
-    if args.prepare:
-        cmd_format(args)
-        cmd_test(args)
-        cmd_docs(args)
-
-    if args.version:
+    if args.version is not None:
         cmd_version(args)
-    if args.format:
-        cmd_format(args)
     if args.build:
         cmd_build(args)
     if args.local:
